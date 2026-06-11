@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Academia da Conciliação | Sistema Operacional Copastur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue-950:#07143d;
+  --blue-900:#0b1f5a;
+  --blue-800:#12317a;
+  --blue-700:#1f48a5;
+  --blue-600:#2867d8;
+  --cyan:#29c2e6;
+  --aqua:#dff8ff;
+  --ink:#111827;
+  --muted:#667085;
+  --soft:#f5f8fc;
+  --line:#e6ebf2;
+  --card:#ffffff;
+  --shadow:0 24px 80px rgba(7,20,61,.12);
+  --shadow-soft:0 12px 34px rgba(7,20,61,.08);
+  --radius:28px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#fff 0%,#f6f9fd 45%,#eef4fb 100%);color:var(--ink);line-height:1.55}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.shell{min-height:100vh}
+.topnav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(18px);border-bottom:1px solid rgba(230,235,242,.8)}
+.nav-inner{max-width:1240px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:16px 26px;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;color:var(--blue-950);letter-spacing:-.03em}
+.brand-mark{width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg,var(--blue-900),var(--blue-600));display:grid;place-items:center;color:white;box-shadow:0 14px 30px rgba(31,72,165,.25)}
+.brand span{display:block;font-size:13px;color:var(--muted);font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.menu{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.menu a{font-size:14px;font-weight:800;color:#344054;padding:10px 12px;border-radius:999px}
+.menu a:hover{background:#eef4ff;color:var(--blue-800)}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 75% 18%,rgba(41,194,230,.24),transparent 30%),radial-gradient(circle at 15% 70%,rgba(40,103,216,.16),transparent 34%),linear-gradient(180deg,#ffffff 0%,#f8fbff 100%)}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(18,49,122,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(18,49,122,.045) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(180deg,#000,transparent 82%)}
+.hero-inner{position:relative;max-width:1240px;margin:auto;padding:78px 26px 64px;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(400px,.92fr);gap:48px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;padding:9px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.8);box-shadow:0 10px 30px rgba(7,20,61,.05);font-size:13px;font-weight:900;color:var(--blue-800);text-transform:uppercase;letter-spacing:.06em}
+.eyebrow:before{content:"";width:9px;height:9px;border-radius:99px;background:var(--cyan);box-shadow:0 0 0 6px rgba(41,194,230,.14)}
+h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spacing:-.08em;color:var(--blue-950)}
+.hero-subtitle{font-size:clamp(18px,2vw,24px);font-weight:800;color:#253858;max-width:740px;letter-spacing:-.03em}
+.hero-copy{font-size:17px;color:var(--muted);max-width:720px;margin:16px 0 28px}
+.search-box{background:white;border:1px solid var(--line);border-radius:26px;padding:14px;box-shadow:var(--shadow);max-width:780px}
+.search-row{display:flex;gap:10px;align-items:center}
+.search-row input{width:100%;border:0;outline:0;background:#f5f8fc;border-radius:18px;padding:18px 20px;font-weight:800;color:var(--blue-950)}
+.search-row button{border:0;border-radius:18px;background:var(--blue-900);color:#fff;padding:18px 22px;font-weight:900;cursor:pointer}
+.suggestions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.suggestions button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;color:#475467;cursor:pointer}
+.suggestions button:hover{border-color:var(--blue-600);color:var(--blue-800);background:#eef6ff}
+.results{display:none;margin-top:14px;border-top:1px solid var(--line);padding-top:12px;max-height:280px;overflow:auto}
+.result-item{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;padding:12px;border-radius:18px;cursor:pointer}
+.result-item:hover{background:#f5f9ff}
+.result-icon{width:40px;height:40px;border-radius:14px;background:#eef6ff;color:var(--blue-700);display:grid;place-items:center;font-weight:900}
+.result-item strong{display:block;color:var(--blue-950)}
+.result-item small{color:var(--muted);font-weight:700}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:16px;background:var(--blue-900);color:white;padding:13px 18px;font-weight:900;box-shadow:0 12px 26px rgba(7,20,61,.14);cursor:pointer}
+.btn.secondary{background:white;color:var(--blue-900);border:1px solid var(--line);box-shadow:none}
+.universe-card{position:relative;background:linear-gradient(180deg,#081944 0%,#102a71 100%);border-radius:36px;min-height:560px;padding:30px;box-shadow:var(--shadow);overflow:hidden;color:white}
+.universe-card:before{content:"";position:absolute;inset:-25%;background:radial-gradient(circle,rgba(41,194,230,.26),transparent 36%);animation:float 8s ease-in-out infinite alternate}
+.universe-card:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:38px 38px;mask-image:radial-gradient(circle,#000,transparent 75%)}
+@keyframes float{from{transform:translate(-4%,2%) rotate(0)}to{transform:translate(5%,-3%) rotate(8deg)}}
+.orbit{position:relative;z-index:2;height:500px}
+.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:188px;height:188px;border-radius:50%;background:linear-gradient(135deg,#fff,#dff8ff);color:var(--blue-950);display:grid;place-items:center;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.35);font-weight:950;letter-spacing:-.04em}
+.core span{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:4px}
+.node{position:absolute;width:154px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);backdrop-filter:blur(14px);border-radius:24px;padding:16px;color:white;box-shadow:0 16px 34px rgba(0,0,0,.18);cursor:pointer;transition:.25s}
+.node:hover{transform:translateY(-6px) scale(1.02);background:rgba(255,255,255,.15)}
+.node b{display:block;font-size:17px;letter-spacing:-.03em}.node small{color:#c8d7ff;font-weight:700}
+.node.resolver{right:12px;top:204px}.node.aprender{left:8px;top:204px}.node.operacao{left:50%;bottom:12px;transform:translateX(-50%)}.node.operacao:hover{transform:translateX(-50%) translateY(-6px) scale(1.02)}.node.inteligencia{left:50%;top:12px;transform:translateX(-50%)}.node.inteligencia:hover{transform:translateX(-50%) translateY(-6px) scale(1.02)}.node.legado{right:52px;bottom:86px}
+.line{position:absolute;z-index:1;background:linear-gradient(90deg,transparent,rgba(41,194,230,.7),transparent);height:2px;transform-origin:center;opacity:.7}.l1{width:250px;left:124px;top:250px}.l2{width:250px;right:124px;top:250px}.l3{width:220px;left:50%;top:144px;transform:translateX(-50%) rotate(90deg)}.l4{width:220px;left:50%;bottom:144px;transform:translateX(-50%) rotate(90deg)}
+.section{max-width:1240px;margin:auto;padding:72px 26px}.section.tight{padding-top:36px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:28px}.kicker{font-size:12px;color:var(--blue-700);text-transform:uppercase;letter-spacing:.13em;font-weight:950}.section h2{font-size:clamp(32px,4vw,54px);line-height:1;margin:8px 0 0;color:var(--blue-950);letter-spacing:-.06em}.section-head p{max-width:510px;color:var(--muted);font-weight:650}
+.profile-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.profile-card{background:white;border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--shadow-soft);cursor:pointer;transition:.24s;min-height:172px}.profile-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}.profile-card .emoji,.action-card .emoji{font-size:28px}.profile-card h3,.action-card h3{margin:14px 0 7px;color:var(--blue-950);letter-spacing:-.04em}.profile-card p,.action-card p{margin:0;color:var(--muted);font-size:14px;font-weight:650}.mini-path{display:none;margin-top:14px;border-top:1px solid var(--line);padding-top:12px;color:#475467;font-size:13px;font-weight:800}.profile-card.active .mini-path{display:block}.profile-card.active{border-color:rgba(40,103,216,.5);background:linear-gradient(180deg,#fff,#f4f8ff)}
+.actions-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.action-card{background:white;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow-soft);min-height:210px;position:relative;overflow:hidden;transition:.25s;cursor:pointer}.action-card:after{content:"";position:absolute;left:22px;right:22px;bottom:0;height:4px;background:linear-gradient(90deg,var(--cyan),var(--blue-600));border-radius:999px;opacity:.25}.action-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}.action-card:hover:after{opacity:1}.tag{display:inline-flex;align-items:center;border-radius:999px;background:#eef6ff;color:var(--blue-800);font-size:12px;font-weight:900;padding:7px 10px;margin-top:16px}
+.dev-wrap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:22px}.pathway{background:linear-gradient(135deg,#fff,#f8fbff);border:1px solid var(--line);border-radius:32px;padding:26px;box-shadow:var(--shadow-soft)}.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch}.step{position:relative;background:white;border:1px solid var(--line);border-radius:22px;padding:18px;min-height:160px}.step:not(:last-child):after{content:"→";position:absolute;right:-16px;top:50%;transform:translateY(-50%);color:var(--blue-600);font-weight:950;font-size:24px;z-index:2}.step span{display:block;width:38px;height:38px;border-radius:14px;background:var(--blue-900);color:white;display:grid;place-items:center;font-weight:950;margin-bottom:12px}.step b{display:block;color:var(--blue-950);letter-spacing:-.03em}.step small{color:var(--muted);font-weight:650}.learn-list{display:grid;gap:12px}.learn-item{background:white;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow-soft)}.learn-item strong{color:var(--blue-950)}.learn-item p{margin:.3rem 0 0;color:var(--muted);font-weight:650}
+.ecosystem{background:#07143d;color:white;position:relative;overflow:hidden}.ecosystem:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 20%,rgba(41,194,230,.22),transparent 28%),radial-gradient(circle at 85% 70%,rgba(40,103,216,.32),transparent 30%)}.ecosystem .section{position:relative}.ecosystem h2{color:white}.ecosystem .section-head p{color:#c8d7ff}.flow{display:grid;grid-template-columns:repeat(8,minmax(116px,1fr));gap:10px;align-items:stretch}.flow-card{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);border-radius:22px;padding:18px;backdrop-filter:blur(12px);position:relative;min-height:160px;cursor:pointer;transition:.24s}.flow-card:hover{background:rgba(255,255,255,.14);transform:translateY(-5px)}.flow-card:not(:last-child):after{content:"";position:absolute;right:-10px;top:50%;width:18px;height:2px;background:var(--cyan)}.flow-card span{font-size:28px}.flow-card b{display:block;margin-top:14px}.flow-card small{color:#c8d7ff;font-weight:700}.flow-detail{margin-top:22px;background:white;color:var(--ink);border-radius:28px;padding:24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;box-shadow:var(--shadow)}.detail-card{border:1px solid var(--line);border-radius:20px;padding:16px;background:#fbfdff}.detail-card span{display:block;text-transform:uppercase;font-size:11px;color:var(--muted);font-weight:950;letter-spacing:.08em}.detail-card strong{color:var(--blue-950);font-size:18px}
+.command-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}.command-panel{background:white;border:1px solid var(--line);border-radius:32px;padding:26px;box-shadow:var(--shadow-soft)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.metric{border:1px solid var(--line);border-radius:22px;padding:18px;background:#fbfdff}.metric span{display:block;text-transform:uppercase;font-size:11px;color:var(--muted);font-weight:950;letter-spacing:.08em}.metric strong{display:block;font-size:28px;color:var(--blue-950);letter-spacing:-.05em}.projects{display:grid;gap:12px}.project{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);background:#fbfdff;border-radius:20px;padding:16px}.project b{color:var(--blue-950)}.badge{border-radius:999px;background:#ecfdf3;color:#087443;font-size:12px;font-weight:950;padding:6px 10px}.badge.warn{background:#fff7ed;color:#b54708}.badge.blue{background:#eef6ff;color:var(--blue-800)}
+.legacy{background:linear-gradient(180deg,#fff,#f7fbff)}.legacy-panel{display:grid;grid-template-columns:1fr 1fr;gap:22px;background:white;border:1px solid var(--line);border-radius:36px;padding:30px;box-shadow:var(--shadow)}.quote{font-size:clamp(28px,4vw,52px);line-height:1.02;color:var(--blue-950);letter-spacing:-.07em;font-weight:950}.legacy-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.legacy-card{border:1px solid var(--line);border-radius:24px;padding:18px;background:#fbfdff}.legacy-card span{display:block;color:var(--blue-700);font-weight:950;text-transform:uppercase;font-size:11px;letter-spacing:.1em}.legacy-card p{margin:.45rem 0 0;color:var(--muted);font-weight:650}.footer{padding:32px 26px;text-align:center;color:var(--muted);font-weight:700;border-top:1px solid var(--line);background:white}
+.modal{position:fixed;inset:0;background:rgba(7,20,61,.62);z-index:100;display:none;align-items:center;justify-content:center;padding:24px}.modal.open{display:flex}.modal-box{width:min(920px,100%);max-height:88vh;overflow:auto;background:white;border-radius:34px;box-shadow:0 40px 110px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.4)}.modal-head{padding:28px 30px;background:linear-gradient(135deg,var(--blue-950),var(--blue-700));color:white;border-radius:34px 34px 0 0}.modal-head h3{margin:0;font-size:36px;letter-spacing:-.06em}.modal-head p{margin:8px 0 0;color:#dfe9ff}.modal-body{padding:28px 30px}.modal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.modal-card{border:1px solid var(--line);border-radius:22px;padding:18px;background:#fbfdff}.close{float:right;border:0;background:rgba(255,255,255,.14);color:white;border-radius:999px;width:36px;height:36px;font-weight:950;cursor:pointer}
+@media(max-width:1120px){.hero-inner,.dev-wrap,.command-grid,.legacy-panel{grid-template-columns:1fr}.profile-grid,.actions-grid{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(2,1fr)}.flow-card:not(:last-child):after{display:none}.steps{grid-template-columns:1fr}.step:not(:last-child):after{content:"↓";right:50%;top:auto;bottom:-23px;transform:translateX(50%)}.universe-card{min-height:520px}.hero-inner{padding-top:52px}.menu{display:none}}
+@media(max-width:720px){.nav-inner{padding:14px 18px}.hero-inner,.section{padding-left:18px;padding-right:18px}.search-row{display:grid}.search-row button{width:100%}.profile-grid,.actions-grid,.metrics,.legacy-grid,.flow-detail,.modal-grid{grid-template-columns:1fr}.universe-card{min-height:720px}.orbit{height:660px}.node{left:50%!important;right:auto!important;transform:translateX(-50%)!important}.node.inteligencia{top:10px}.node.resolver{top:138px}.node.aprender{top:266px}.node.operacao{bottom:auto;top:394px}.node.legado{top:522px}.core{top:50%;opacity:.18}.line{display:none}h1{font-size:44px}.section h2{font-size:34px}.section-head{display:block}.flow{grid-template-columns:1fr}.legacy-panel{padding:20px}.modal-head h3{font-size:28px}}
+
+/* === OS V1 PREMIUM FINAL - Sprint 10/10 === */
+.premium-metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:28px}
+.premium-metric{background:rgba(255,255,255,.82);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow-soft)}
+.premium-metric span{display:block;text-transform:uppercase;font-size:11px;color:var(--muted);font-weight:950;letter-spacing:.09em}
+.premium-metric strong{display:block;font-size:30px;color:var(--blue-950);letter-spacing:-.06em;margin-top:4px}
+.premium-metric p{margin:4px 0 0;color:var(--muted);font-size:13px;font-weight:700}
+
+.universe-card.premium-universe{min-height:560px;padding:28px}
+.universe-map{position:relative;z-index:2;height:500px;display:grid;grid-template-columns:1fr 1.2fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:18px;align-items:center;justify-items:center}
+.universe-axis{position:absolute;inset:58px 70px;z-index:0;pointer-events:none}
+.universe-axis:before,.universe-axis:after{content:"";position:absolute;background:linear-gradient(90deg,transparent,rgba(41,194,230,.74),transparent)}
+.universe-axis:before{height:2px;left:6%;right:6%;top:50%}
+.universe-axis:after{width:2px;top:6%;bottom:6%;left:50%;background:linear-gradient(180deg,transparent,rgba(41,194,230,.74),transparent)}
+.universe-center{z-index:2;grid-column:2;grid-row:2;width:190px;height:190px;border-radius:999px;background:linear-gradient(135deg,#fff,#dff8ff);color:var(--blue-950);display:grid;place-items:center;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.35);font-weight:950;letter-spacing:-.04em;padding:22px}
+.universe-center span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:6px}
+.universe-tile{z-index:2;width:min(190px,100%);border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.09);backdrop-filter:blur(14px);border-radius:24px;padding:18px;color:white;box-shadow:0 16px 34px rgba(0,0,0,.18);cursor:pointer;transition:.25s;min-height:120px}
+.universe-tile:hover{transform:translateY(-6px);background:rgba(255,255,255,.16)}
+.universe-tile b{display:block;font-size:18px;letter-spacing:-.03em}.universe-tile small{display:block;color:#c8d7ff;font-weight:700;margin-top:6px;line-height:1.35}
+.universe-tile.inteligencia{grid-column:2;grid-row:1}
+.universe-tile.aprender{grid-column:1;grid-row:2}
+.universe-tile.resolver{grid-column:3;grid-row:2}
+.universe-tile.operacao{grid-column:2;grid-row:3}
+.universe-tile.legado{grid-column:3;grid-row:3;justify-self:start}
+
+.knowledge-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.knowledge-card{background:white;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow-soft);cursor:pointer;transition:.24s;min-height:190px;position:relative;overflow:hidden}
+.knowledge-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.knowledge-card:after{content:"";position:absolute;left:22px;right:22px;bottom:0;height:4px;background:linear-gradient(90deg,var(--cyan),var(--blue-600));border-radius:999px;opacity:.18}
+.knowledge-card:hover:after{opacity:1}
+.knowledge-card .emoji{font-size:28px}.knowledge-card h3{margin:14px 0 7px;color:var(--blue-950);letter-spacing:-.04em}.knowledge-card p{margin:0;color:var(--muted);font-size:14px;font-weight:650}
+
+.operation-journeys{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.journey-card{background:white;color:var(--ink);border:1px solid rgba(255,255,255,.24);border-radius:28px;padding:24px;box-shadow:0 18px 42px rgba(0,0,0,.16)}
+.journey-card h3{margin:0 0 12px;color:var(--blue-950);font-size:26px;letter-spacing:-.04em}
+.journey-flow{display:grid;gap:8px;color:#344054;font-weight:800}
+.journey-flow div{background:#f5f8fc;border:1px solid var(--line);border-radius:16px;padding:12px}
+.related-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.related-chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:900;color:var(--blue-800);cursor:pointer}
+.related-chip:hover{background:#eef6ff;border-color:rgba(40,103,216,.35)}
+.result-group-title{padding:10px 12px 4px;text-transform:uppercase;font-size:11px;letter-spacing:.1em;color:var(--muted);font-weight:950}
+.no-results{padding:14px;border-radius:18px;background:#fff7ed;color:#9a3412;font-weight:800}
+@media(max-width:1120px){.premium-metrics,.knowledge-grid{grid-template-columns:repeat(2,1fr)}.operation-journeys{grid-template-columns:1fr}}
+@media(max-width:720px){.premium-metrics,.knowledge-grid{grid-template-columns:1fr}.universe-card.premium-universe{min-height:720px}.universe-map{height:660px;grid-template-columns:1fr;grid-template-rows:repeat(6,1fr)}.universe-axis{display:none}.universe-center{grid-column:1;grid-row:1;width:150px;height:150px}.universe-tile{width:100%;min-height:auto}.universe-tile.inteligencia{grid-column:1;grid-row:2}.universe-tile.aprender{grid-column:1;grid-row:3}.universe-tile.resolver{grid-column:1;grid-row:4}.universe-tile.operacao{grid-column:1;grid-row:5}.universe-tile.legado{grid-column:1;grid-row:6;justify-self:center}}
+
+
+/* === Lideranças Final: conteúdo profundo + atlas limpo === */
+.atlas-card{position:relative;background:linear-gradient(180deg,#081944 0%,#102a71 100%);border-radius:36px;padding:30px;min-height:560px;box-shadow:var(--shadow);overflow:hidden;color:white}
+.atlas-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 22%,rgba(41,194,230,.24),transparent 26%),radial-gradient(circle at 86% 76%,rgba(40,103,216,.30),transparent 32%),linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:auto,auto,42px 42px,42px 42px}
+.atlas-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;gap:18px}
+.atlas-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.atlas-head h3{font-size:30px;letter-spacing:-.05em;margin:0;line-height:1.05}
+.atlas-head p{margin:8px 0 0;color:#c8d7ff;font-weight:700;max-width:430px}
+.atlas-pill{border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.10);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.atlas-center{margin:6px auto 4px;width:220px;min-height:150px;border-radius:34px;background:linear-gradient(135deg,#fff,#dff8ff);color:var(--blue-950);display:grid;place-items:center;text-align:center;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.32)}
+.atlas-center b{font-size:24px;letter-spacing:-.05em;line-height:1.05}
+.atlas-center span{display:block;margin-top:8px;font-size:11px;text-transform:uppercase;letter-spacing:.10em;color:var(--muted);font-weight:950}
+.atlas-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:auto}
+.atlas-link{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);backdrop-filter:blur(14px);border-radius:22px;padding:16px;color:white;box-shadow:0 16px 34px rgba(0,0,0,.16);cursor:pointer;transition:.22s;min-height:112px}
+.atlas-link:hover{transform:translateY(-4px);background:rgba(255,255,255,.16)}
+.atlas-link b{display:block;font-size:17px;letter-spacing:-.03em}
+.atlas-link small{display:block;color:#c8d7ff;font-weight:700;margin-top:6px;line-height:1.35}
+.atlas-link.full{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:auto}
+.atlas-link.full small{margin:0;text-align:right;max-width:280px}
+.modal-box{width:min(1040px,100%)}
+.modal-body h4{margin:22px 0 8px;color:var(--blue-950);font-size:20px;letter-spacing:-.03em}
+.modal-body ul,.modal-body ol{margin:10px 0 0;padding-left:22px}
+.modal-body li{margin:7px 0}
+.modal-body .note{background:#f5f8fc;border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin:16px 0;color:#344054;font-weight:700}
+.modal-body .flowline{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.modal-body .flowline span{background:#eef6ff;color:var(--blue-800);border:1px solid #d8e7ff;border-radius:999px;padding:8px 11px;font-size:13px;font-weight:900}
+.modal-card p{white-space:normal}
+@media(max-width:720px){.atlas-card{min-height:auto}.atlas-head{display:block}.atlas-pill{display:inline-flex;margin-top:12px}.atlas-links{grid-template-columns:1fr}.atlas-center{width:100%;min-height:120px}.atlas-link.full{display:block}.atlas-link.full small{text-align:left;display:block;margin-top:6px}}
+
+
+/* === SPRINT FINAL 10/10 - Knowledge Depth + Layout Fix === */
+.dev-wrap.final-journey{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:22px;
+}
+.final-journey .pathway{overflow:hidden}
+.final-journey .steps{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:16px;
+}
+.final-journey .step{
+  min-height:190px;
+  padding:20px;
+}
+.final-journey .step:not(:last-child):after{
+  content:"";
+  position:absolute;
+  top:50%;
+  right:-14px;
+  width:14px;
+  height:2px;
+  background:linear-gradient(90deg,var(--blue-600),transparent);
+  transform:none;
+}
+.final-journey .step b{
+  font-size:18px;
+  line-height:1.15;
+  overflow-wrap:anywhere;
+  hyphens:auto;
+}
+.final-journey .step small{
+  display:block;
+  margin-top:8px;
+  line-height:1.45;
+}
+.learning-hubs{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.learning-hub{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:20px;
+  box-shadow:var(--shadow-soft);
+  cursor:pointer;
+  transition:.22s;
+  min-height:170px;
+}
+.learning-hub:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.learning-hub span{font-size:26px}
+.learning-hub strong{display:block;margin-top:12px;color:var(--blue-950);font-size:18px;letter-spacing:-.03em}
+.learning-hub p{margin:8px 0 0;color:var(--muted);font-weight:650;font-size:14px}
+.content-hub-section{padding-top:26px}
+.deep-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.deep-card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:24px;
+  box-shadow:var(--shadow-soft);
+  cursor:pointer;
+  transition:.24s;
+  min-height:230px;
+  position:relative;
+  overflow:hidden;
+}
+.deep-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.deep-card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 90% 0%,rgba(41,194,230,.12),transparent 28%);
+  pointer-events:none;
+}
+.deep-card .deep-icon{font-size:30px}
+.deep-card h3{position:relative;margin:14px 0 8px;color:var(--blue-950);font-size:22px;letter-spacing:-.04em}
+.deep-card p{position:relative;margin:0;color:var(--muted);font-weight:650}
+.deep-card .mini-list{position:relative;margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.deep-card .mini-list span{background:#eef6ff;color:var(--blue-800);border-radius:999px;padding:6px 9px;font-size:11px;font-weight:900}
+.modal-body .content-table{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:14px 0;
+}
+.modal-body .content-box{
+  background:#fbfdff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px 16px;
+}
+.modal-body .content-box b{color:var(--blue-950)}
+.modal-body .content-box p{margin:6px 0 0;color:#475467}
+@media(max-width:1120px){
+  .final-journey .steps,.learning-hubs,.deep-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .final-journey .step:not(:last-child):after{display:none}
+}
+@media(max-width:720px){
+  .final-journey .steps,.learning-hubs,.deep-grid,.modal-body .content-table{grid-template-columns:1fr}
+  .final-journey .step{min-height:auto}
+}
+
+
+/* === FINAL UAU - Biblioteca Mestre carregada === */
+.final-modal-body{display:grid;gap:18px}
+.final-lead{font-size:18px;line-height:1.65;color:#172033;margin:0 0 6px}
+.final-section{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 10px 25px rgba(16,24,40,.04)}
+.final-section h4{margin:0 0 12px!important;color:var(--blue-950);font-size:21px!important}
+.final-section p{margin:8px 0;color:#334155;line-height:1.65}
+.final-section ul,.final-section ol{margin:8px 0 0;padding-left:22px}
+.final-section li{margin:7px 0;line-height:1.55}
+.final-alert{background:#fff7ed!important;border-color:#fed7aa!important}
+.final-success{background:#f0fdf4!important;border-color:#bbf7d0!important}
+.final-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.final-mini{background:#f8fbff;border:1px solid var(--line);border-radius:18px;padding:16px}
+.final-mini b{display:block;color:var(--blue-950);margin-bottom:6px}
+.final-mini p{margin:0;font-size:14px;color:#475569}
+.final-tagline{padding:14px 16px;border-radius:18px;background:#eef6ff;border:1px solid #dbeafe;color:var(--blue-950);font-weight:900}
+.result-item strong{font-size:16px}.result-item small{line-height:1.35}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topnav">
+    <div class="nav-inner">
+      <a class="brand" href="#top"><div class="brand-mark">AC</div><div>Academia da Conciliação<span>Sistema Operacional Copastur</span></div></a>
+      <nav class="menu">
+        <a href="#resolver">Resolver</a><a href="#aprender">Aprender</a><a href="#operacao">Operação</a><a href="#inteligencia">Inteligência</a><a href="#legado">Legado</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">Centro de Inteligência Operacional</div>
+          <h1>Academia da Conciliação</h1>
+          <div class="hero-subtitle">Sistema Operacional da Conciliação Copastur</div>
+          <p class="hero-copy">Conhecimento que resolve. Experiência que desenvolve. Um ambiente criado para transformar processos, fluxos, tratativas e aprendizados em autonomia operacional.</p>
+          <div class="search-box" id="searchBox">
+            <div class="search-row">
+              <input id="searchInput" placeholder="O que você precisa resolver hoje?" autocomplete="off" oninput="searchKnowledge(this.value)">
+              <button onclick="searchKnowledge(document.getElementById('searchInput').value)">Buscar</button>
+            </div>
+            <div class="suggestions">
+              <button onclick="quickSearch('pedido')">Pedido</button><button onclick="quickSearch('citi')">Citi</button><button onclick="quickSearch('montanari')">Montanari</button><button onclick="quickSearch('pendência')">Pendência</button><button onclick="quickSearch('sql')">SQL</button><button onclick="quickSearch('latam')">LATAM</button><button onclick="quickSearch('sftp')">SFTP</button><button onclick="quickSearch('ausência')">Ausência</button>
+            </div>
+            <div class="results" id="results"></div>
+          </div>
+          <div class="hero-actions"><a class="btn" href="#resolver">Começar resolvendo</a><a class="btn secondary" href="#operacao">Explorar operação</a></div>
+        </div>
+        <div class="atlas-card" aria-label="Mapa de conhecimento da Conciliação">
+          <div class="atlas-content">
+            <div class="atlas-head">
+              <div>
+                <h3>Universo da Conciliação</h3>
+                <p>Um mapa de acesso rápido para resolver, aprender, entender a operação e preservar conhecimento.</p>
+              </div>
+              <div class="atlas-pill">Mapa vivo</div>
+            </div>
+            <div class="atlas-center"><div><b>Conhecimento conectado</b><span>Resolver · Aprender · Operar · Evoluir</span></div></div>
+            <div class="atlas-links">
+              <div class="atlas-link" onclick="scrollToSection('resolver')"><b>Resolver</b><small>Pedidos, bancos, arquivos, pendências e tratativas.</small></div>
+              <div class="atlas-link" onclick="scrollToSection('aprender')"><b>Aprender</b><small>SQL, IA, FAQ, casos reais e jornada de evolução.</small></div>
+              <div class="atlas-link" onclick="scrollToSection('operacao')"><b>Operação</b><small>Fluxos aéreo e terrestre/hotel, sistemas e conciliadoras.</small></div>
+              <div class="atlas-link" onclick="scrollToSection('base-conhecimento')"><b>Base de Conhecimento</b><small>FAQ, casos reais, lições e processos especiais.</small></div>
+              <div class="atlas-link full" onclick="scrollToSection('legado')"><b>Legado da Conciliação</b><small>O conhecimento que permanece e desenvolve pessoas.</small></div>
+            </div>
+          </div>
+        </div>        </div>
+      </div>
+    </section>
+
+    <section class="section tight" id="metricas-academia">
+      <div class="premium-metrics">
+        <div class="premium-metric"><span>Processos</span><strong>35+</strong><p>Fluxos, tratativas e particularidades mapeadas.</p></div>
+        <div class="premium-metric"><span>Conhecimento</span><strong>100+</strong><p>Conteúdos estruturados para consulta e aprendizado.</p></div>
+        <div class="premium-metric"><span>Sistemas</span><strong>12+</strong><p>Ecossistema operacional conectado.</p></div>
+        <div class="premium-metric"><span>Base prática</span><strong>FAQ + Casos</strong><p>Respostas rápidas e aprendizados reais.</p></div>
+        <div class="premium-metric"><span>Legado</span><strong>Vivo</strong><p>Conhecimento preparado para evoluir.</p></div>
+      </div>
+    </section>
+
+    <section class="section tight" id="perfis">
+      <div class="section-head"><div><div class="kicker">Navegação por perfil</div><h2>Como posso ajudar você hoje?</h2></div><p>O portal se adapta ao objetivo do usuário: aprender, resolver, gerenciar ou entender a operação.</p></div>
+      <div class="profile-grid">
+        <div class="profile-card" onclick="profile(this,'Novo na área','Ecossistema → Sistemas → Fluxos → FAQ → Casos Reais')"><div class="emoji">🌱</div><h3>Sou novo na área</h3><p>Quero entender a operação do zero.</p><div class="mini-path"></div></div>
+        <div class="profile-card" onclick="profile(this,'Analista','Localizar pedido → Tratativas → Bancos → Conciliadoras')"><div class="emoji">🧾</div><h3>Sou analista</h3><p>Preciso resolver demandas do dia a dia.</p><div class="mini-path"></div></div>
+        <div class="profile-card" onclick="profile(this,'Especialista','Casos reais → Lições aprendidas → SQL → IA')"><div class="emoji">⚙️</div><h3>Sou especialista</h3><p>Quero aprofundar e melhorar processos.</p><div class="mini-path"></div></div>
+        <div class="profile-card" onclick="profile(this,'Supervisor','Centro de comando → Indicadores → Saúde operacional')"><div class="emoji">📊</div><h3>Sou supervisor</h3><p>Quero acompanhar evolução e risco.</p><div class="mini-path"></div></div>
+        <div class="profile-card" onclick="profile(this,'Gestor','Legado → Maturidade → Projetos → Futuro')"><div class="emoji">🎯</div><h3>Sou gestor</h3><p>Quero visão executiva e continuidade.</p><div class="mini-path"></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="resolver">
+      <div class="section-head"><div><div class="kicker">Jornada Resolver</div><h2>Resolva uma demanda</h2></div><p>Acesso rápido ao que mais gera valor no dia a dia: encontrar informação, tratar divergências e executar fluxos com segurança.</p></div>
+      <div class="actions-grid">
+        <div class="action-card" onclick="openModal('Localizar Pedido','Fluxo guiado','Comece pelo SQL Server. Se não localizar e houver localizador, consulte WEBTES. Se for maquineta Copastur, use SmartOperations. Sempre registre evidências e consulte histórico antes de abrir nova tratativa.','Sistemas relacionados: SQL Server, WEBTES, VMWEB, SmartOperations, Benner.')"><div class="emoji">🧾</div><h3>Localizar Pedido</h3><p>Fluxo guiado para encontrar pedidos com mais rapidez.</p><span class="tag">SQL → WEBTES → Smart</span></div>
+        <div class="action-card" onclick="openModal('Consultar Banco','Ficha operacional','Acesse particularidades de Bradesco, Itaú, Santander, Citi, Banco do Brasil e fluxos diretos como JP Morgan, Safra e Bradesco Corporate. O banco já vem determinado pelo cliente/produto.','Inclui regras, arquivos, conciliadora relacionada, riscos e pontos de atenção.')"><div class="emoji">🏦</div><h3>Consultar Banco</h3><p>Entenda particularidades, prazos e fluxos por banco.</p><span class="tag">Bradesco · Itaú · Citi</span></div>
+        <div class="action-card" onclick="openModal('Consultar Conciliadora','Relacionamento operacional','Consulte Montanari, Foundever/Sitel, BTC e Cateno. Entenda como recebem arquivos, enviam prévias/cortes, processam informações e retornam pendências/inconsistências.','Inclui SFTP, S3, e-mail, planilhas e particularidades de cada fluxo.')"><div class="emoji">🔄</div><h3>Consultar Conciliadora</h3><p>Fluxos e responsabilidades das conciliadoras.</p><span class="tag">Montanari · Foundever</span></div>
+        <div class="action-card" onclick="openModal('Gerar Arquivo','Execução segura','Utilitários gera arquivos TXT aéreos. Para Citi, gerar no Utilitários, criptografar no Kleopatra e enviar via S3. Para Montanari/Bradesco, há fluxos via SFTP conforme pasta da rede.','Atenção: arquivo é parte crítica da cadeia de conciliação.')"><div class="emoji">📁</div><h3>Gerar Arquivo</h3><p>Geração, segurança e envio de arquivos TXT.</p><span class="tag">Utilitários · S3 · SFTP</span></div>
+        <div class="action-card" onclick="openModal('Tratar Pendência','Base de tratativas','Pendência é a despesa que não conciliou automaticamente e precisa de análise manual. No Bradesco chamamos de pendência; em outros fluxos pode aparecer como inconsistência.','Analise pedido, valor, cartão, fornecedor, autorização, histórico e evidências antes de acionar outras áreas.')"><div class="emoji">⚠️</div><h3>Tratar Pendência</h3><p>Base prática para divergências, ausências e agings.</p><span class="tag">Tratativas pesquisáveis</span></div>
+      </div>
+    </section>
+
+    
+    <section class="section" id="aprender">
+      <div class="section-head"><div><div class="kicker">Jornada Aprender</div><h2>Minha Jornada</h2></div><p>A Academia desenvolve pessoas enquanto resolve problemas: conhecimento operacional, dados, tecnologia e autonomia.</p></div>
+      <div class="dev-wrap final-journey">
+        <div class="pathway">
+          <div class="steps">
+            <div class="step"><span>1</span><b>Conheça</b><small>Entenda conceitos, bancos, conciliadoras, sistemas e fluxos.</small></div>
+            <div class="step"><span>2</span><b>Aprenda</b><small>Domine SQL, arquivos, tratativas e regras operacionais.</small></div>
+            <div class="step"><span>3</span><b>Pratique</b><small>Use casos reais, FAQ e lições aprendidas no dia a dia.</small></div>
+            <div class="step"><span>4</span><b>Especialize-se</b><small>Identifique padrões, causas raiz, riscos e oportunidades.</small></div>
+            <div class="step"><span>5</span><b>Multiplique</b><small>Compartilhe conhecimento e desenvolva outras pessoas.</small></div>
+          </div>
+        </div>
+        <div class="learning-hubs">
+          <div class="learning-hub" onclick="openModal('SQL Academy','Trilha de desenvolvimento técnico')"><span>📚</span><strong>SQL Academy</strong><p>Conteúdo prático para localizar pedidos, cruzar dados e ganhar autonomia analítica.</p></div>
+          <div class="learning-hub" onclick="openModal('IA na Conciliação','Produtividade e gestão do conhecimento')"><span>🤖</span><strong>IA na Conciliação</strong><p>Como usar IA para documentar, estudar, estruturar casos e acelerar produtividade.</p></div>
+          <div class="learning-hub" onclick="openModal('Casos Reais','Biblioteca de aprendizado operacional')"><span>📖</span><strong>Casos Reais</strong><p>Contexto, investigação, solução e aprendizado para situações reais da operação.</p></div>
+          <div class="learning-hub" onclick="openModal('FAQ da Conciliação','Base de respostas rápidas')"><span>❓</span><strong>FAQ</strong><p>Conceitos e dúvidas frequentes para consulta rápida e padronização.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ecosystem" id="operacao">
+
+      <div class="section">
+        <div class="section-head"><div><div class="kicker">Jornada Operação</div><h2>Como a operação funciona</h2></div><p>O ecossistema mostra a jornada da informação desde a solicitação até a conciliação final entregue ao cliente.</p></div>
+        <div class="flow" id="flow">
+          <div class="flow-card" onclick="flowDetail('Cliente','Solicita viagem, utiliza o cartão corporativo conforme produto definido e recebe informações conciliadas ao final do processo.','Solicitação, produto, banco e particularidades.','Informações financeiras e gerenciais conciliadas.')"><span>👤</span><b>Cliente</b><small>Origem e destino da informação</small></div>
+          <div class="flow-card" onclick="flowDetail('Atendimento','Cota, vende e apoia emissões via OBTs, atendimento, eventos e demais canais Copastur.','Solicitação de viagem e regras do cliente.','Emissão realizada e dados para integração.')"><span>🎧</span><b>Atendimento</b><small>Cotação e emissão</small></div>
+          <div class="flow-card" onclick="flowDetail('OBT','Argo, Reserve, Lemontech e Paytrack geram pedidos e registram informações da viagem.','Emissão e dados do solicitante.','Pedido integrado ao Benner.')"><span>🧭</span><b>OBT</b><small>Origem do pedido</small></div>
+          <div class="flow-card" onclick="flowDetail('Benner','Sistema principal de gestão. Recebe pedidos, permite validações e, no hotel, pode apoiar geração manual de TXT.','Pedido integrado, dados financeiros e gerenciais.','Informações para SQL, WEBTES, VMWEB e arquivos.')"><span>🏛️</span><b>Benner</b><small>Base sistêmica</small></div>
+          <div class="flow-card" onclick="flowDetail('Utilitários','Ferramenta interna Copastur usada para geração de arquivos TXT aéreos.','Dados do Benner e parâmetros do cliente/produto.','Arquivo TXT para conciliadora.')"><span>🧰</span><b>Utilitários</b><small>Geração de TXT</small></div>
+          <div class="flow-card" onclick="flowDetail('Conciliadora','Montanari, Foundever, BTC ou Cateno cruzam dados enviados pela Copastur com dados dos bancos.','TXT, planilhas, banco e regras de processamento.','Conciliação, pendências/inconsistências e relatórios.')"><span>🔄</span><b>Conciliadora</b><small>Cruzamento e retorno</small></div>
+          <div class="flow-card" onclick="flowDetail('Banco','Disponibiliza cobranças, cartões, dados de fatura e prazos. Pode ter portais, SFTP ou particularidades.','Transações, faturas, cartões e autorizações.','Dados para conciliação e retorno ao cliente.')"><span>🏦</span><b>Banco</b><small>Dados financeiros</small></div>
+          <div class="flow-card" onclick="flowDetail('Conciliação','Resultado final: despesas conciliadas, tratadas e classificadas corretamente para o cliente.','Análise, tratativa, evidências e retorno.','Informação correta e confiável ao cliente.')"><span>✅</span><b>Conciliação</b><small>Entrega final</small></div>
+        </div>
+        <div class="flow-detail" id="flowDetail">
+          <div class="detail-card"><span>Etapa selecionada</span><strong>Ecossistema Operacional</strong><p>Clique em uma etapa acima para explorar função, entradas e saídas.</p></div>
+          <div class="detail-card"><span>Conceito</span><strong>Mapa vivo</strong><p>O objetivo é tornar visível como sistemas, pessoas, bancos e conciliadoras se conectam.</p></div>
+          <div class="detail-card"><span>Valor</span><strong>Domínio da operação</strong><p>Quem entende o fluxo consegue resolver melhor e depender menos de memória informal.</p></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="base-conhecimento">
+      <div class="section-head"><div><div class="kicker">Base de Conhecimento</div><h2>Conhecimento que se conecta</h2></div><p>FAQ, casos reais, lições aprendidas e processos especiais organizados para consulta rápida, aprendizado e evolução contínua.</p></div>
+      <div class="knowledge-grid">
+        <div class="knowledge-card" onclick="openModal('FAQ da Conciliação','Respostas rápidas','Reúne conceitos essenciais como pendência, inconsistência, ausência, CTA, CTAH, aging, prévia, corte, divergência financeira e divergência gerencial.','Use como primeira consulta quando surgir uma dúvida conceitual ou operacional.','Pendência|Ausência|Aging|CTA|Casos Reais')"><div class="emoji">❓</div><h3>FAQ</h3><p>Respostas rápidas para dúvidas frequentes da operação.</p></div>
+        <div class="knowledge-card" onclick="openModal('Casos Reais','Aprendizado operacional','Biblioteca de situações reais que mostram contexto, análise, solução e aprendizado. O objetivo é reduzir a curva de aprendizado e desenvolver raciocínio operacional.','Use para treinar novas pessoas e fortalecer análise de causa raiz.','Pedido|Tratativas|SQL|Lições Aprendidas')"><div class="emoji">📖</div><h3>Casos Reais</h3><p>Aprendizados práticos a partir de situações da operação.</p></div>
+        <div class="knowledge-card" onclick="openModal('Lições Aprendidas','Conhecimento acumulado','Registro dos padrões, cuidados, decisões e boas práticas que não podem se perder com o tempo.','Use para evitar retrabalho e preservar experiência da equipe.','Casos Reais|Base de Tratativas|Legado')"><div class="emoji">💡</div><h3>Lições Aprendidas</h3><p>O que a operação aprendeu e precisa preservar.</p></div>
+        <div class="knowledge-card" onclick="openModal('Processos Especiais','Particularidades operacionais','Inclui reconciliação Norte Energia e Positivo, rateio BIG, SFTP Montanari, arquivos Bradesco via SFTP e Conciliação LATAM em implantação.','Use quando o fluxo não fizer parte do padrão da conciliação automática.','LATAM|BIG|Montanari|SFTP|Bradesco')"><div class="emoji">🧩</div><h3>Processos Especiais</h3><p>Exceções, particularidades e iniciativas em evolução.</p></div>
+        <div class="knowledge-card" onclick="openModal('Documentações','Materiais de apoio','Centraliza orientações, fluxos, evidências, pastas de rede, guias de sistemas e instruções de arquivos.','Use como apoio para executar processos com segurança e rastreabilidade.','SFTP|Utilitários|Kleopatra|S3|Benner')"><div class="emoji">📚</div><h3>Documentações</h3><p>Materiais de apoio para execução e consulta.</p></div>
+      </div>
+    </section>
+
+
+    <section class="section content-hub-section" id="conteudo-profundo">
+      <div class="section-head"><div><div class="kicker">Conteúdo Profundo</div><h2>Portais de Profundidade</h2></div><p>Para o dia a dia da operação: cada tema abre orientação completa, sistemas envolvidos, passo a passo, erros comuns, casos, FAQ e relacionados.</p></div>
+      <div class="deep-grid">
+        <div class="deep-card" onclick="openModal('Hub Operacional','Fluxos, sistemas e ecossistema')"><div class="deep-icon">🧭</div><h3>Hub Operacional</h3><p>Fluxo aéreo, fluxo terrestre/hotel, ecossistema, bancos, conciliadoras e sistemas utilizados.</p><div class="mini-list"><span>Ecossistema</span><span>Aéreo</span><span>Terrestre</span><span>Sistemas</span></div></div>
+        <div class="deep-card" onclick="openModal('Hub Conhecimento','FAQ, casos e lições')"><div class="deep-icon">🧠</div><h3>Hub Conhecimento</h3><p>FAQ, casos reais, lições aprendidas, tratativas e processos especiais documentados.</p><div class="mini-list"><span>FAQ</span><span>Casos</span><span>Lições</span><span>Tratativas</span></div></div>
+        <div class="deep-card" onclick="openModal('Hub Desenvolvimento','Trilhas e autonomia')"><div class="deep-icon">🚀</div><h3>Hub Desenvolvimento</h3><p>SQL Academy, IA na Conciliação, jornada de evolução e formação de novos analistas.</p><div class="mini-list"><span>SQL</span><span>IA</span><span>Jornada</span><span>Formação</span></div></div>
+        <div class="deep-card" onclick="openModal('Ecossistema Operacional','Mapa vivo da operação')"><div class="deep-icon">🕸️</div><h3>Ecossistema Operacional</h3><p>Cliente, Atendimento, OBT, Benner, Utilitários, Conciliadoras, Bancos, Pendências e Tratativas.</p><div class="mini-list"><span>Cliente</span><span>OBT</span><span>Benner</span><span>Banco</span></div></div>
+        <div class="deep-card" onclick="openModal('Sistemas Utilizados','Ferramentas da operação')"><div class="deep-icon">🛠️</div><h3>Sistemas Utilizados</h3><p>SQL Server, WEBTES, VMWEB, SmartOperations, Benner, Utilitários, Kleopatra e S3.</p><div class="mini-list"><span>SQL</span><span>WEBTES</span><span>Benner</span><span>S3</span></div></div>
+        <div class="deep-card" onclick="openModal('Processos Especiais','Individualidades de clientes e fluxos')"><div class="deep-icon">🧩</div><h3>Processos Especiais</h3><p>Norte Energia, Positivo, BIG, LATAM, SFTP Montanari e arquivos Bradesco.</p><div class="mini-list"><span>LATAM</span><span>BIG</span><span>SFTP</span><span>Clientes</span></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="inteligencia">
+      <div class="section-head"><div><div class="kicker">Jornada Inteligência</div><h2>Centro de Comando</h2></div><p>Visão executiva para acompanhar maturidade, iniciativas, indicadores e evolução da operação.</p></div>
+      <div class="command-grid">
+        <div class="command-panel">
+          <h3>Saúde operacional</h3>
+          <div class="metrics">
+            <div class="metric"><span>Bancos</span><strong>5</strong><p>Bradesco, Itaú, Santander, Citi e Banco do Brasil.</p></div>
+            <div class="metric"><span>Conciliadoras</span><strong>4</strong><p>Montanari, Foundever, BTC e Cateno.</p></div>
+            <div class="metric"><span>Objetivo</span><strong>15%</strong><p>Meta mensal de casos manuais.</p></div>
+            <div class="metric"><span>Sistemas</span><strong>12+</strong><p>Ecossistema operacional mapeado.</p></div>
+            <div class="metric"><span>Conteúdo</span><strong>Vivo</strong><p>Atualizável conforme operação evolui.</p></div>
+            <div class="metric"><span>Legado</span><strong>Ativo</strong><p>Conhecimento preservado.</p></div>
+          </div>
+        </div>
+        <div class="command-panel">
+          <h3>Iniciativas e evolução</h3>
+          <div class="projects">
+            <div class="project"><div><b>Conciliação LATAM</b><p>Frente em implantação e mapeada conforme novas demandas.</p></div><span class="badge warn">Em evolução</span></div>
+            <div class="project"><div><b>IA na Conciliação</b><p>Apoio à documentação, estudos e produtividade com pensamento crítico.</p></div><span class="badge blue">Estratégico</span></div>
+            <div class="project"><div><b>Processos Especiais</b><p>Norte Energia, Positivo, BIG, SFTP Montanari e Bradesco.</p></div><span class="badge">Mapeado</span></div>
+            <div class="project"><div><b>Gestão do Conhecimento</b><p>Academia como organismo vivo da operação.</p></div><span class="badge">Ativo</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section legacy" id="legado">
+      <div class="legacy-panel">
+        <div>
+          <div class="kicker">Jornada Legado</div>
+          <div class="quote">O conhecimento compartilhado é o ativo mais valioso da operação.</div>
+          <p class="hero-copy">A Academia foi criada para que a área não dependa de uma única pessoa, para acelerar aprendizado e para transformar experiência em continuidade.</p>
+          <a class="btn" href="#top">Voltar ao início</a>
+        </div>
+        <div class="legacy-grid">
+          <div class="legacy-card"><span>Construímos</span><p>Fluxos, conceitos, bancos, conciliadoras, tratativas, FAQ, SQL, IA e desenvolvimento.</p></div>
+          <div class="legacy-card"><span>Aprendemos</span><p>Resolver exige evidência, análise, contexto, comunicação e entendimento do fluxo completo.</p></div>
+          <div class="legacy-card"><span>Preservamos</span><p>Conhecimento crítico que antes ficava disperso entre pessoas, e-mails e pastas.</p></div>
+          <div class="legacy-card"><span>Futuro</span><p>LATAM, automações, busca inteligente, IA corporativa e novas trilhas de desenvolvimento.</p></div>
+        </div>
+      </div>
+    </section>
+  
+<section class="section" id="biblioteca-mestre">
+  <div class="section-head">
+    <div><div class="kicker">Biblioteca Mestre</div><h2>Conhecimento carregado de verdade</h2></div>
+    <p>Agora a Academia concentra fluxos, sistemas, bancos, conciliadoras, tratativas, casos reais, trilhas, governança e legado em conteúdos navegáveis.</p>
+  </div>
+  <div class="deep-grid">
+    <div class="deep-card" onclick="openModal('Mapa de Conhecimento da Academia')"><div class="deep-icon">🗺️</div><h3>Mapa de Conhecimento</h3><p>Visão completa da Academia sem parecer índice.</p><div class="mini-list"><span>Executivo</span><span>Formação</span><span>Operação</span></div></div>
+    <div class="deep-card" onclick="openModal('Qual Sistema Eu Uso?')"><div class="deep-icon">🧭</div><h3>Qual Sistema Eu Uso?</h3><p>Guia de decisão: SQL, WEBTES, SmartOperations, OBTs, Utilitários, Kleopatra e S3.</p><div class="mini-list"><span>Pedido</span><span>Emissão</span><span>Citi</span></div></div>
+    <div class="deep-card" onclick="openModal('Base de Tratativas')"><div class="deep-icon">🚨</div><h3>Base de Tratativas</h3><p>Débito duplicado, autorização, aging, prévias, cartões, Bradesco e S3/Kleopatra.</p><div class="mini-list"><span>Aging</span><span>Autorização</span><span>Cartão</span></div></div>
+    <div class="deep-card" onclick="openModal('Bancos')"><div class="deep-icon">🏦</div><h3>Bancos</h3><p>Bradesco, Itaú, Santander, Citi e Banco do Brasil com suas particularidades.</p><div class="mini-list"><span>Bradesco</span><span>Citi</span><span>Itaú</span></div></div>
+    <div class="deep-card" onclick="openModal('Conciliadoras')"><div class="deep-icon">🤝</div><h3>Conciliadoras</h3><p>Montanari, Foundever/Sitel, BTC e Cateno.</p><div class="mini-list"><span>Montanari</span><span>Foundever</span><span>Cateno</span></div></div>
+    <div class="deep-card" onclick="openModal('Legado da Conciliação')"><div class="deep-icon">💙</div><h3>Legado</h3><p>Conhecimento que permanece, desenvolve pessoas e fortalece a operação.</p><div class="mini-list"><span>Governança</span><span>Maturidade</span><span>Hall</span></div></div>
+  </div>
+</section>
+
+</main>
+
+  <footer class="footer">Academia da Conciliação · Sistema Operacional da Conciliação Copastur · Conhecimento que resolve. Experiência que desenvolve.</footer>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head"><button class="close" onclick="closeModal()">×</button><h3 id="modalTitle"></h3><p id="modalSub"></p></div>
+    <div class="modal-body"><div id="modalText"></div><div class="modal-grid"><div class="modal-card"><strong>Como usar na prática</strong><div id="modalPractice"></div></div><div class="modal-card"><strong>Conteúdos relacionados</strong><div class="related-list" id="modalRelated"></div></div></div></div>
+  </div>
+</div>
+<script>
+const knowledge=[
+ {k:['pedido','localizar','autorização','autorizacao','smart','sql','webtes','pedido não localizado','pedido nao localizado'], icon:'🧾', title:'Localizar Pedido', type:'Jornada Resolver', desc:'Fluxo SQL → WEBTES → SmartOperations para localizar pedidos e autorizações.', related:['SQL','WEBTES','SmartOperations','FAQ','Casos Reais']},
+ {k:['btc','itau','itaú','ctah','email','previa','prévia','corte','conciliadora btc'], icon:'🔄', title:'BTC', type:'Conciliadora', desc:'Conciliadora vinculada a fluxos Itaú, com envio/retorno por e-mail e processos aéreos/terrestres conforme produto.', related:['Itaú','Fluxo Terrestre','FAQ','Tratativas']},
+ {k:['citi','foundever','sitel','s3','kleopatra','criptografia','arquivo citi'], icon:'🏦', title:'Banco Citi', type:'Banco', desc:'Fluxo com Utilitários, Kleopatra, S3 e Foundever/Sitel.', related:['Foundever/Sitel','Kleopatra','S3','Gerar Arquivo','FAQ']},
+ {k:['bradesco','montanari','aging','ausencia','ausência','pendencia','pendência','portal bradesco'], icon:'🏦', title:'Bradesco', type:'Banco', desc:'Fluxo com Montanari, pendências, ausências, Aging e particularidades do portal.', related:['Montanari','Aging','Ausência','SFTP','Tratativas']},
+ {k:['itau','itaú','montanari','btc','prévia','previa','corte'], icon:'🏦', title:'Itaú', type:'Banco', desc:'Banco com fluxos via Montanari e BTC, grande volume e conciliação por arquivos TXT.', related:['Montanari','BTC','Fluxo Aéreo','Fluxo Terrestre']},
+ {k:['santander','montanari'], icon:'🏦', title:'Santander', type:'Banco', desc:'Fluxo via Montanari com prévias, cortes e tratativas conforme produto do cliente.', related:['Montanari','FAQ','Tratativas']},
+ {k:['banco do brasil','bb','cateno','bbxml'], icon:'🏦', title:'Banco do Brasil', type:'Banco', desc:'Fluxo com Cateno e particularidades em arquivos e planilhas.', related:['Cateno','BBXML','Fluxo Aéreo','Fluxo Terrestre']},
+ {k:['montanari','sftp','bradesco','itau','itaú','santander','arquivo','previas','prévias','cortes'], icon:'🔄', title:'Montanari', type:'Conciliadora', desc:'Processos com planilhas, prévias, cortes, SFTP e retorno de pendências.', related:['Bradesco','Itaú','Santander','SFTP','Processos Especiais']},
+ {k:['foundever','sitel','citi','s3','kleopatra'], icon:'🔄', title:'Foundever / Sitel', type:'Conciliadora', desc:'Conciliadora responsável por fluxos Citi, com uso de S3 e criptografia Kleopatra para TXT.', related:['Citi','S3','Kleopatra','Gerar Arquivo']},
+ {k:['cateno','banco do brasil','bbxml'], icon:'🔄', title:'Cateno', type:'Conciliadora', desc:'Conciliadora vinculada ao Banco do Brasil, com particularidades de arquivos e planilhas.', related:['Banco do Brasil','BBXML','Fluxo Aéreo']},
+ {k:['pendência','pendencia','inconsistência','inconsistencia','tratativa','divergência','divergencia','aging'], icon:'⚠️', title:'Base de Tratativas', type:'Operacional', desc:'Cenários de análise manual, evidências, escalonamento e retorno.', related:['FAQ','Casos Reais','Bradesco','Ausência','Aging']},
+ {k:['ausência','ausencia','gerencial','centro de custo','solicitante','projeto','motivo viagem'], icon:'📋', title:'Ausências e Dados Gerenciais', type:'Conceito', desc:'Despesa conciliada financeiramente, mas sem informações gerenciais obrigatórias.', related:['FAQ','Bradesco','Dados Gerenciais','Tratativas']},
+ {k:['sql','query','consulta','dados','extração','extracao'], icon:'📚', title:'SQL Academy', type:'Aprender', desc:'Trilha para consultas, localização de pedidos e autonomia analítica.', related:['Localizar Pedido','WEBTES','Casos Reais']},
+ {k:['latam','america latina','américa latina','implantação','implantacao','projeto'], icon:'🌎', title:'Conciliação LATAM', type:'Iniciativa', desc:'Frente em implantação conforme novas demandas da América Latina.', related:['Centro de Comando','Processos Especiais','Futuro']},
+ {k:['big','rateio','centro de custo'], icon:'📊', title:'Processo BIG', type:'Processo Especial', desc:'Rateio de centro de custo após envio da conciliadora ao cliente.', related:['Processos Especiais','Centro de Custo','Terrestre']},
+ {k:['norte energia','positivo','reconciliar','reconciliação','reconciliacao'], icon:'🏢', title:'Reconciliações Especiais', type:'Processos Especiais', desc:'Reconciliação de faturas dos clientes Norte Energia e Positivo.', related:['Processos Especiais','Documentações','Casos Reais']},
+ {k:['utilitários','utilitarios','txt','arquivo','gerar','filezilla','sftp','s3'], icon:'📁', title:'Geração de Arquivo TXT', type:'Resolver', desc:'Utilitários gera TXT; alguns fluxos usam SFTP, S3 ou e-mail.', related:['Utilitários','Kleopatra','S3','SFTP','Montanari']},
+ {k:['faq','dúvida','duvida','conceito','cta','ctah','prévia','previa','corte'], icon:'❓', title:'FAQ da Conciliação', type:'Base de Conhecimento', desc:'Respostas rápidas para termos, conceitos e dúvidas frequentes.', related:['Pendência','Ausência','Aging','CTA','CTAH']},
+ {k:['caso real','casos reais','aprendizado','exemplo','lição','licao'], icon:'📖', title:'Casos Reais', type:'Base de Conhecimento', desc:'Situações reais estruturadas em contexto, análise, solução e aprendizado.', related:['FAQ','Lições Aprendidas','Tratativas']},
+ {k:['ia','chatgpt','produtividade','documentação','documentacao'], icon:'🤖', title:'IA na Conciliação', type:'Aprender', desc:'Uso de IA com validação operacional e pensamento crítico.', related:['Minha Jornada','SQL Academy','Documentações']},
+ {k:['aereo','aéreo','voo','cta','emissão','emissao'], icon:'✈️', title:'Fluxo Aéreo', type:'Operação', desc:'Cliente solicita viagem, Copastur emite, OBT gera pedido, Benner integra, Utilitários gera TXT e conciliadora cruza com banco.', related:['Utilitários','CTA','Conciliadoras','Tratativas']},
+ {k:['terrestre','hotel','hospedagem','ctah','check in','check out'], icon:'🏨', title:'Fluxo Terrestre / Hotel', type:'Operação', desc:'Fluxo por aproximação com cobrança no check-in/check-out, geração de TXT pelo Benner e tratativas com conciliadora.', related:['CTAH','Benner','BTC','Montanari','Tratativas']}
+];
+function normalizeText(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim()}
+function quickSearch(term){document.getElementById('searchInput').value=term;searchKnowledge(term)}
+function scoreItem(item, terms){
+ const hay=normalizeText([item.title,item.type,item.desc,...item.k,...(item.related||[])].join(' '));
+ return terms.reduce((acc,t)=>acc+(hay.includes(t)?1:0),0);
+}
+function searchKnowledge(q){
+ const box=document.getElementById('results'); 
+ const term=normalizeText(q);
+ if(!term){box.style.display='none';box.innerHTML='';return}
+ const terms=term.split(' ').filter(Boolean);
+ let found=knowledge.map(x=>({...x,score:scoreItem(x,terms)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);
+ box.style.display='block';
+ if(!found.length){box.innerHTML='<div class="no-results">Não encontrei resultado exato, mas você pode tentar: pedido, pendência, BTC, Montanari, SFTP, Citi, LATAM, FAQ ou terrestre.</div>';return}
+ const groups=[...new Set(found.map(x=>x.type))];
+ box.innerHTML=groups.map(g=>`<div class="result-group-title">${g}</div>`+found.filter(x=>x.type===g).slice(0,4).map(x=>`<div class="result-item" onclick="openModal('${x.title.replace(/'/g,"\\'")}', '${x.type.replace(/'/g,"\\'")}', '${x.desc.replace(/'/g,"\\'")}', 'Use este resultado como ponto de partida. A força da Academia está em conectar fluxo, sistema, FAQ, casos reais e tratativas relacionadas.', '${(x.related||[]).join('|').replace(/'/g,"\\'")}')"><div class="result-icon">${x.icon}</div><div><strong>${x.title}</strong><small>${x.type} · ${x.desc}</small></div><div>→</div></div>`).join('')).join('')
+}
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'})}
+function profile(el,title,path){document.querySelectorAll('.profile-card').forEach(c=>c.classList.remove('active')); el.classList.add('active'); el.querySelector('.mini-path').innerHTML='<strong>Trilha sugerida:</strong><br>'+path}
+function renderRelated(related){
+ const target=document.getElementById('modalRelated'); if(!target)return;
+ const items=(related||'FAQ|Casos Reais|Ecossistema Operacional|Tratativas').split('|').filter(Boolean);
+ target.innerHTML=items.map(x=>`<button class="related-chip" onclick="quickSearch('${x.replace(/'/g,"\\'")}');closeModal();document.getElementById('searchBox').scrollIntoView({behavior:'smooth',block:'center'})">${x}</button>`).join('');
+}
+function openModal(title,sub,text,practice,related){document.getElementById('modalTitle').textContent=title;document.getElementById('modalSub').textContent=sub;document.getElementById('modalText').textContent=text;document.getElementById('modalPractice').textContent=practice;renderRelated(related);document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function flowDetail(title,func,entry,out){document.getElementById('flowDetail').innerHTML=`<div class="detail-card"><span>Etapa selecionada</span><strong>${title}</strong><p>${func}</p></div><div class="detail-card"><span>Entradas</span><strong>O que recebe</strong><p>${entry}</p></div><div class="detail-card"><span>Saídas</span><strong>O que entrega</strong><p>${out}</p></div>`}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+</script>
+
+<script id="leadership-rich-content">
+const richContent = {
+  "FAQ da Conciliação": {
+    text: `<p>Base de respostas rápidas para padronizar conceitos, reduzir dúvidas recorrentes e acelerar a tomada de decisão.</p><h4>Principais conceitos</h4><ul><li><b>Pendência:</b> despesa que não conciliou automaticamente e precisa de análise manual.</li><li><b>Inconsistência:</b> divergência identificada no cruzamento entre pedido, banco e conciliadora.</li><li><b>Ausência:</b> conciliação financeira com falta de informação gerencial obrigatória, como centro de custo, solicitante, projeto ou motivo da viagem.</li><li><b>Aging:</b> acompanhamento do tempo em aberto de pendências ou itens aguardando tratativa.</li><li><b>Prévia e corte:</b> etapas de envio/recebimento de arquivos ou relatórios pelas conciliadoras.</li></ul><div class="note">Use o FAQ como primeiro ponto de consulta antes de escalar uma dúvida. Ele deve crescer com novas perguntas reais da operação.</div>`,
+    practice:`<ul><li>Pesquise o termo da dúvida.</li><li>Leia o conceito e veja os relacionados.</li><li>Se houver caso real, use como exemplo prático.</li><li>Se a dúvida se repetir, transforme em nova pergunta do FAQ.</li></ul>`,
+    related:["Pendência","Ausência","Aging","Casos Reais","Base de Tratativas"]
+  },
+  "Localizar Pedido": {
+    text:`<p>Fluxo guiado para localizar pedidos e reduzir dependência de memória informal.</p><h4>Jornada recomendada</h4><div class="flowline"><span>SQL Server</span><span>WEBTES</span><span>VMWEB</span><span>SmartOperations</span><span>Benner</span></div><ol><li>Comece consultando o pedido no <b>SQL Server</b>.</li><li>Se não encontrar e houver localizador, consulte <b>WEBTES</b>.</li><li>Se envolver maquineta Copastur, valide no <b>SmartOperations</b>.</li><li>Verifique histórico e dados integrados no <b>Benner</b>.</li><li>Registre evidências antes de abrir tratativa ou acionar outra área.</li></ol><h4>Pontos de atenção</h4><ul><li>Evite abrir tratativa sem evidência.</li><li>Confirme se o pedido deveria ter sido integrado.</li><li>Valide produto, localizador, cartão e cliente.</li></ul>`,
+    practice:`<ul><li>Use quando alguém disser “não localizei o pedido”.</li><li>Siga a ordem de sistemas para evitar retrabalho.</li><li>Ao encontrar, registre a origem da localização.</li></ul>`,
+    related:["SQL Academy","WEBTES","SmartOperations","FAQ da Conciliação","Casos Reais"]
+  },
+  "Banco Citi": {
+    text:`<p>O fluxo Citi possui particularidade de segurança e envio de arquivos. Ele conecta Utilitários, Kleopatra, S3 e Foundever/Sitel.</p><h4>Fluxo operacional</h4><div class="flowline"><span>Utilitários</span><span>Kleopatra</span><span>S3</span><span>Foundever/Sitel</span><span>Banco Citi</span></div><ol><li>Gerar arquivo no <b>Utilitários</b>.</li><li>Criptografar o arquivo no <b>Kleopatra</b>.</li><li>Enviar via <b>S3</b> conforme processo definido.</li><li>Acompanhar retorno da conciliadora <b>Foundever/Sitel</b>.</li><li>Tratar pendências/inconsistências quando houver retorno.</li></ol><div class="note">Este fluxo exige atenção à segurança do arquivo e ao correto envio para evitar falhas de processamento.</div>`,
+    practice:`<ul><li>Use quando o cliente/banco for Citi.</li><li>Confira se o arquivo foi criptografado antes do envio.</li><li>Valide retorno da conciliadora.</li></ul>`,
+    related:["Foundever / Sitel","Kleopatra","S3","Gerar Arquivo","FAQ da Conciliação"]
+  },
+  "BTC": {
+    text:`<p>A BTC atua como conciliadora em operações específicas, com menor representatividade operacional, mas precisa estar documentada para evitar perda de conhecimento.</p><h4>Como consultar</h4><ul><li>Verifique o produto e o banco vinculado ao cliente.</li><li>Confirme se o fluxo é aéreo ou terrestre/hotel.</li><li>Analise forma de envio e retorno: e-mail, planilha, prévia, corte ou arquivo.</li><li>Ao identificar pendência, relacione com a base de tratativas.</li></ul><h4>Por que documentar?</h4><p>Mesmo fluxos menos recorrentes precisam estar mapeados para que uma pessoa nova consiga entender o processo sem depender de alguém específico.</p>`,
+    practice:`<ul><li>Pesquise BTC quando surgir dúvida de conciliadora.</li><li>Use relacionados para encontrar banco, fluxo e tratativa.</li><li>Registre qualquer particularidade nova na Base de Conhecimento.</li></ul>`,
+    related:["Itaú","Fluxo Terrestre / Hotel","FAQ da Conciliação","Base de Tratativas"]
+  },
+  "Montanari": {
+    text:`<p>A Montanari é uma conciliadora relevante para cartões corporativos, recebendo arquivos, planilhas, prévias e cortes, além de retornar pendências para análise.</p><h4>Relacionamento operacional</h4><div class="flowline"><span>Bradesco</span><span>Itaú</span><span>Santander</span><span>SFTP</span><span>Planilhas</span></div><ul><li>Recebe arquivos e informações da Copastur conforme banco/produto.</li><li>Realiza cruzamento com dados disponibilizados pelo banco.</li><li>Retorna pendências, ausências ou inconsistências.</li><li>Em alguns fluxos há envio via <b>SFTP</b>.</li></ul><h4>Pontos de atenção</h4><ul><li>Verificar prévia e corte.</li><li>Conferir retorno antes de acionar cliente.</li><li>Validar se a pendência é financeira ou gerencial.</li></ul>`,
+    practice:`<ul><li>Use para fluxos de Bradesco, Itaú e Santander.</li><li>Consulte SFTP quando o processo envolver envio de arquivo.</li><li>Relacione retorno da Montanari à Base de Tratativas.</li></ul>`,
+    related:["Bradesco","Itaú","Santander","SFTP","Processos Especiais"]
+  },
+  "Base de Tratativas": {
+    text:`<p>A Base de Tratativas é o ponto de apoio para análise manual de pendências, inconsistências, ausências e divergências.</p><h4>Roteiro de análise</h4><ol><li>Identifique o tipo de divergência: financeira, gerencial, ausência ou integração.</li><li>Confira pedido, valor, cartão, fornecedor e data.</li><li>Consulte banco e conciliadora relacionados.</li><li>Valide se existe caso real ou FAQ semelhante.</li><li>Registre evidência e retorno.</li></ol><div class="note">A tratativa boa não é apenas “resolver”; ela deixa rastro, aprendizado e reduz chance de repetição.</div>`,
+    practice:`<ul><li>Use sempre que houver item não conciliado automaticamente.</li><li>Antes de escalar, confira FAQ, caso real e banco relacionado.</li><li>Após resolver, transforme aprendizado em documentação.</li></ul>`,
+    related:["FAQ da Conciliação","Casos Reais","Ausências e Dados Gerenciais","Aging","Bradesco"]
+  },
+  "Ausências e Dados Gerenciais": {
+    text:`<p>Ausência ocorre quando a despesa pode estar conciliada financeiramente, mas falta informação gerencial necessária para o cliente receber o dado corretamente.</p><h4>Exemplos de dados gerenciais</h4><ul><li>Centro de custo.</li><li>Solicitante.</li><li>Projeto.</li><li>Motivo da viagem.</li><li>Dados complementares exigidos pelo cliente.</li></ul><h4>Como tratar</h4><ol><li>Identifique qual dado está ausente.</li><li>Valide a origem da informação.</li><li>Corrija conforme processo do cliente.</li><li>Retorne para conciliadora ou cliente quando aplicável.</li></ol>`,
+    practice:`<ul><li>Use quando a pendência não for valor, mas informação gerencial.</li><li>Verifique regras específicas do cliente.</li><li>Se recorrente, criar FAQ ou caso real.</li></ul>`,
+    related:["FAQ da Conciliação","Base de Tratativas","Bradesco","Processo BIG"]
+  },
+  "SQL Academy": {
+    text:`<p>A SQL Academy é a trilha de desenvolvimento para dar autonomia na consulta de dados e localização de pedidos.</p><h4>Estrutura da trilha</h4><ul><li><b>Básico:</b> entender tabelas, filtros, SELECT e WHERE.</li><li><b>Intermediário:</b> relacionar dados, investigar pedido, localizador, cliente e cartão.</li><li><b>Avançado:</b> cruzar informações, identificar padrões e apoiar melhorias operacionais.</li></ul><div class="note">SQL aqui não é teoria. É ferramenta para resolver problemas reais da Conciliação.</div>`,
+    practice:`<ul><li>Use como primeiro módulo de desenvolvimento técnico.</li><li>Pratique com casos reais.</li><li>Conecte consultas à jornada Localizar Pedido.</li></ul>`,
+    related:["Localizar Pedido","Casos Reais","WEBTES","Minha Jornada"]
+  },
+  "Conciliação LATAM": {
+    text:`<p>A Conciliação LATAM é uma frente em implantação voltada à expansão e mapeamento das demandas da América Latina.</p><h4>Objetivo</h4><ul><li>Mapear novos fluxos.</li><li>Entender particularidades regionais.</li><li>Documentar aprendizados desde o início.</li><li>Preparar a operação para escalar conhecimento.</li></ul><div class="note">LATAM deve nascer documentada para não repetir o problema de conhecimento disperso.</div>`,
+    practice:`<ul><li>Use como referência de projeto em evolução.</li><li>Documente decisões, riscos e aprendizados.</li><li>Conecte com Centro de Comando e Legado.</li></ul>`,
+    related:["Centro de Comando","Processos Especiais","Legado da Conciliação","IA na Conciliação"]
+  },
+  "Processo BIG": {
+    text:`<p>Processo especial relacionado ao rateio de centro de custo do cliente BIG.</p><h4>Como funciona</h4><ol><li>A conciliadora envia o material ao cliente.</li><li>A Copastur está em cópia.</li><li>O arquivo é baixado pela equipe.</li><li>É realizado o rateio por centro de custo.</li><li>O material é enviado ao cliente.</li></ol>`,
+    practice:`<ul><li>Use quando houver necessidade de rateio por centro de custo.</li><li>Confira se a versão enviada pela conciliadora é a correta.</li><li>Registre o envio ao cliente.</li></ul>`,
+    related:["Processos Especiais","Ausências e Dados Gerenciais","Documentações"]
+  },
+  "Reconciliações Especiais": {
+    text:`<p>Inclui reconciliação de faturas dos clientes Norte Energia e Positivo, além de particularidades que não seguem o fluxo padrão.</p><h4>Como tratar</h4><ul><li>Identifique cliente e fatura.</li><li>Valide período, banco, produto e conciliadora.</li><li>Compare fatura, pedido e dados conciliados.</li><li>Registre evidências e retorno.</li></ul>`,
+    practice:`<ul><li>Use quando o cliente tiver individualidade mapeada.</li><li>Não trate como exceção informal: documente como processo especial.</li></ul>`,
+    related:["Processos Especiais","Norte Energia","Positivo","Casos Reais"]
+  },
+  "Geração de Arquivo TXT": {
+    text:`<p>A geração de arquivos é etapa crítica da cadeia de conciliação. Um arquivo incorreto pode comprometer o processamento e gerar retrabalho.</p><h4>Fluxos principais</h4><ul><li><b>Aéreo:</b> Utilitários gera TXT.</li><li><b>Citi:</b> Utilitários → Kleopatra → S3.</li><li><b>Montanari/Bradesco:</b> fluxos específicos podem usar SFTP em pasta de rede.</li><li><b>Terrestre/Hotel:</b> Conciliador gera TXT através do Benner.</li></ul>`,
+    practice:`<ul><li>Valide banco, produto e conciliadora antes de gerar.</li><li>Confira destino do arquivo.</li><li>Registre envio e retorno.</li></ul>`,
+    related:["Utilitários","Kleopatra","S3","SFTP","Fluxo Aéreo","Fluxo Terrestre / Hotel"]
+  },
+  "Fluxo Aéreo": {
+    text:`<p>Fluxo aéreo representa a jornada da emissão até a conciliação final.</p><div class="flowline"><span>Cliente solicita</span><span>Copastur emite</span><span>Pagamento</span><span>OBT</span><span>Benner</span><span>Utilitários</span><span>Conciliadora</span><span>Banco</span><span>Tratativa</span><span>Cliente</span></div><ol><li>Cliente solicita viagem.</li><li>Copastur realiza emissão.</li><li>Cobrança ocorre no cartão do cliente.</li><li>OBT gera pedido e integra ao Benner.</li><li>Utilitários gera TXT.</li><li>Conciliadora cruza com banco.</li><li>Se não conciliou, vira pendência/inconsistência.</li><li>Copastur analisa, trata e retorna.</li><li>Cliente recebe informação correta.</li></ol>`,
+    practice:`<ul><li>Use para explicar a operação aérea em onboarding.</li><li>Conecte com Utilitários, TXT, bancos e conciliadoras.</li></ul>`,
+    related:["Utilitários","Base de Tratativas","Conciliadoras","SQL Academy"]
+  },
+  "Fluxo Terrestre / Hotel": {
+    text:`<p>Hotel e terrestre seguem a mesma lógica operacional para esta visão: cobrança ocorre no check-in/check-out ou conforme serviço, e a conciliação acontece por aproximação.</p><div class="flowline"><span>Cliente solicita</span><span>Copastur emite</span><span>OBT</span><span>Benner</span><span>Cartão</span><span>TXT pelo Benner</span><span>Conciliadora</span><span>Banco</span><span>Tratativa</span><span>Conciliação final</span></div><ol><li>Cliente solicita hospedagem ou serviço terrestre.</li><li>Copastur realiza emissão.</li><li>OBT gera pedido e integra ao Benner.</li><li>Cobrança ocorre no check-in/check-out no cartão do cliente.</li><li>Conciliador gera arquivo TXT através do Benner.</li><li>Conciliadora cruza informações com o banco por aproximação.</li><li>Se não conciliou, Copastur analisa e trata.</li><li>Retorno para conciliadora e conciliação final.</li></ol>`,
+    practice:`<ul><li>Use para explicar hotel/terrestre sem separar fluxos desnecessariamente.</li><li>Conecte com CTAs, CTAH, ausências e dados gerenciais.</li></ul>`,
+    related:["Benner","BTC","Montanari","Ausências e Dados Gerenciais","Base de Tratativas"]
+  },
+  "Casos Reais": {
+    text:`<p>Casos reais transformam experiência acumulada em aprendizado reutilizável.</p><h4>Modelo ideal de caso</h4><ul><li><b>Contexto:</b> o que aconteceu?</li><li><b>Sintoma:</b> como o problema apareceu?</li><li><b>Análise:</b> onde investigamos?</li><li><b>Solução:</b> como resolvemos?</li><li><b>Aprendizado:</b> o que fica para a próxima pessoa?</li></ul><div class="note">Cada caso real deve ensinar uma forma de pensar, não apenas uma solução pontual.</div>`,
+    practice:`<ul><li>Use em treinamentos.</li><li>Transforme incidentes recorrentes em casos.</li><li>Relacione cada caso com FAQ e tratativas.</li></ul>`,
+    related:["FAQ da Conciliação","Lições Aprendidas","Base de Tratativas","SQL Academy"]
+  },
+  "Lições Aprendidas": {
+    text:`<p>Lições aprendidas são a camada estratégica da experiência prática. Elas registram padrões que a equipe não pode esquecer.</p><h4>Exemplos de lições</h4><ul><li>Não tratar pendência sem evidência.</li><li>Entender banco e conciliadora antes de analisar retorno.</li><li>Validar se divergência é financeira ou gerencial.</li><li>Documentar exceções para reduzir dependência de pessoas-chave.</li></ul>`,
+    practice:`<ul><li>Use após resolver casos complexos.</li><li>Registre aprendizado de forma curta e reutilizável.</li><li>Conecte lições a processos e FAQ.</li></ul>`,
+    related:["Casos Reais","Legado da Conciliação","Processos Especiais"]
+  },
+  "Processos Especiais": {
+    text:`<p>Processos especiais são individualidades de clientes, bancos ou conciliadoras que não seguem o padrão principal, mas precisam estar documentadas.</p><h4>Processos mapeados</h4><ul><li>Norte Energia e Positivo: reconciliação de faturas.</li><li>BIG: rateio de centro de custo.</li><li>Montanari: envio TXT via SFTP.</li><li>Bradesco: arquivos via SFTP em pasta de rede.</li><li>LATAM: conciliação América Latina em implantação.</li></ul>`,
+    practice:`<ul><li>Use quando a demanda parecer exceção.</li><li>Procure cliente, banco, conciliadora e forma de envio.</li><li>Se uma individualidade surgir, documente aqui.</li></ul>`,
+    related:["LATAM","Processo BIG","Montanari","SFTP","Reconciliações Especiais"]
+  },
+  "Documentações": {
+    text:`<p>Documentações concentram materiais de apoio para execução segura dos processos.</p><h4>O que deve existir aqui</h4><ul><li>Guias de sistemas.</li><li>Fluxos validados.</li><li>Pastas de rede e SFTP.</li><li>Procedimentos de envio de arquivos.</li><li>Modelos de retorno e evidência.</li></ul>`,
+    practice:`<ul><li>Use como apoio antes de executar processo sensível.</li><li>Mantenha atualizado conforme mudança de fluxo.</li></ul>`,
+    related:["Geração de Arquivo TXT","SFTP","Kleopatra","S3","Benner"]
+  },
+  "IA na Conciliação": {
+    text:`<p>A IA na Conciliação deve apoiar produtividade, documentação e aprendizado, sempre com validação operacional humana.</p><h4>Usos recomendados</h4><ul><li>Estruturar documentação.</li><li>Gerar checklists.</li><li>Transformar casos em aprendizados.</li><li>Organizar FAQ.</li><li>Apoiar estudos de SQL e análise de dados.</li></ul><div class="note">IA não substitui validação operacional. Ela acelera organização, pensamento e documentação.</div>`,
+    practice:`<ul><li>Use para ganhar velocidade.</li><li>Revise tudo com conhecimento da área.</li><li>Transforme outputs úteis em base de conhecimento.</li></ul>`,
+    related:["SQL Academy","Documentações","Lições Aprendidas","Minha Jornada"]
+  },
+  "Legado da Conciliação": {
+    text:`<p>O Legado da Conciliação é a camada que transforma conhecimento individual em patrimônio da área.</p><h4>O que representa</h4><ul><li>Conhecimento preservado.</li><li>Desenvolvimento de pessoas.</li><li>Autonomia operacional.</li><li>Redução de dependência de pessoas-chave.</li><li>Continuidade para novos ciclos.</li></ul><div class="note">A excelência operacional só é sustentável quando o conhecimento é compartilhado.</div>`,
+    practice:`<ul><li>Use para comunicar propósito do projeto.</li><li>Atualize com novos aprendizados e evoluções.</li><li>Conecte legado com pessoas, processos e futuro.</li></ul>`,
+    related:["Minha Jornada","Base de Conhecimento","LATAM","IA na Conciliação"]
+  }
+};
+
+window.openModal = function(title, sub, text, practice, related){
+  const rich = richContent[title];
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalSub').textContent = sub || (rich ? 'Base de Conhecimento' : '');
+  document.getElementById('modalText').innerHTML = rich ? rich.text : `<p>${text || ''}</p>`;
+  document.getElementById('modalPractice').innerHTML = rich ? rich.practice : `<p>${practice || 'Use este conteúdo como ponto de partida e navegue pelos relacionados.'}</p>`;
+  const rel = rich ? rich.related : (related ? String(related).split('|') : ['FAQ da Conciliação','Casos Reais','Base de Tratativas','Ecossistema Operacional']);
+  const target=document.getElementById('modalRelated');
+  if(target){
+    target.innerHTML = rel.map(x=>`<button class="related-chip" onclick="quickSearch('${String(x).replace(/'/g,"\\'")}');closeModal();document.getElementById('searchBox').scrollIntoView({behavior:'smooth',block:'center'})">${x}</button>`).join('');
+  }
+  document.getElementById('modal').classList.add('open');
+};
+</script>
+
+
+<script id="sprint-final-10-content">
+(function(){
+  const extra = {
+    "Hub Operacional": {
+      text:`<p>O Hub Operacional é a porta de entrada para entender como a Conciliação funciona na prática, conectando fluxos, sistemas, bancos e conciliadoras.</p>
+      <h4>O que existe aqui</h4>
+      <div class="content-table">
+        <div class="content-box"><b>Fluxo Aéreo</b><p>Emissão, pagamento, OBT, Benner, Utilitários, TXT, conciliadora, banco e tratativas.</p></div>
+        <div class="content-box"><b>Fluxo Terrestre / Hotel</b><p>Pedido integrado ao Benner, cobrança no check-in/check-out, TXT pelo Benner e conciliação por aproximação.</p></div>
+        <div class="content-box"><b>Ecossistema Operacional</b><p>Cliente, Atendimento, OBT, Benner, Utilitários, Conciliadora, Banco, Pendência e Tratativa.</p></div>
+        <div class="content-box"><b>Sistemas</b><p>SQL Server, WEBTES, VMWEB, SmartOperations, Benner, Utilitários, Kleopatra e S3.</p></div>
+      </div>
+      <h4>Quando usar</h4><ul><li>Onboarding de novos analistas.</li><li>Explicação executiva da operação.</li><li>Consulta rápida para entender onde a informação nasce, passa e retorna.</li></ul>`,
+      practice:`<ul><li>Comece pelo Ecossistema.</li><li>Escolha fluxo aéreo ou terrestre/hotel.</li><li>Consulte sistemas, bancos e conciliadoras relacionados.</li></ul>`,
+      related:["Ecossistema Operacional","Fluxo Aéreo","Fluxo Terrestre / Hotel","Sistemas Utilizados","Bancos","Conciliadoras"]
+    },
+    "Hub Conhecimento": {
+      text:`<p>O Hub Conhecimento organiza tudo que apoia a operação no dia a dia: dúvidas, casos, lições e processos especiais.</p>
+      <h4>Estrutura recomendada</h4>
+      <div class="content-table">
+        <div class="content-box"><b>FAQ</b><p>Conceitos como pendência, inconsistência, ausência, aging, CTA, CTAH, prévia e corte.</p></div>
+        <div class="content-box"><b>Casos Reais</b><p>Situações práticas com contexto, sintoma, investigação, solução e aprendizado.</p></div>
+        <div class="content-box"><b>Lições Aprendidas</b><p>Boas práticas, padrões, erros recorrentes e cuidados que não podem se perder.</p></div>
+        <div class="content-box"><b>Processos Especiais</b><p>Norte Energia, Positivo, BIG, Montanari SFTP, Bradesco SFTP e LATAM.</p></div>
+      </div>`,
+      practice:`<ul><li>Use FAQ para dúvida rápida.</li><li>Use Casos Reais para aprender como pensar.</li><li>Use Processos Especiais para individualidades de clientes.</li></ul>`,
+      related:["FAQ da Conciliação","Casos Reais","Lições Aprendidas","Processos Especiais","Base de Tratativas"]
+    },
+    "Hub Desenvolvimento": {
+      text:`<p>O Hub Desenvolvimento traduz a essência da Academia: formar pessoas, gerar autonomia e transformar experiência em crescimento.</p>
+      <h4>Trilhas</h4><ul><li><b>Conheça:</b> operação, conceitos, sistemas e fluxos.</li><li><b>Aprenda:</b> SQL, arquivos, bancos, conciliadoras e tratativas.</li><li><b>Pratique:</b> casos reais e FAQ aplicado.</li><li><b>Especialize-se:</b> padrões, causas raiz e melhoria contínua.</li><li><b>Multiplique:</b> apoio a outras pessoas e preservação do conhecimento.</li></ul>`,
+      practice:`<ul><li>Use com novos analistas.</li><li>Transforme dúvidas recorrentes em FAQ.</li><li>Transforme situações resolvidas em casos reais.</li></ul>`,
+      related:["SQL Academy","IA na Conciliação","Minha Jornada","Casos Reais","Legado da Conciliação"]
+    },
+    "Ecossistema Operacional": {
+      text:`<p>O Ecossistema Operacional é o mapa vivo da Conciliação. Ele mostra como a informação percorre a operação até virar dado conciliado e confiável para o cliente.</p>
+      <div class="flowline"><span>Cliente</span><span>Atendimento</span><span>OBT</span><span>Benner</span><span>Utilitários</span><span>Conciliadora</span><span>Banco</span><span>Pendência</span><span>Tratativa</span><span>Cliente</span></div>
+      <h4>Como interpretar</h4>
+      <ul><li><b>Cliente:</b> define banco, produto e necessidades de informação.</li><li><b>Atendimento:</b> cota, vende, emite e inicia a cadeia operacional.</li><li><b>OBT:</b> Argo, Reserve, Lemontech ou Paytrack geram pedidos.</li><li><b>Benner:</b> recebe integração, concentra dados e apoia validações.</li><li><b>Utilitários:</b> gera arquivos TXT principalmente no fluxo aéreo.</li><li><b>Conciliadora:</b> cruza dados Copastur e banco.</li><li><b>Banco:</b> disponibiliza transações, faturas e cartões.</li><li><b>Tratativa:</b> análise manual para pendências, inconsistências ou ausências.</li></ul>`,
+      practice:`<ul><li>Use para explicar a operação em até 2 minutos.</li><li>Clique nos relacionados para aprofundar sistemas, bancos e fluxos.</li></ul>`,
+      related:["Fluxo Aéreo","Fluxo Terrestre / Hotel","Sistemas Utilizados","Bancos","Conciliadoras"]
+    },
+    "Sistemas Utilizados": {
+      text:`<p>Sistemas são pontos de controle da operação. Saber qual usar reduz retrabalho e acelera a resolução.</p>
+      <h4>Mapa de sistemas</h4>
+      <div class="content-table">
+        <div class="content-box"><b>SQL Server</b><p>Consulta de dados, pedidos, integrações e investigação operacional.</p></div>
+        <div class="content-box"><b>WEBTES / VMWEB</b><p>Consulta quando pedido não aparece no primeiro caminho e existe localizador.</p></div>
+        <div class="content-box"><b>SmartOperations</b><p>Consulta em cenários de maquineta Copastur.</p></div>
+        <div class="content-box"><b>Benner</b><p>Base sistêmica principal, integração de pedidos e geração de TXT em hotel/terrestre.</p></div>
+        <div class="content-box"><b>Utilitários</b><p>Geração de TXT, principalmente no fluxo aéreo.</p></div>
+        <div class="content-box"><b>Kleopatra / S3</b><p>Criptografia e envio seguro em fluxos como Citi.</p></div>
+      </div>`,
+      practice:`<ul><li>Comece pelo problema: localizar, gerar arquivo, validar integração ou tratar pendência.</li><li>Escolha o sistema conforme a jornada.</li></ul>`,
+      related:["Localizar Pedido","Geração de Arquivo TXT","Banco Citi","Fluxo Aéreo","Fluxo Terrestre / Hotel"]
+    },
+    "Casos Reais": {
+      text:`<p>Casos reais são a forma de transformar experiência operacional em aprendizado reutilizável.</p>
+      <h4>Casos que devem existir na Academia</h4>
+      <div class="content-table">
+        <div class="content-box"><b>Pedido não localizado</b><p>Investigar SQL, WEBTES, VMWEB, SmartOperations e integração com Benner antes de escalar.</p></div>
+        <div class="content-box"><b>Ausência de dados gerenciais</b><p>Despesa conciliada financeiramente, mas sem centro de custo, solicitante, projeto ou informação exigida pelo cliente.</p></div>
+        <div class="content-box"><b>Arquivo Citi</b><p>Erro ou dúvida no fluxo Utilitários → Kleopatra → S3 → Foundever/Sitel.</p></div>
+        <div class="content-box"><b>Montanari / SFTP</b><p>Envio ou retorno de arquivos via SFTP, prévias, cortes, pendências e evidências.</p></div>
+        <div class="content-box"><b>Rateio BIG</b><p>Baixar arquivo recebido em cópia, realizar rateio por centro de custo e enviar ao cliente.</p></div>
+        <div class="content-box"><b>LATAM em implantação</b><p>Mapear novas demandas, decisões, riscos e aprendizados desde o início.</p></div>
+      </div>
+      <h4>Modelo de documentação</h4><ul><li>Contexto</li><li>Sintoma</li><li>Investigação</li><li>Causa raiz</li><li>Solução</li><li>Como evitar</li><li>O que aprendemos</li></ul>`,
+      practice:`<ul><li>Use casos para treinar raciocínio operacional.</li><li>Não registre apenas solução: registre como a equipe pensou.</li></ul>`,
+      related:["FAQ da Conciliação","Lições Aprendidas","Base de Tratativas","SQL Academy","Processos Especiais"]
+    },
+    "FAQ da Conciliação": {
+      text:`<p>O FAQ precisa responder dúvidas reais da operação, não apenas listar termos. Ele é a primeira parada para novos analistas e para dúvidas recorrentes.</p>
+      <h4>Perguntas essenciais</h4>
+      <div class="content-table">
+        <div class="content-box"><b>O que é pendência?</b><p>Item que não conciliou automaticamente e exige análise manual da Copastur.</p></div>
+        <div class="content-box"><b>O que é ausência?</b><p>Quando falta informação gerencial obrigatória, mesmo que a parte financeira esteja conciliada.</p></div>
+        <div class="content-box"><b>O que é aging?</b><p>Tempo em aberto de uma pendência ou item aguardando tratativa.</p></div>
+        <div class="content-box"><b>Quando usar SQL?</b><p>Para localizar pedidos, validar dados, consultar histórico e apoiar análise operacional.</p></div>
+        <div class="content-box"><b>Quando usar WEBTES?</b><p>Quando não encontrar no primeiro caminho e houver localizador para investigação.</p></div>
+        <div class="content-box"><b>Quando usar SmartOperations?</b><p>Quando o caso envolver maquineta Copastur.</p></div>
+      </div>`,
+      practice:`<ul><li>Pesquise pela palavra da dúvida.</li><li>Leia o conceito e consulte os relacionados.</li><li>Se a dúvida não existir, ela deve virar novo item do FAQ.</li></ul>`,
+      related:["Pendência","Ausência","Aging","Localizar Pedido","Casos Reais"]
+    }
+  };
+  window.richContent = Object.assign(window.richContent || {}, extra);
+})();
+</script>
+
+
+<script id="final-master-knowledge">
+(function(){
+const fc = {"Painel Executivo da Operação": {"sub": "Visão executiva", "lead": "A Conciliação Automática garante que despesas realizadas em cartões corporativos sejam corretamente conciliadas entre clientes, bancos, conciliadoras e sistemas internos da Copastur, assegurando qualidade financeira e gerencial.", "sections": [["O que fazemos", ["Conciliação de cartões corporativos.", "Tratativa de pendências, inconsistências e ausências.", "Acompanhamento de cortes, prévias, SLAs, agings críticos e casos manuais.", "Regularização de divergências financeiras e gerenciais.", "Suporte aos processos de fechamento dos clientes."]], ["Bancos e operações", ["Bancos documentados: Bradesco, Itaú, Santander, Citi e Banco do Brasil.", "Operações específicas: JP Morgan, Safra e Bradesco Corporate, conforme cliente e fluxo.", "Conciliadoras: Montanari, Foundever/Sitel, BTC e Cateno."]], ["Produtos e indicadores", ["Produtos: Aéreo, CTA, EBTA, CPB, BTB sem VCN, Hotel e CTAH.", "Indicadores acompanhados: volume conciliado, pendências, ausências, SLA operacional, casos manuais e agings críticos."]], ["Filosofia da área", ["O conhecimento não deve depender de uma única pessoa.", "Processos devem ser documentados.", "Aprendizados devem ser compartilhados.", "A operação deve estar preparada para continuar evoluindo."]]], "practice": ["Use esta página para apresentar a área para gestores e lideranças.", "Comece por aqui quando alguém perguntar: o que a Conciliação faz e qual o impacto?"], "related": ["Maturidade da Área", "Arquitetura da Operação", "Mapa de Conhecimento da Academia", "Legado da Conciliação"]}, "Mapa de Conhecimento da Academia": {"sub": "Mapa vivo do portal", "lead": "A Academia foi estruturada para organizar o conhecimento da área de forma lógica, acessível e sustentável. O objetivo não é só armazenar informação: é transformar conhecimento operacional em patrimônio permanente.", "sections": [["Visão Executiva", ["Painel Executivo", "Maturidade da Área", "Arquitetura da Operação", "Legado da Conciliação"]], ["Formação do Analista", ["Jornada do Analista", "Conceitos Operacionais", "Boas Práticas da Conciliação", "Como Pensar Como um Analista", "Trilha de Desenvolvimento", "Hall da Evolução"]], ["Operação", ["Bancos", "Conciliadoras", "Ecossistema Operacional", "Qual Sistema Eu Uso?", "Base de Tratativas"]], ["Inteligência Operacional", ["Casos Reais", "Lições Aprendidas", "Indicadores", "SQL Academy", "IA na Conciliação"]], ["Navegação por perfil", ["Novo colaborador: Jornada → Conceitos → Arquitetura → Bancos → Conciliadoras → Ecossistema → Tratativas.", "Analista: Base de Tratativas → Casos Reais → Indicadores → SQL Academy → IA.", "Gestor: Painel Executivo → Maturidade → Indicadores → Legado."]]], "practice": ["Use como mapa de apresentação e como porta de entrada para quem não sabe por onde começar."], "related": ["Painel Executivo da Operação", "Hub Operacional", "Hub Conhecimento", "Trilha de Desenvolvimento"]}, "Maturidade da Área": {"sub": "Evolução da operação", "lead": "Toda operação evolui. Processos são aprimorados, ferramentas são incorporadas e conhecimentos são compartilhados. Esta página mostra como a gestão do conhecimento fortalece a continuidade operacional.", "sections": [["Fase 1 — Conhecimento Individual", ["Dependência de profissionais-chave.", "Aprendizado informal.", "Baixa documentação.", "Dificuldade na transferência de conhecimento.", "Maior curva de aprendizado para novos colaboradores."]], ["Fase 2 — Conhecimento Compartilhado", ["Procedimentos documentados.", "Treinamentos estruturados.", "Maior previsibilidade operacional.", "Menor dependência de indivíduos."]], ["Fase 3 — Operação Estruturada", ["Conhecimento centralizado.", "Processos padronizados.", "Casos reais documentados.", "Indicadores acompanhados.", "Desenvolvimento contínuo da equipe."]], ["Onde estamos hoje", ["Processos e fluxos documentados.", "Bancos e conciliadoras mapeados.", "Base de tratativas e casos reais registrados.", "Trilha de desenvolvimento, SQL Academy, IA e governança do conhecimento."]]], "practice": ["Use para mostrar por que a Academia é estratégica, e não apenas uma biblioteca."], "related": ["Governança do Conhecimento", "Legado da Conciliação", "Mapa de Conhecimento da Academia"]}, "Arquitetura da Operação": {"sub": "Fluxos principais", "lead": "Antes de aprender sistemas, bancos, conciliadoras ou tratativas, é essencial entender como as informações percorrem toda a operação.", "sections": [["Fluxo Aéreo", ["Cliente solicita viagem", "Copastur emite", "Cobrança no cartão do cliente", "OBT gera pedido", "Pedido vai para o Benner", "Utilitários gera TXT", "TXT vai para Conciliadora", "Conciliadora cruza com Banco", "Conciliação automática", "Se não conciliou: Pendência/Inconsistência", "Copastur analisa e realiza as tratativas necessárias", "Retorna com os dados conciliados", "Cliente recebe informação correta"]], ["Fluxo Hotel / Terrestre com conciliadoras", ["Cliente solicita viagem", "Copastur emite", "OBT gera pedido", "Pedido vai para o Benner", "Conciliador gera TXT no Benner", "TXT vai para Conciliadora", "Conciliadora cruza com Banco", "Conciliação por aproximação", "Se não conciliou: Pendência/Inconsistência", "Copastur analisa e realiza as tratativas necessárias", "Retorna com os dados conciliados", "Cliente recebe informação correta"]], ["O que o analista precisa entender", ["Identificar a cobrança realizada.", "Localizar o pedido correspondente.", "Garantir que as informações estejam corretas.", "Corrigir divergências quando necessário.", "Garantir que o cliente receba informações confiáveis."]]], "practice": ["Use no onboarding antes de entrar em sistemas e bancos.", "A pessoa precisa entender o fluxo antes de procurar erro."], "related": ["Fluxo Aéreo", "Fluxo Terrestre / Hotel", "Ecossistema Operacional", "Qual Sistema Eu Uso?"]}, "Fluxo Aéreo": {"sub": "Arquitetura operacional aérea", "lead": "A Conciliação Automática Aérea relaciona débitos realizados nos cartões corporativos com pedidos emitidos pela agência, garantindo que informações financeiras e gerenciais estejam corretas.", "sections": [["Fluxo validado", ["Cliente solicita viagem", "Copastur emite", "Cobrança no cartão do cliente", "OBT gera pedido", "Pedido vai para o Benner", "Utilitários gera TXT", "TXT vai para Conciliadora", "Conciliadora cruza com Banco", "Conciliação automática", "Se não conciliou: Pendência/Inconsistência", "Copastur analisa e realiza as tratativas necessárias", "Retorna com os dados conciliados", "Cliente recebe informação correta"]], ["Informações geradas na emissão", ["Pedido", "Bilhete", "Passageiro", "Centro de custo", "Autorização", "Fornecedor", "Valor"]], ["Sistemas consultados durante análise", ["Benner", "WEBTES", "VMWEB", "Reserve", "Lemontech", "SmartOperations", "SQL Server"]], ["Exemplos de tratativas", ["Pedido não localizado", "Valor divergente", "Falta de centro de custo", "Problemas de autorização", "Integração incorreta"]]], "practice": ["Use para explicar ponta a ponta o fluxo aéreo.", "Relacione com Qual Sistema Eu Uso quando a análise travar."], "related": ["Qual Sistema Eu Uso?", "SQL Academy", "Base de Tratativas", "Bradesco", "Montanari"]}, "Fluxo Terrestre / Hotel": {"sub": "Hotel e terrestre com conciliadoras", "lead": "Hotel/Terrestre segue lógica própria: o pedido é integrado ao Benner, o TXT é gerado no Benner e a conciliadora realiza cruzamento por aproximação com o banco.", "sections": [["Fluxo validado", ["Cliente solicita viagem", "Copastur emite", "OBT gera pedido", "Pedido vai para o Benner", "Conciliador gera TXT no Benner", "TXT vai para Conciliadora", "Conciliadora cruza com Banco", "Conciliação por aproximação", "Se não conciliou: Pendência/Inconsistência", "Copastur analisa e realiza as tratativas necessárias", "Retorna com os dados conciliados", "Cliente recebe informação correta"]], ["Objetivo", ["Garantir que despesas de hospedagem ou serviços terrestres sejam conciliadas corretamente através do cruzamento de informações financeiras e operacionais."]], ["Pontos de atenção", ["Conciliação por aproximação exige análise cuidadosa.", "Dados gerenciais podem impactar ausências.", "Retorno precisa seguir o canal definido pela conciliadora."]]], "practice": ["Use quando a dúvida envolver hotel, CTAH ou serviços terrestres."], "related": ["Benner", "BTC", "Montanari", "Base de Tratativas", "Ausência"]}, "Qual Sistema Eu Uso?": {"sub": "Guia de decisão", "lead": "Uma das principais dúvidas dos novos colaboradores é saber qual sistema utilizar em cada situação. Este guia transforma o raciocínio operacional em caminhos simples.", "sections": [["Preciso localizar um pedido", ["Consultar SQL Server.", "Não encontrou, mas possui localizador? Consultar WEBTES.", "Ainda não encontrou e é maquineta Copastur? Consultar SmartOperations para localizar informações da transação e auxiliar na identificação do pedido."]], ["Emissões realizadas através da maquineta Copastur", ["O pedido também pode ser localizado no SQL.", "O que pode acontecer é dificuldade por integração, erro de informação ou necessidade de rastrear o débito.", "SmartOperations é ferramenta complementar apenas nesses casos de maquineta Copastur.", "Referências comuns: 1*, CT*, VIA COPASTUR*."]], ["Preciso consultar uma emissão", ["Utilize o OBT correspondente: Argo, Reserve, Lemontech ou Paytrack."]], ["Preciso gerar arquivo TXT", ["Utilitários gera o arquivo TXT."]], ["Preciso enviar arquivos para o Citi", ["Utilitários gera.", "Kleopatra protege/criptografa.", "S3 transporta/envia."]], ["Preciso validar informações operacionais", ["WEBTES", "VMWEB", "Benner"]], ["Regra de ouro", ["Não tente resolver um problema usando apenas um sistema.", "A maior parte das análises exige cruzamento entre ferramentas."]]], "practice": ["Comece pela pergunta do usuário: localizar, consultar, gerar, enviar, validar ou extrair.", "Use como página de consulta rápida durante o onboarding."], "related": ["Sistemas Utilizados", "SQL Academy", "SmartOperations", "WEBTES", "Citi"]}, "Sistemas Utilizados": {"sub": "Ferramentas da operação", "lead": "Cada ferramenta tem uma finalidade específica. Saber onde consultar reduz retrabalho, acelera análises e aumenta assertividade.", "sections": [["SQL Server", ["Principal ferramenta de pesquisa e extração de informações do Benner.", "Usado para localizar pedidos, validar informações, extrair dados e investigar divergências."]], ["WEBTES", ["Permite localizar informações através do localizador da emissão.", "Utilizado quando o pedido não aparece nas consultas iniciais e existe localizador."]], ["VMWEB", ["Espelho do Benner para validação de informações lançadas e acompanhamento de ajustes realizados por outras áreas."]], ["Benner Turismo", ["Principal sistema de gestão da operação e fonte das informações operacionais e financeiras dos pedidos."]], ["SmartOperations", ["Apoia análise de transações de maquineta Copastur quando houver dificuldade para localizar o pedido ou validar origem da cobrança."]], ["Utilitários, Kleopatra e S3", ["Utilitários gera TXT.", "Kleopatra criptografa arquivos.", "S3 realiza envio/recebimento em fluxos como Citi/Foundever."]]], "practice": ["Use junto com Qual Sistema Eu Uso?", "A ferramenta correta depende da etapa da investigação."], "related": ["Qual Sistema Eu Uso?", "SQL Academy", "Citi", "Foundever / Sitel"]}, "Ecossistema Operacional": {"sub": "Mapa vivo da operação", "lead": "O ecossistema mostra como cliente, Copastur, sistemas, bancos, conciliadoras, processos e pessoas se conectam para entregar uma conciliação correta.", "sections": [["Fluxo sistêmico", ["Cliente", "Copastur", "Sistemas", "Bancos", "Conciliadoras", "Processos", "Pessoas"]], ["Ferramentas centrais", ["Benner", "WEBTES", "VMWEB", "SQL Server", "SmartOperations", "Utilitários", "Argo", "Reserve", "Lemontech", "Paytrack", "S3", "Kleopatra"]], ["Dica operacional", ["Não existe um único sistema responsável por toda a operação.", "Cada ferramenta possui uma finalidade específica.", "Quanto melhor o analista navega pelo ecossistema, maior a assertividade."]]], "practice": ["Use como mapa para localizar onde o problema pode ter acontecido.", "Antes de buscar erro, entenda a etapa do fluxo."], "related": ["Qual Sistema Eu Uso?", "Arquitetura da Operação", "Sistemas Utilizados", "Como Pensar Como um Analista"]}, "Bancos": {"sub": "Bancos conciliados", "lead": "A operação possui conhecimento e estrutura para atuar com bancos e fluxos distintos. Cada banco possui particularidades, conciliadoras e pontos de atenção.", "sections": [["Bancos principais", ["Bradesco", "Itaú", "Santander", "Citi", "Banco do Brasil"]], ["Operações específicas", ["JP Morgan", "Safra", "Bradesco Corporate — conforme cliente e fluxo operacional."]], ["Bancos com conciliadoras", ["Banco do Brasil → Cateno", "Santander → Montanari", "Bradesco → Montanari", "Itaú → Montanari e BTC", "Citi → Foundever/Sitel"]]], "practice": ["Use para entender qual conciliadora e fluxo acompanha cada banco."], "related": ["Bradesco", "Itaú", "Santander", "Citi", "Banco do Brasil", "Conciliadoras"]}, "Bradesco": {"sub": "Banco com portal próprio", "lead": "O Bradesco é uma das operações mais importantes e complexas da Conciliação Automática. Diferentemente dos demais bancos via Montanari, possui portal próprio para consulta, extração e devolutiva de pendências e ausências.", "sections": [["O que conciliamos", ["EBTA", "CPB", "BTB sem VCN"]], ["Portal Bradesco", ["Extração de pendências.", "Extração de ausências.", "Consulta de informações.", "Upload das devolutivas tratadas.", "O acesso deve ser monitorado diariamente, pois indisponibilidades impactam prazos."]], ["Informação crítica", ["Uma vez conciliada no Bradesco, a despesa não pode mais ser alterada.", "Isso impacta diretamente a qualidade da análise antes da devolutiva."]], ["Participação da Montanari", ["A Montanari participa enviando planilhas de pendências e ausências.", "A operação possui autonomia para consultar diretamente no Portal Bradesco."]], ["Campos gerenciais", ["Não há garantia de que todos os campos preenchidos serão transmitidos ao cliente.", "Principais campos transmitidos: Centro de Custo, Matrícula, Departamento e Requisição.", "Demais campos devem ser validados junto ao banco.", "Clientes podem usar campos de formas diferentes; por exemplo, usar Solicitante para Motivo da Viagem."]], ["Extração de faturas", ["Não conseguimos visualizar faturas fechadas no Portal Bradesco.", "Não conseguimos extrair relatório conciliado final do cliente nem consultar a visão final da fatura fechada.", "Essas informações dependem do banco."]], ["Aging", ["Aging -4 é o último dia disponível para regularização da pendência e deve receber prioridade máxima.", "A contagem considera finais de semana.", "Prioridade recomendada: Aging -4, -3, -2, -1, 0 e demais casos."]]], "practice": ["Consulte o portal diariamente.", "Priorize agings críticos.", "Registre evidências e sinalize CSs quando houver risco ao cliente.", "Antes de devolver, valide com cuidado porque a despesa conciliada não poderá ser alterada."], "related": ["Problemas no Portal Bradesco", "Aging Incorreto", "Ausência", "Montanari", "Base de Tratativas"]}, "Itaú": {"sub": "Banco via Montanari e BTC", "lead": "O Itaú é conciliado através de conciliadoras responsáveis pelo banco, principalmente Montanari, e também BTC em fluxos específicos. Possui fluxo mais simples que Bradesco, sem portal próprio para tratativa.", "sections": [["Conciliadoras", ["Montanari", "BTC"]], ["Recebimento das informações", ["Pendências e prévias são encaminhadas por planilhas em Excel.", "As planilhas representam fonte de trabalho da operação."]], ["Prévias", ["Antecipam análise antes do fechamento da fatura.", "Ajudam a reduzir pendências no fechamento e gerar previsibilidade operacional."]], ["Fluxo operacional", ["Recebimento da planilha.", "Localização dos pedidos.", "Validação das informações.", "Tratativas necessárias.", "Devolutiva para conciliadora.", "Processamento da conciliação."]], ["Boas práticas", ["Trabalhe prévias sempre que possível.", "Monitore retornos.", "Consulte históricos para acelerar novos casos."]]], "practice": ["Use para fluxos Itaú via Montanari/BTC.", "Foque em prévias, cortes, retorno à conciliadora e identificação de padrões."], "related": ["Montanari", "BTC", "Prévia Não Recebida", "Base de Tratativas"]}, "Santander": {"sub": "Banco via Montanari", "lead": "O Santander é um dos principais bancos conciliados, com fluxo semelhante ao Itaú e grande volume operacional.", "sections": [["Conciliadora", ["Montanari"]], ["Recebimento correto", ["As prévias e cortes são encaminhados pelas conciliadoras através de planilhas em Excel.", "Essas planilhas representam uma das principais fontes de trabalho da operação.", "Não considerar pendências nesse bloco: elas normalmente surgem após processamento e análise."]], ["Prévias", ["Antecipam análise antes do fechamento.", "Reduzem pendências no fechamento.", "Aumentam previsibilidade operacional."]], ["Fluxo operacional", ["Recebimento da planilha.", "Localização dos pedidos.", "Validação das informações.", "Realização das tratativas necessárias.", "Devolutiva para a conciliadora.", "Processamento da conciliação."]], ["Pontos de atenção", ["Alto volume operacional.", "Arquivos TXT.", "Datas de corte.", "Comunicação constante por e-mail."]]], "practice": ["Trabalhe prévias sempre que possível.", "Observe padrões e monitore devolutivas."], "related": ["Montanari", "Prévia Não Recebida", "Cortes", "Base de Tratativas"]}, "Citi": {"sub": "Banco com segurança reforçada", "lead": "O Citi possui fluxo rigoroso de segurança da informação, com envio e recebimento de arquivos por ferramentas específicas. A conciliação ocorre através da Foundever/Sitel.", "sections": [["Conciliadora", ["Foundever / Sitel"]], ["Ferramentas", ["Kleopatra para criptografia.", "S3 para envio e recebimento dos arquivos.", "Arquivos TXT enviados pela Copastur."]], ["Fluxo operacional", ["Emissão da venda.", "Cobrança do cartão.", "Geração do arquivo TXT.", "Criptografia no Kleopatra.", "Envio via S3.", "Processamento pela Foundever.", "Conciliação automática.", "Geração de pendências quando necessário.", "Tratativa e devolutiva.", "Conciliação final."]], ["Pontos de atenção", ["Confirmar envio.", "Acompanhar e-mails.", "Problemas no S3 podem impedir processamento.", "Falhas no Kleopatra podem impedir leitura dos arquivos.", "Registrar evidências."]]], "practice": ["Valide envio e criptografia antes de considerar problema de conciliação.", "Monitore e-mails e padrões de inconsistência."], "related": ["Foundever / Sitel", "S3 / Kleopatra", "Problemas de Envio de Arquivos", "Geração de Arquivo TXT"]}, "Banco do Brasil": {"sub": "Banco via Cateno", "lead": "O Banco do Brasil faz parte do portfólio de bancos que podem ser conciliados. Atualmente não há clientes ativos neste fluxo, mas o conhecimento deve ser preservado para futuras necessidades.", "sections": [["Conciliadora", ["Cateno"]], ["Produtos", ["Aéreo", "Terrestre — dependendo de contrato e necessidade do cliente."]], ["Arquivos utilizados", ["Diferente dos bancos que usam TXT, Banco do Brasil trabalha com arquivos XML."]], ["Pendências", ["Quando a transação não concilia automaticamente, a Cateno encaminha planilhas em Excel com pendências para análise e tratativa."]], ["Boas práticas", ["Preserve o conhecimento mesmo sem clientes ativos.", "Consulte históricos em caso de nova implementação."]]], "practice": ["Use como referência institucional para futuras ativações."], "related": ["Cateno", "Bancos", "Processos Especiais", "Legado da Conciliação"]}, "Conciliadoras": {"sub": "Parceiras da conciliação automática", "lead": "As conciliadoras recebem informações da Copastur e dos bancos, processam cruzamentos e retornam pendências, prévias, cortes ou inconsistências conforme cada fluxo.", "sections": [["Conciliadoras mapeadas", ["Montanari", "Foundever / Sitel", "BTC", "Cateno"]], ["Papel geral", ["Cruzar dados enviados pela Copastur com informações bancárias.", "Viabilizar conciliação automática quando os dados estão compatíveis.", "Retornar pendências ou informações para análise manual quando necessário."]], ["Pontos de atenção", ["Cada conciliadora possui bancos, arquivos, prazos e formas de comunicação próprias.", "Não trate todas iguais: consulte a página específica antes de agir."]]], "practice": ["Comece identificando banco e produto.", "Depois consulte a conciliadora vinculada."], "related": ["Montanari", "Foundever / Sitel", "BTC", "Cateno", "Bancos"]}, "Montanari": {"sub": "Conciliadora de grande representatividade", "lead": "A Montanari é uma das principais conciliadoras da operação, atuando como intermediadora entre bancos, clientes e agência no processamento necessário à conciliação.", "sections": [["Bancos atendidos", ["Bradesco", "Itaú", "Santander"]], ["Produtos", ["Aéreo", "Terrestre"]], ["Arquivos e retornos", ["Recebe arquivos enviados pela Copastur.", "Cruza com informações disponibilizadas pelos bancos.", "Disponibiliza pendências, prévias e cortes por planilhas Excel."]], ["Processo simplificado", ["Copastur realiza a venda.", "Cartão é cobrado.", "Copastur gera arquivos.", "Montanari recebe arquivos e informações do banco.", "Cruzamento é realizado.", "O que não concilia gera pendência.", "Copastur analisa e retorna.", "Conciliação é finalizada."]], ["Pontos de atenção", ["Grandes volumes podem indicar problema de processamento.", "Muitos casos corretos pendentes podem indicar falha no cruzamento.", "Datas de corte impactam prioridade.", "Comunicação ocorre muito por e-mail."]]], "practice": ["Analise padrões antes de tratar tudo individualmente.", "Monitore prévias e cortes.", "Documente ocorrências relevantes."], "related": ["Bradesco", "Itaú", "Santander", "Grande Volume de Pendências", "Prévia Não Recebida"]}, "Foundever / Sitel": {"sub": "Conciliadora do Citi", "lead": "A Foundever, antiga Sitel, é responsável pelas operações vinculadas ao Citi e possui um dos processos mais rigorosos de segurança da informação da operação.", "sections": [["O que faz", ["Recebe informações enviadas pela Copastur.", "Processa informações e cruza com dados do banco Citi.", "Quando a conciliação automática não ocorre, gera materiais para análise e tratativa."]], ["Segurança da informação", ["S3 utilizado para envio e recebimento de arquivos.", "Kleopatra utilizado para criptografia.", "Arquivos TXT são parte central do processamento."]], ["Fluxo", ["Emissão da venda.", "Cobrança do cartão.", "Geração TXT.", "Criptografia no Kleopatra.", "Envio no S3.", "Processamento pela Foundever.", "Conciliação automática.", "Tratativas quando necessário.", "Conciliação final."]], ["Boas práticas", ["Monitore envios.", "Consulte e-mails.", "Registre evidências.", "Observe padrões quando vários casos apresentam o mesmo comportamento."]], ["Ajuste validado", ["Remover bloco genérico de inconsistências desta página; esse tema já fica na Base de Tratativas."]]], "practice": ["Use para entender Citi, S3, Kleopatra, segurança e fluxo de arquivos.", "Não misture com tratativas gerais."], "related": ["Citi", "S3 / Kleopatra", "Problemas de Envio de Arquivos", "Geração de Arquivo TXT"]}, "BTC": {"sub": "Conciliadora Itaú em fluxos específicos", "lead": "A BTC atua em operações específicas vinculadas ao Itaú. Mesmo com menor representatividade, o conhecimento precisa permanecer documentado.", "sections": [["Quando consultar", ["Quando o banco/cliente estiver vinculado à BTC.", "Quando houver dúvida sobre retorno, e-mail, planilha, prévia, corte ou pendência."]], ["Como analisar", ["Verifique produto e banco vinculados.", "Confirme se o fluxo é aéreo ou hotel/terrestre.", "Analise forma de envio e retorno.", "Relacione pendência com a Base de Tratativas."]], ["Por que documentar", ["Fluxos menos recorrentes podem gerar dependência de pessoas específicas se não forem registrados."]]], "practice": ["Use quando pesquisar BTC, Itaú ou dúvidas de conciliadora específica."], "related": ["Itaú", "Base de Tratativas", "Prévia Não Recebida", "Bancos"]}, "Cateno": {"sub": "Conciliadora do Banco do Brasil", "lead": "A Cateno é responsável pelas operações vinculadas ao Banco do Brasil. Atualmente não há clientes ativos, mas o conhecimento permanece documentado para futuras necessidades.", "sections": [["Banco atendido", ["Banco do Brasil"]], ["Produtos", ["Aéreo", "Terrestre"]], ["Arquivos", ["Diferente das demais, trabalha com arquivos XML, não TXT."]], ["Pendências", ["Quando uma transação não concilia automaticamente, são encaminhadas planilhas com inconsistências para análise e tratativa."]], ["Resultado esperado", ["O analista estará preparado para futuras operações que usem o modelo Banco do Brasil/Cateno."]]], "practice": ["Use para preservar conhecimento institucional e apoiar futuras implementações."], "related": ["Banco do Brasil", "Arquivos XML", "Legado da Conciliação"]}, "FAQ da Conciliação": {"sub": "Conceitos operacionais", "lead": "O FAQ responde dúvidas reais da operação e padroniza conceitos. Ele deve ajudar o analista a entender o que está vendo antes de agir.", "sections": [["Conceitos principais", ["Pendência: despesa que não conciliou automaticamente e exige análise manual.", "Inconsistência: divergência identificada no cruzamento entre pedido, banco e conciliadora.", "Ausência: despesa conciliada financeiramente, mas sem informações gerenciais obrigatórias.", "Prévia: antecipação de análise antes do fechamento.", "Corte: prazo comunicado pela conciliadora para envio/devolutiva.", "Aging: tempo/prazo de regularização da pendência.", "Divergência financeira: diferença relacionada a valor/cobrança.", "Divergência gerencial: diferença relacionada a centro de custo, solicitante, projeto ou informações do cliente.", "Tratativa interna: depende de áreas Copastur.", "Tratativa externa: depende de conciliadora, banco ou fornecedor."]], ["Como usar", ["Pesquise a palavra da dúvida.", "Leia definição, quando acontece e relacionados.", "Se a dúvida não existir, ela deve virar novo item do FAQ."]]], "practice": ["Use antes de escalar dúvidas conceituais.", "Conecte FAQ com Base de Tratativas e Casos Reais."], "related": ["Base de Tratativas", "Casos Reais", "Aging Incorreto", "Ausência", "Falta de Autorização"]}, "Base de Tratativas": {"sub": "Resolução operacional", "lead": "A Base de Tratativas orienta como analisar pendências, ausências, divergências, autorizações, cartões, aging e problemas de processamento.", "sections": [["Como iniciar uma análise", ["Entenda o fluxo antes de procurar o erro.", "Confirme se a cobrança existe.", "Localize o pedido correspondente.", "Valide se o pedido está correto.", "Identifique se deveria conciliar automaticamente.", "Defina se a tratativa depende da operação, outra área, conciliadora, banco ou fornecedor."]], ["Casos principais", ["Débito Duplicado", "Falta de Autorização", "Aging Incorreto", "Prévia Não Recebida", "Problemas no Portal Bradesco", "Problemas de Envio S3/Kleopatra", "Cartão Não Cadastrado", "Grande Volume de Pendências"]], ["Regra de ouro", ["Nunca comece procurando o erro. Comece entendendo o fluxo."]]], "practice": ["Use quando o analista precisa resolver e não apenas entender.", "Cada item deve levar a passo a passo, quando escalar e resultado esperado."], "related": ["Como Pensar Como um Analista", "Qual Sistema Eu Uso?", "Casos Reais", "FAQ da Conciliação"]}, "Débito Duplicado": {"sub": "Tratativa ajustada", "lead": "Débito duplicado exige validar se há duplicidade real, mais de uma emissão legítima ou cancelamento seguido de nova cobrança.", "sections": [["Possíveis causas", ["Cobrança duplicada: fornecedor realizou mais de uma cobrança relacionada à mesma emissão, pedido ou transação.", "Reprocessamento: uma transação pode ter sido processada mais de uma vez.", "Cancelamento e nova cobrança: uma cobrança pode ter sido cancelada e outra gerada posteriormente.", "Erro na maquineta, gateway ou adquirente: falhas podem ocasionar cobranças duplicadas ou transações difíceis de identificar."]], ["Como resolver", ["Verificar histórico da cobrança.", "Validar cancelamentos e ajustes.", "Não usar hipótese genérica de lançamento duplicado do pedido como causa sem evidência."]], ["Resultado esperado", ["Determinar se existe duplicidade real.", "Identificar se há mais de uma emissão legítima.", "Confirmar se houve cancelamento seguido de nova cobrança.", "Concluir a tratativa somente após validação."]]], "practice": ["Use para diferenciar cobrança duplicada de cobrança legítima.", "Registre evidências antes de escalar."], "related": ["Base de Tratativas", "SmartOperations", "Falta de Autorização", "Cartão Não Cadastrado"]}, "Falta de Autorização": {"sub": "Autorização não localizada", "lead": "A autorização pode existir, mas não ser localizada inicialmente em nenhum pedido durante as consultas realizadas.", "sections": [["Possíveis causas", ["Informação não localizada inicialmente: a autorização existe, mas não foi encontrada em nenhum pedido durante as consultas.", "Problemas de integração: autorização não foi disponibilizada corretamente entre sistemas.", "Falta de registro operacional: informação da autorização não foi lançada pelo time da operação."]], ["Como resolver", ["Caso nenhum pedido consiga ser vinculado ao débito cobrado, abrir tratativa com o atendimento para identificação."]], ["Dica do analista", ["Sempre consulte o histórico de e-mails para confirmar se nenhuma tratativa sobre aquele débito ou autorização já foi realizada.", "Isso reduz retrabalho e facilita tratativas futuras."]]], "practice": ["Use quando a autorização não aparece nos caminhos iniciais.", "Não conclua antes de consultar histórico e evidências."], "related": ["Localizar Pedido", "Qual Sistema Eu Uso?", "Débito Duplicado", "Base de Tratativas"]}, "Aging Incorreto": {"sub": "Prazo e prioridade", "lead": "Aging incorreto pode indicar prazo disponibilizado fora do padrão, atraso no processamento ou problemas operacionais que impactam a contagem.", "sections": [["Possíveis causas", ["Atualização incorreta do Aging: informação disponibilizada pelo banco com prazo diferente do esperado.", "Atraso no processamento: a pendência foi processada com atraso, impactando a contagem.", "Problemas operacionais: falhas de processamento podem impactar a atualização dos prazos."]], ["Como resolver", ["Caso exista divergência, sinalizar conciliadora e banco para validação."]], ["Quando escalar", ["Diversos casos com o mesmo comportamento.", "Aging com inconsistências recorrentes.", "Risco de impacto ao cliente.", "Risco de perda de prazo."]], ["Dica operacional: Aging -4", ["Aging -4 é o último dia disponível para regularização da pendência.", "Casos nesta condição devem receber prioridade máxima.", "A contagem considera finais de semana, o que pode reduzir significativamente o tempo disponível."]], ["Resultado esperado", ["Confirmar se o Aging está fora do padrão.", "Priorizar corretamente.", "Solicitar apoio quando necessário.", "Reduzir risco de perda de prazo.", "Sinalizar CSs quando houver impacto direto no cliente."]]], "practice": ["Use no Bradesco e em contextos onde prazo define prioridade.", "Aging -4 é prioridade máxima."], "related": ["Bradesco", "Problemas no Portal Bradesco", "Base de Tratativas", "Lições Aprendidas"]}, "Prévia Não Recebida": {"sub": "Falha no recebimento de prévias", "lead": "Você está diante de prévia não recebida quando havia expectativa de recebimento, o arquivo ou planilha não chegou, e o prazo habitual foi ultrapassado.", "sections": [["Como identificar", ["Existe expectativa de recebimento da prévia.", "Arquivo ou planilha não foi encaminhado pela conciliadora.", "Prazo habitual de recebimento foi ultrapassado."]], ["Possível causa", ["Volume elevado de processamento pode impactar os prazos de disponibilização da conciliadora."]], ["Como resolver", ["Confirmar se a prévia realmente não foi recebida.", "Verificar caixa de entrada, pastas de e-mail e histórico de comunicações."]], ["Quando escalar", ["Quando a prévia permanecer sem envio após contato com a conciliadora."]]], "practice": ["Antes de escalar, valide e-mails e histórico.", "Documente o contato feito com a conciliadora."], "related": ["Montanari", "Itaú", "Santander", "Cortes", "Base de Tratativas"]}, "Problemas no Portal Bradesco": {"sub": "Instabilidade ou acesso", "lead": "O Portal Bradesco é usado para consulta, extração e devolutiva de pendências e ausências. Problemas no portal podem impactar prazos e cliente.", "sections": [["Como identificar", ["Não consegue acessar o portal.", "Portal apresenta lentidão.", "Pendências ou ausências não aparecem corretamente.", "Upload de devolutivas não pode ser realizado.", "Portal apresenta erro."]], ["Como resolver", ["Etapa 1: validar se outros conciliadores conseguem acessar normalmente o portal para identificar se o problema é máquina, rede ou ambiente Bradesco.", "Etapa 2: testar novamente após alguns minutos.", "Etapa 3: verificar se outros analistas apresentam o mesmo comportamento; múltiplos usuários impactados indicam maior probabilidade de indisponibilidade/instabilidade.", "Etapa 4: registrar evidências: prints, mensagens de erro e horário.", "Etapa 5: acionar suporte do banco quando necessário."]], ["Quando escalar", ["Portal permanece indisponível.", "Existe risco para Aging ou cliente.", "Múltiplos usuários impactados.", "Não é possível realizar upload das devolutivas."]], ["Dicas", ["Quando o portal retornar, priorize Aging mais crítico.", "Registre evidências.", "Comunique liderança e CSs se houver risco ao cliente."]]], "practice": ["Use para decidir se é problema individual ou instabilidade geral.", "Sempre documente evidências."], "related": ["Bradesco", "Aging Incorreto", "Base de Tratativas"]}, "Problemas de Envio de Arquivos": {"sub": "S3 e Kleopatra", "lead": "Problemas em S3 ou Kleopatra podem impedir envio, criptografia, leitura ou processamento de arquivos no fluxo Citi/Foundever.", "sections": [["Quando escalar", ["O envio não puder ser realizado.", "O envio dos arquivos estiver comprometido.", "Existirem múltiplos usuários impactados.", "Houver risco de atraso na devolutiva."]], ["Como pensar", ["Utilitários gera o arquivo.", "Kleopatra protege/criptografa.", "S3 transporta/envia.", "Se uma etapa falha, o processamento pode ser impactado."]], ["Boas práticas", ["Confirmar envio.", "Registrar evidências.", "Consultar e-mails sobre indisponibilidades.", "Observar padrões quando muitos arquivos apresentam problema."]]], "practice": ["Use para fluxos Citi/Foundever.", "Valide em qual etapa falhou antes de escalar."], "related": ["Citi", "Foundever / Sitel", "S3 / Kleopatra", "Geração de Arquivo TXT"]}, "S3 / Kleopatra": {"sub": "Segurança e envio", "lead": "No fluxo Citi, Kleopatra realiza criptografia e S3 realiza envio/recebimento dos arquivos para Foundever.", "sections": [["Kleopatra", ["Criptografa arquivos para garantir proteção das informações transmitidas."]], ["S3", ["Canal utilizado para envio e recebimento dos arquivos operacionais."]], ["Pontos de atenção", ["Falhas no S3 impedem envio/processamento.", "Falhas no Kleopatra podem impedir leitura do arquivo.", "Comunicações por e-mail ajudam a acompanhar manutenções e problemas."]]], "practice": ["Use como apoio ao fluxo Citi.", "Registre evidências de envio e criptografia."], "related": ["Citi", "Foundever / Sitel", "Problemas de Envio de Arquivos"]}, "Cartão Não Cadastrado": {"sub": "Cadastro no Benner/BKO", "lead": "Ocorre quando o pedido e a cobrança foram identificados, mas o cartão não está disponível para vinculação ou há divergência no cadastro.", "sections": [["Como identificar", ["Pedido localizado.", "Cobrança identificada.", "Cartão não disponível para vinculação.", "Divergências relacionadas ao cadastro do cartão."]], ["Possíveis causas", ["Cartão ainda não cadastrado no Benner.", "Novo cartão criado para o cliente sem cadastro realizado.", "Alteração de cartão não ocorreu em todos os sistemas envolvidos.", "Cartão cadastrado em um BKO, mas não no BKO utilizado na transação da venda."]], ["Como resolver", ["Validar em qual BKO a transação ocorreu.", "Garantir que o cartão esteja cadastrado no ambiente correspondente.", "Caso o cadastro não exista ou esteja incorreto, solicitar cadastro no Benner para regularização.", "Sempre há um analista pré-definido para cadastro de cartões."]], ["Quando escalar", ["Cadastro não puder ser regularizado.", "Existir risco de atraso para o cliente por problema no cadastro."]]], "practice": ["Use como caso real validado, especialmente BKO correto.", "Não trate como hipótese genérica: confirme ambiente e cadastro."], "related": ["Base de Tratativas", "Benner", "Caso Real — Cartão Não Cadastrado no BKO Correto"]}, "Caso Real — Cartão Não Cadastrado no BKO Correto": {"sub": "Caso real validado", "lead": "Caso real preservado porque representa uma situação operacional concreta: o cartão podia estar cadastrado em um BKO, mas não no BKO utilizado na venda.", "sections": [["Cenário", ["Pedido localizado e cobrança identificada.", "Cartão não disponível para vinculação no ambiente correto.", "Divergência relacionada ao cadastro do cartão."]], ["Investigação", ["Validar em qual BKO ocorreu a transação.", "Confirmar se o cartão está cadastrado no BKO utilizado.", "Verificar necessidade de regularização no Benner."]], ["Solução", ["Solicitar cadastro/regularização ao analista responsável.", "Registrar evidências e acompanhar conclusão."]], ["Aprendizado", ["Nem todo cartão não cadastrado significa ausência total de cadastro.", "Pode existir cadastro em ambiente diferente do utilizado na transação."]]], "practice": ["Use para treinar raciocínio operacional com base em caso real, não hipótese."], "related": ["Cartão Não Cadastrado", "Benner", "Base de Tratativas"]}, "Grande Volume de Pendências": {"sub": "Caso real", "lead": "Durante um fechamento, a conciliadora encaminhou volume de pendências muito superior ao habitual para diversos clientes, parecendo inicialmente um problema operacional em massa.", "sections": [["O que foi identificado", ["Pedidos lançados.", "Valores corretos.", "Cartões corretos.", "Dados compatíveis com as cobranças.", "Mesmo assim, despesas permaneciam pendentes."]], ["Investigação", ["Diversos casos semelhantes foram analisados.", "As pendências apresentavam o mesmo comportamento.", "O padrão indicava que o problema não estava nos pedidos."]], ["Causa raiz", ["Falha no processamento dos arquivos utilizados para conciliação automática.", "Informações corretas não estavam sendo conciliadas conforme esperado."]], ["Solução", ["Evidências reunidas.", "Casos comparados.", "Conciliadora acionada.", "Processamento revisado."]], ["Aprendizado", ["Quando muitos casos corretos apresentam o mesmo comportamento, o problema pode não estar na análise individual.", "Antes de tratar centenas de pendências manualmente, procure identificar padrões."]]], "practice": ["Use como caso real de análise por padrão.", "Conecte com Montanari, Lições Aprendidas e Base de Tratativas."], "related": ["Montanari", "Lições Aprendidas", "Base de Tratativas", "Aging Incorreto"]}, "Casos Reais": {"sub": "Biblioteca de aprendizado", "lead": "Casos reais não são problemas possíveis; são situações que realmente aconteceram e ensinam como pensar, investigar e resolver.", "sections": [["Casos preservados", ["Pedido Não Localizado", "Valor Divergente", "Ausência de Dados Gerenciais", "Conciliação Automática Não Realizada", "Arquivo TXT com Erro", "Cartão Não Cadastrado no BKO Correto", "Problemas no Portal Bradesco", "Prévia Não Recebida", "Problemas S3/Kleopatra", "Grande Volume de Pendências"]], ["Critério de qualidade", ["Um caso real precisa ter contexto, sintoma, investigação, causa, solução e aprendizado.", "Não incluir caso teórico que não tenha ocorrido na operação."]], ["Remoção validada", ["Remover Caso Real — Pedido Existia, Mas Não Estava Integrado, por não refletir um caso validado."]]], "practice": ["Use para ensinar raciocínio operacional.", "Cada caso deve reduzir retrabalho futuro."], "related": ["Grande Volume de Pendências", "Caso Real — Cartão Não Cadastrado no BKO Correto", "Lições Aprendidas", "Base de Tratativas"]}, "Como Pensar Como um Analista": {"sub": "Raciocínio operacional", "lead": "O maior erro dos novos analistas é tentar encontrar rapidamente a resposta. Na Conciliação, o mais importante é fazer as perguntas corretas.", "sections": [["Perguntas essenciais", ["A cobrança realmente existe? Validar valor, data, cartão e fornecedor.", "Existe um pedido vinculado? Usar SQL Server, WEBTES e SmartOperations quando aplicável.", "O pedido está correto? Validar valor, companhia/hotel, cartão, autorização e dados gerenciais.", "O pedido deveria conciliar automaticamente? Investigar TXT, processamento, cadastro de cartão e integrações.", "Existe necessidade de tratativa? Identificar se depende da operação, outra área, conciliadora, banco ou fornecedor."]], ["Regra de ouro", ["Nunca comece procurando o erro.", "Comece entendendo o fluxo.", "Quando o fluxo é compreendido, a maioria dos problemas se torna mais fácil de identificar."]], ["Analista de alta performance", ["Um bom analista resolve problemas.", "Um excelente analista identifica rapidamente em qual etapa do fluxo o problema aconteceu."]]], "practice": ["Use no onboarding e antes da Base de Tratativas.", "Esta página ensina raciocínio, não procedimento decorado."], "related": ["Base de Tratativas", "Qual Sistema Eu Uso?", "Ecossistema Operacional", "Lições Aprendidas"]}, "SQL Academy": {"sub": "Autonomia analítica", "lead": "O SQL se tornou uma das ferramentas mais importantes para a Conciliação porque permite localizar informações que seriam difíceis ou demoradas nos sistemas tradicionais.", "sections": [["Por que existe", ["A operação gera milhares de registros diariamente.", "Localizar manualmente nem sempre é viável.", "SQL acelera consultas, extrações e investigações."]], ["Como ajuda", ["Localização de pedidos.", "Extração de informações.", "Identificação de divergências.", "Apoio às análises.", "Investigações operacionais."]], ["Quando usar", ["Preciso localizar pedido → SQL.", "Preciso validar informações → SQL.", "Preciso extrair dados → SQL.", "Preciso investigar divergência → SQL."]], ["Níveis de aprendizado", ["Básico: consulta, localizar informações e interpretar resultados.", "Intermediário: filtros, cruzamento e investigações complexas.", "Avançado: otimização, análises e apoio à tomada de decisão."]], ["Objetivo", ["Não é transformar analistas em desenvolvedores.", "É dar acesso às informações necessárias para análises mais rápidas, completas e assertivas."]]], "practice": ["Comece pelos conceitos básicos se nunca usou SQL.", "Conecte SQL com casos reais e localização de pedido."], "related": ["Qual Sistema Eu Uso?", "Localizar Pedido", "Jornada do Analista", "Trilha de Desenvolvimento"]}, "IA na Conciliação": {"sub": "Tecnologia com responsabilidade", "lead": "A IA pode acelerar análises, organizar informações e auxiliar na construção de conhecimento, mas não substitui validação operacional nem raciocínio do analista.", "sections": [["Onde ajuda", ["Organizar informações.", "Resumir conteúdos extensos.", "Estruturar documentações.", "Criar treinamentos.", "Revisar procedimentos.", "Apoiar estudos.", "Auxiliar na interpretação de cenários."]], ["Onde não deve atuar sozinha", ["Validações operacionais.", "Análises financeiras.", "Tomadas de decisão críticas.", "Confirmações nos sistemas oficiais."]], ["Perguntas de validação", ["Isso faz sentido para a operação?", "A informação foi validada?", "Existe evidência?", "Os sistemas confirmam?"]], ["Erros comuns", ["Aceitar respostas sem validação.", "Substituir análise por resposta rápida.", "Ignorar contexto operacional."]], ["Futuro", ["Profissionais que combinam conhecimento operacional, capacidade analítica e tecnologia tendem a gerar mais impacto."]]], "practice": ["Use IA como aliada para organizar e acelerar, nunca como fonte única de verdade."], "related": ["SQL Academy", "Governança do Conhecimento", "Trilha de Desenvolvimento", "Lições Aprendidas"]}, "Trilha de Desenvolvimento": {"sub": "Onboarding e autonomia", "lead": "A trilha desenvolve conhecimentos operacionais, analíticos e tecnológicos. Crescimento não acontece só pelo tempo de experiência, mas pela capacidade de aprender, compartilhar e gerar resultado.", "sections": [["Primeiros 30 dias", ["Conceitos operacionais: pendências, inconsistências, ausências, cortes, prévias, aging e divergências.", "Bancos: Bradesco, Itaú, Santander, Citi.", "Conciliadoras: Montanari, Foundever, BTC e Cateno.", "Ecossistema: SQL Server, WEBTES, VMWEB, SmartOperations e Utilitários.", "Resultado: compreender o fluxo e acompanhar análises."]], ["Primeiros 60 dias", ["Investigações.", "Localização de pedidos.", "Análise de divergências.", "Tratativas internas e externas.", "Consultas operacionais e OBTs.", "SQL básico.", "Resultado: realizar análises com menor acompanhamento."]], ["Primeiros 90 dias", ["Casos complexos.", "Cartões não cadastrados.", "Divergências financeiras.", "Problemas de processamento.", "Aging crítico.", "Priorização, gestão do tempo e padrões.", "Resultado: autonomia na maior parte das atividades."]], ["Competências", ["Técnicas: SQL, Excel, IA e conhecimento operacional.", "Comportamentais: curiosidade, organização, comunicação, capacidade analítica, colaboração e adaptabilidade."]]], "practice": ["Use como trilha oficial de onboarding e evolução.", "Conecte com Hall da Evolução e SQL Academy."], "related": ["Hall da Evolução", "Jornada do Analista", "SQL Academy", "IA na Conciliação"]}, "Jornada do Analista": {"sub": "Primeiros passos", "lead": "A Jornada do Analista orienta novos colaboradores na lógica operacional, sistemas e forma de raciocínio necessária para análises de conciliação.", "sections": [["Dia 1 e 2", ["Conhecer Copastur, treinamentos obrigatórios, estrutura da área, processos e introdução à Conciliação Automática."]], ["Dia 3", ["Introdução ao SQL, consultas básicas, extração, estrutura Benner, SQL Server e Benner."]], ["Dia 4", ["Bancos, conciliadoras e arquivos: Bradesco, Itaú, Santander, Citi, Banco do Brasil; Montanari, Foundever, BTC, Cateno; TXT, layouts e processamento."]], ["Dia 5", ["Tratativas e análises: pendências, ausências, inconsistências, divergências financeiras e gerenciais."]], ["Dia 10", ["Operação Santander e Itaú: planilhas, localização de pedidos, validação, tratativas e retorno para conciliadora."]], ["Dia 20", ["Operação Bradesco: portal, pendências, ausências, aging, cortes e prazos."]], ["Dia 30", ["Operação completa, análises, tratativas, priorização e comunicação."]]], "practice": ["Use para acolher novos colaboradores e mostrar caminho claro de aprendizado."], "related": ["Trilha de Desenvolvimento", "Como Pensar Como um Analista", "Mapa de Conhecimento da Academia"]}, "Hall da Evolução": {"sub": "Crescimento profissional", "lead": "O desenvolvimento é construído com experiência, aprendizado contínuo e adaptação. O objetivo é desenvolver autonomia, conhecimento e capacidade de gerar valor.", "sections": [["Primeiros dias", ["Conhecer conceitos básicos, bancos, conciliadoras, fluxos e sistemas."]], ["Primeiros 30 dias", ["Localização de pedidos, interpretação de pendências, tratativas básicas e principais sistemas."]], ["Primeiros 90 dias", ["Investigações complexas, priorização, interpretação de cenários e identificação de padrões."]], ["Seis meses", ["Compartilhar conhecimento, apoiar novos colaboradores, sugerir melhorias e desenvolver técnica."]], ["Um ano ou mais", ["Visão sistêmica, capacidade analítica, desenvolvimento de pessoas, gestão do conhecimento e inovação."]], ["Verdadeiro crescimento", ["Não é só tempo de empresa; é curiosidade, vontade de aprender e capacidade de compartilhar conhecimento."]]], "practice": ["Use como narrativa de carreira e motivação dentro da Academia."], "related": ["Trilha de Desenvolvimento", "Legado da Conciliação", "Governança do Conhecimento"]}, "Lições Aprendidas": {"sub": "Aprendizado da operação", "lead": "Lições aprendidas registram experiências que surgiram da prática, investigação e resolução de problemas reais.", "sections": [["Lições principais", ["Antes de escalar, investigue.", "Procure padrões.", "Nem toda divergência está no pedido: considere processamento, cadastro de cartões, banco e conciliadora.", "Aging representa prioridade.", "Comunicação também resolve problemas.", "Conhecimento compartilhado vale mais do que conhecimento guardado.", "A melhor ferramenta continua sendo o raciocínio."]], ["Conclusão", ["Os melhores profissionais não são os que decoram processos, mas os que entendem a operação, aprendem continuamente e compartilham conhecimento."]]], "practice": ["Use após casos reais e problemas recorrentes.", "Transforme novas situações em lições quando gerarem aprendizado."], "related": ["Casos Reais", "Grande Volume de Pendências", "Como Pensar Como um Analista", "Governança do Conhecimento"]}, "Governança do Conhecimento": {"sub": "Academia viva", "lead": "Conhecimento só gera valor quando permanece acessível, atualizado e compartilhado. A Academia deve ser vista como um ambiente vivo de aprendizado e evolução contínua.", "sections": [["Objetivo", ["Garantir que o conhecimento da operação permaneça acessível independentemente de mudanças de equipe, processos ou ferramentas."]], ["O que documentar", ["Novos processos.", "Mudanças operacionais.", "Particularidades de clientes.", "Casos recorrentes.", "Lições aprendidas.", "Melhorias implementadas.", "Novas tecnologias utilizadas."]], ["Quando atualizar", ["Novo banco: documentar.", "Nova conciliadora: documentar.", "Novo sistema: documentar.", "Nova tratativa recorrente: documentar.", "Mudança relevante de processo: documentar."]], ["Responsabilidade compartilhada", ["A manutenção do conhecimento não deve ser responsabilidade de uma única pessoa.", "Todos podem contribuir.", "Compartilhar conhecimento fortalece a operação."]], ["Resultado esperado", ["Transformar conhecimento operacional em patrimônio da empresa."]]], "practice": ["Use como regra de manutenção da Academia.", "Toda melhoria relevante deve virar conhecimento acessível."], "related": ["Legado da Conciliação", "Maturidade da Área", "Lições Aprendidas", "Mapa de Conhecimento da Academia"]}, "Legado da Conciliação": {"sub": "Conhecimento que permanece", "lead": "A Conciliação é composta por sistemas, bancos, arquivos e tratativas, mas nada disso funciona sozinho. Por trás de cada análise existe conhecimento, experiência e pessoas.", "sections": [["O conhecimento precisa permanecer", ["Casos complexos foram resolvidos.", "Processos foram aprimorados.", "Novas formas de trabalhar foram desenvolvidas.", "A Academia garante que esse conhecimento esteja disponível para quem vier depois."]], ["Autonomia", ["Operação madura não depende de uma única pessoa.", "Possui processos documentados, conhecimento compartilhado, aprendizado contínuo e profissionais preparados para ensinar e aprender."]], ["Compartilhar conhecimento", ["Conhecimento guardado ajuda uma pessoa.", "Conhecimento compartilhado ajuda uma equipe inteira.", "Ensine, documente, compartilhe e apoie quem está aprendendo."]], ["O que realmente importa", ["Relatórios serão substituídos, sistemas atualizados e processos revisados.", "Conhecimento compartilhado continuará gerando valor.", "O impacto de um profissional também é medido pelo que ele ensina e deixa para quem vem depois."]]], "practice": ["Use para encerrar apresentação executiva com propósito e emoção.", "Conecta cultura, aprendizado e continuidade."], "related": ["Governança do Conhecimento", "Maturidade da Área", "Hall da Evolução", "Mapa de Conhecimento da Academia"]}, "Hub Operacional": {"sub": "Fluxos, sistemas e ecossistema", "lead": "O Hub Operacional concentra o que o analista precisa para entender e executar o dia a dia: fluxos, sistemas, bancos, conciliadoras e caminhos de análise.", "sections": [["Conteúdos que vivem aqui", ["Arquitetura da Operação", "Fluxo Aéreo", "Fluxo Hotel/Terrestre", "Qual Sistema Eu Uso?", "Ecossistema Operacional", "Bancos", "Conciliadoras", "Sistemas Utilizados"]], ["Pergunta que responde", ["Como a operação funciona?", "Qual caminho seguir?", "Qual sistema usar?", "Qual banco/conciliadora está envolvido?"]]], "practice": ["Use como central operacional de consulta diária."], "related": ["Arquitetura da Operação", "Qual Sistema Eu Uso?", "Bancos", "Conciliadoras"]}, "Hub Conhecimento": {"sub": "FAQ, casos e lições", "lead": "O Hub Conhecimento transforma dúvidas, tratativas e experiências em aprendizado reutilizável.", "sections": [["Conteúdos que vivem aqui", ["FAQ da Conciliação", "Base de Tratativas", "Casos Reais", "Lições Aprendidas", "Processos Especiais"]], ["Pergunta que responde", ["Como resolver?", "O que significa?", "Isso já aconteceu antes?", "O que aprendemos?"]]], "practice": ["Use quando o usuário precisa de respaldo para decidir e agir."], "related": ["FAQ da Conciliação", "Base de Tratativas", "Casos Reais", "Lições Aprendidas"]}, "Hub Desenvolvimento": {"sub": "Trilhas e autonomia", "lead": "O Hub Desenvolvimento carrega a essência da Academia: formar pessoas, gerar autonomia e estimular evolução contínua.", "sections": [["Conteúdos que vivem aqui", ["Jornada do Analista", "Trilha de Desenvolvimento", "Hall da Evolução", "SQL Academy", "IA na Conciliação", "Como Pensar Como um Analista"]], ["Pergunta que responde", ["Como começo?", "Como evoluo?", "Como ganho autonomia?", "Como uso tecnologia com responsabilidade?"]]], "practice": ["Use para onboarding, capacitação e desenvolvimento profissional."], "related": ["Jornada do Analista", "Trilha de Desenvolvimento", "SQL Academy", "IA na Conciliação"]}, "Processos Especiais": {"sub": "Individualidades e exceções documentadas", "lead": "Processos especiais são particularidades de clientes, bancos ou fluxos que não devem ficar na memória informal.", "sections": [["Itens mapeados", ["Norte Energia e Positivo: ajustes/reconciliação de campos gerenciais.", "Grupo Carrefour/Antigo BIG: rateio de centro de custo.", "LATAM: frente em implantação.", "Bradesco: campos gerenciais, fatura fechada e portal.", "Citi: S3, Kleopatra e segurança."]], ["Ajuste importante", ["Envio de arquivo TXT não deve ser classificado como processo especial por si só; é parte do fluxo operacional."]], ["Quando documentar", ["Nova particularidade de cliente.", "Nova tratativa recorrente.", "Mudança relevante de processo.", "Novo banco, conciliadora ou sistema."]]], "practice": ["Use para preservar individualidades que geram risco se ficarem apenas na cabeça das pessoas."], "related": ["Governança do Conhecimento", "Bradesco", "Citi", "LATAM", "Base de Tratativas"]}};
+const aliases = {"Localizar Pedido": "Qual Sistema Eu Uso?", "SmartOperations": "Qual Sistema Eu Uso?", "WEBTES": "Qual Sistema Eu Uso?", "Benner": "Sistemas Utilizados", "Utilitários": "Sistemas Utilizados", "Kleopatra": "S3 / Kleopatra", "S3": "S3 / Kleopatra", "Geração de Arquivo TXT": "Sistemas Utilizados", "Ausência": "FAQ da Conciliação", "Pendência": "FAQ da Conciliação", "Aging": "Aging Incorreto", "LATAM": "Processos Especiais", "BIG": "Processos Especiais", "Norte Energia": "Processos Especiais", "Positivo": "Processos Especiais", "Cortes": "Prévia Não Recebida", "Prévia": "Prévia Não Recebida", "IA": "IA na Conciliação", "Mapa": "Mapa de Conhecimento da Academia", "Problemas S3/Kleopatra": "Problemas de Envio de Arquivos", "Arquivo TXT com Erro": "Problemas de Envio de Arquivos"};
+function norm(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim()}
+function renderSections(data){
+  return `<div class="final-modal-body">
+    <p class="final-lead">${data.lead||""}</p>
+    ${(data.sections||[]).map(([title,items])=>{
+      const lower=String(title).toLowerCase();
+      const cls=(lower.includes("atenção")||lower.includes("crítica")||lower.includes("quando escalar")||lower.includes("aging -4"))?" final-alert":"";
+      return `<div class="final-section${cls}"><h4>${title}</h4>${Array.isArray(items)?`<ul>${items.map(x=>`<li>${x}</li>`).join("")}</ul>`:`<p>${items}</p>`}</div>`
+    }).join("")}
+  </div>`;
+}
+function renderPractice(data){
+  const p=data.practice||["Use este conteúdo como referência operacional e navegue pelos relacionados."];
+  return `<ul>${p.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+}
+function relatedChips(list){
+  const rel=list&&list.length?list:["Mapa de Conhecimento da Academia","Hub Operacional","FAQ da Conciliação","Base de Tratativas"];
+  return rel.map(x=>`<button class="related-chip" onclick="openModal('${String(x).replace(/'/g,"\\'")}');">${x}</button>`).join("");
+}
+window.openModal=function(title,sub,text,practice,related){
+  const key=fc[title]?title:(aliases[title]||title);
+  const data=fc[key]||{sub:sub||"Academia da Conciliação",lead:text||"Conteúdo em estruturação. Use os relacionados para navegar pelo conhecimento consolidado.",sections:[["Como usar",["Consulte os conteúdos relacionados.","Se este item for recorrente, documente na Governança do Conhecimento."]]],practice:practice?[practice]:["Use como ponto de partida."],related:related?String(related).split("|"):["Mapa de Conhecimento da Academia","Base de Tratativas"]};
+  const titleEl=document.getElementById("modalTitle"), subEl=document.getElementById("modalSub"), textEl=document.getElementById("modalText"), practiceEl=document.getElementById("modalPractice"), relatedEl=document.getElementById("modalRelated");
+  if(titleEl) titleEl.textContent=key;
+  if(subEl) subEl.textContent=data.sub||sub||"Academia da Conciliação";
+  if(textEl) textEl.innerHTML=renderSections(data);
+  if(practiceEl) practiceEl.innerHTML=renderPractice(data);
+  if(relatedEl) relatedEl.innerHTML=relatedChips(data.related);
+  document.getElementById("modal").classList.add("open");
+};
+const finalIndex=Object.keys(fc).map(t=>{const d=fc[t];return {title:t,type:d.sub||"Academia da Conciliação",desc:d.lead||"",keys:norm([t,d.sub,d.lead,...(d.sections||[]).flat().flat(),...(d.related||[])].join(" "))}});
+window.searchKnowledge=function(q){
+  const box=document.getElementById("results");
+  if(!box)return;
+  const query=norm(q);
+  if(!query){box.style.display="none";box.innerHTML="";return}
+  const terms=query.split(" ").filter(Boolean);
+  const found=finalIndex.map(item=>{let score=terms.reduce((s,t)=>s+(item.keys.includes(t)?1:0),0); if(norm(item.title).includes(query))score+=5; return {...item,score}}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,14);
+  box.style.display="block";
+  if(!found.length){box.innerHTML=`<div class="no-results">Não encontrei esse termo exato. Tente: Bradesco, Aging, BTC, Montanari, Citi, S3, Kleopatra, pedido, autorização, cartão, prévia, FAQ ou sistemas.</div>`;return}
+  box.innerHTML=found.map(x=>`<div class="result-item" onclick="openModal('${x.title.replace(/'/g,"\\'")}')"><div class="result-icon">↗</div><div><strong>${x.title}</strong><small>${x.type} · ${x.desc.substring(0,150)}${x.desc.length>150?"...":""}</small></div><div>→</div></div>`).join("");
+};
+window.quickSearch=function(term){const input=document.getElementById("searchInput"); if(input)input.value=term; searchKnowledge(term);};
+window.fc=fc;
+})();
+</script>
+
+
+<script id="final-search-cases-patch">
+(function(){
+  const casosReais = {
+    "Casos Reais": {
+      sub:"Biblioteca de aprendizado real",
+      lead:"Casos Reais são situações concretas da operação que ajudam o analista a entender contexto, investigar corretamente, encontrar causa raiz e preservar o aprendizado para futuras análises.",
+      sections:[
+        ["Como um caso real deve ser registrado",["Contexto: o que estava acontecendo?","Sintoma: como o problema apareceu?","Investigação: quais sistemas e evidências foram consultados?","Causa raiz: onde estava o problema real?","Solução: o que foi feito para resolver?","Aprendizado: o que a equipe deve lembrar no futuro?"]],
+        ["Casos disponíveis",["Caso Real — Cartão Não Cadastrado no BKO Correto","Caso Real — Grande Volume de Pendências","Caso Real — Problemas no Portal Bradesco","Caso Real — Prévia Não Recebida","Caso Real — Problemas S3/Kleopatra","Caso Real — Pedido Não Localizado","Caso Real — Valor Divergente","Caso Real — Ausência de Dados Gerenciais","Caso Real — Arquivo TXT com Erro"]],
+        ["Critério de credibilidade",["Não cadastrar casos teóricos como se fossem reais.","Remover o caso Pedido Existia, Mas Não Estava Integrado, pois não estava validado como situação real.","Todo caso precisa ensinar uma forma de pensar, não apenas uma solução pontual."]]
+      ],
+      practice:["Use os casos reais para treinar raciocínio operacional.","Ao resolver uma situação relevante, registre como novo caso.","Conecte cada caso com FAQ, sistemas, banco, conciliadora e tratativa relacionada."],
+      related:["Caso Real — Cartão Não Cadastrado no BKO Correto","Caso Real — Grande Volume de Pendências","Caso Real — Problemas no Portal Bradesco","Caso Real — Prévia Não Recebida","Lições Aprendidas"]
+    },
+    "Caso Real — Cartão Não Cadastrado no BKO Correto": {
+      sub:"Caso real validado",
+      lead:"Este caso mostra que uma cobrança pode estar correta, o pedido pode existir, mas o cartão não estar disponível no BKO utilizado na transação da venda.",
+      sections:[
+        ["Contexto",["Pedido localizado.","Cobrança identificada.","Cartão não disponível para vinculação no ambiente utilizado.","Dúvida inicial: cartão inexistente ou cadastro em ambiente incorreto?"]],
+        ["Investigação",["Validar em qual BKO a transação ocorreu.","Verificar se o cartão estava cadastrado em outro BKO.","Confirmar se o cadastro no Benner estava disponível para o ambiente correto.","Reunir evidências da cobrança, pedido e cadastro."]],
+        ["Causa raiz",["O cartão podia estar cadastrado em um BKO, mas não no BKO utilizado na transação da venda."]],
+        ["Solução",["Solicitar cadastro ou regularização do cartão no Benner para o BKO correto.","Acionar o analista responsável pelo cadastro de cartões.","Acompanhar regularização antes de concluir a tratativa."]],
+        ["Aprendizado",["Nem todo 'cartão não cadastrado' significa ausência total de cadastro.","É obrigatório validar o ambiente/BKO da transação.","Esse caso evita retrabalho e conclusões precipitadas."]]
+      ],
+      practice:["Use quando pedido e cobrança existem, mas o cartão não aparece para vinculação.","Não conclua antes de validar o BKO correto."],
+      related:["Cartão Não Cadastrado","Benner","Base de Tratativas","Qual Sistema Eu Uso?"]
+    },
+    "Caso Real — Grande Volume de Pendências": {
+      sub:"Caso real de análise por padrão",
+      lead:"Durante um fechamento, a conciliadora encaminhou um volume de pendências muito acima do habitual para diversos clientes, gerando a impressão inicial de problema operacional em massa.",
+      sections:[
+        ["Contexto",["Volume de pendências superior ao padrão.","Diversos clientes afetados.","Pendências pareciam, à primeira vista, demandar análise individual."]],
+        ["Sintoma",["Pedidos estavam lançados.","Valores estavam corretos.","Cartões estavam corretos.","Dados eram compatíveis com as cobranças.","Mesmo assim, as despesas permaneciam pendentes."]],
+        ["Investigação",["Comparar vários casos antes de tratar individualmente.","Identificar se o comportamento era repetido.","Validar se o problema estava no pedido ou no processamento.","Reunir evidências para acionar a conciliadora."]],
+        ["Causa raiz",["Falha no processamento dos arquivos utilizados para conciliação automática.","Informações corretas não estavam sendo conciliadas como esperado."]],
+        ["Solução",["Agrupar evidências.","Acionar a conciliadora.","Solicitar revisão do processamento.","Acompanhar retorno antes de executar tratativas manuais em massa."]],
+        ["Aprendizado",["Quando muitos casos corretos apresentam o mesmo comportamento, o problema pode estar no processamento, não em cada pedido.","Procure padrões antes de tratar centenas de pendências individualmente."]]
+      ],
+      practice:["Use para ensinar análise por padrão.","Antes de escalar ou tratar manualmente, valide se existe causa comum."],
+      related:["Montanari","Lições Aprendidas","Base de Tratativas","Aging Incorreto"]
+    },
+    "Caso Real — Problemas no Portal Bradesco": {
+      sub:"Caso real de acesso/instabilidade",
+      lead:"O Portal Bradesco é crítico para consulta, extração e devolutiva. Quando apresenta instabilidade, a operação pode ter impacto em prazos, aging e retorno ao cliente.",
+      sections:[
+        ["Contexto",["Analista tenta acessar o Portal Bradesco.","Portal apresenta erro, lentidão ou indisponibilidade.","Pendências ou ausências podem não ser consultadas ou devolvidas."]],
+        ["Investigação",["Validar se outros conciliadores conseguem acessar normalmente.","Verificar se outros analistas apresentam o mesmo comportamento.","Identificar se o problema está na máquina, rede ou ambiente Bradesco.","Registrar prints, horário e mensagem de erro."]],
+        ["Causa provável",["Se múltiplos usuários estiverem impactados, existe maior probabilidade de indisponibilidade ou instabilidade do portal."]],
+        ["Solução",["Registrar evidências.","Comunicar liderança se houver risco operacional.","Acionar suporte/banco quando necessário.","Quando o portal retornar, priorizar agings mais críticos."]],
+        ["Aprendizado",["Nem todo problema de acesso é individual.","Validar impacto coletivo ajuda a definir urgência e comunicação.","Aging crítico deve orientar a retomada das tratativas."]]
+      ],
+      practice:["Use quando o Portal Bradesco apresentar falha.","Sempre valide se o problema é individual ou coletivo."],
+      related:["Bradesco","Aging Incorreto","Problemas no Portal Bradesco","Base de Tratativas"]
+    },
+    "Caso Real — Prévia Não Recebida": {
+      sub:"Caso real de comunicação com conciliadora",
+      lead:"A prévia não recebida ocorre quando existe expectativa de envio pela conciliadora, mas a planilha ou arquivo não chega dentro do prazo habitual.",
+      sections:[
+        ["Contexto",["A operação aguardava prévia para antecipar análise.","O prazo habitual foi ultrapassado.","A ausência da prévia podia impactar previsibilidade e volume no fechamento."]],
+        ["Investigação",["Verificar caixa de entrada.","Verificar pastas de e-mail.","Consultar histórico de comunicações.","Confirmar se outro analista recebeu o arquivo.","Validar se houve comunicação prévia da conciliadora."]],
+        ["Possível causa",["Volume elevado de processamento pode impactar prazos de disponibilização pela conciliadora."]],
+        ["Solução",["Entrar em contato com a conciliadora.","Registrar tentativa de contato.","Acompanhar retorno.","Escalar se permanecer sem envio após contato."]],
+        ["Aprendizado",["Prévia reduz acúmulo no fechamento.","Acompanhamento de e-mail e histórico evita retrabalho e cobrança duplicada."]]
+      ],
+      practice:["Use quando uma prévia esperada não chegar.","Antes de escalar, confirme histórico de comunicação."],
+      related:["Prévia Não Recebida","Montanari","Itaú","Santander","Cortes"]
+    },
+    "Caso Real — Problemas S3/Kleopatra": {
+      sub:"Caso real de envio seguro de arquivos",
+      lead:"Problemas no S3 ou Kleopatra podem comprometer o envio, criptografia ou processamento dos arquivos do fluxo Citi/Foundever.",
+      sections:[
+        ["Contexto",["Fluxo Citi exige geração, criptografia e envio seguro de arquivos.","Utilitários gera o arquivo.","Kleopatra protege/criptografa.","S3 transporta/envia para processamento."]],
+        ["Sintoma",["Arquivo não pôde ser enviado.","Arquivo criptografado apresentou falha.","S3 indisponível ou com erro.","Risco de atraso na devolutiva."]],
+        ["Investigação",["Identificar em qual etapa ocorreu a falha: geração, criptografia ou envio.","Validar se múltiplos usuários foram impactados.","Consultar e-mails sobre instabilidade.","Registrar evidências."]],
+        ["Solução",["Corrigir etapa quando possível.","Escalar quando envio estiver comprometido.","Acionar responsáveis se houver múltiplos usuários impactados.","Comunicar risco de atraso quando necessário."]],
+        ["Aprendizado",["No fluxo Citi, segurança da informação é parte do processo operacional.","Falhas em S3/Kleopatra impactam conciliação, não apenas tecnologia."]]
+      ],
+      practice:["Use para fluxo Citi/Foundever.","Sempre identifique se o problema está no Utilitários, Kleopatra ou S3."],
+      related:["Citi","Foundever / Sitel","SFTP","S3 / Kleopatra","Problemas de Envio de Arquivos"]
+    },
+    "Caso Real — Pedido Não Localizado": {
+      sub:"Caso real de investigação",
+      lead:"Pedido não localizado exige seguir uma ordem lógica de consulta, sem pular etapas e sem concluir ausência antes de validar sistemas e evidências.",
+      sections:[
+        ["Contexto",["Existe cobrança ou transação que precisa ser vinculada a um pedido.","O pedido não aparece inicialmente nas consultas realizadas."]],
+        ["Investigação",["Consultar SQL Server.","Se não encontrar, mas houver localizador, consultar WEBTES.","Validar VMWEB/Benner quando necessário.","Se for maquineta Copastur, usar SmartOperations como ferramenta complementar para identificar dados da transação."]],
+        ["Ajuste validado",["SmartOperations não substitui consultas tradicionais.","O pedido de maquineta também pode ser localizado no SQL.","SmartOperations ajuda quando há dificuldade para localizar o pedido ou validar a origem da cobrança."]],
+        ["Aprendizado",["O analista precisa afunilar a investigação: SQL → WEBTES quando há localizador → SmartOperations somente em casos de maquineta Copastur."]]
+      ],
+      practice:["Use quando a pessoa disser: não achei o pedido.","Siga a ordem de consulta antes de escalar."],
+      related:["Qual Sistema Eu Uso?","SQL Academy","WEBTES","SmartOperations","Falta de Autorização"]
+    },
+    "Caso Real — Valor Divergente": {
+      sub:"Caso real de divergência financeira",
+      lead:"Valor divergente ocorre quando o valor da cobrança, pedido ou informação conciliada não bate com o esperado, exigindo validação antes da tratativa.",
+      sections:[
+        ["Contexto",["Pedido localizado.","Cobrança identificada.","Valor apresentado difere do esperado para conciliação."]],
+        ["Investigação",["Validar valor da cobrança.","Validar valor do pedido.","Consultar histórico e possíveis ajustes.","Confirmar se há diferença por taxa, reprocessamento, cancelamento ou nova cobrança.","Reunir evidências antes de acionar outra área."]],
+        ["Solução",["Classificar se a divergência é financeira ou operacional.","Acionar área/conciliadora/banco conforme causa identificada.","Registrar evidências e retorno."]],
+        ["Aprendizado",["Nem toda divergência de valor está no pedido; pode envolver processamento, banco, conciliadora ou fornecedor."]]
+      ],
+      practice:["Use quando houver diferença de valor entre cobrança e pedido.","Não escale antes de validar histórico e evidência."],
+      related:["Base de Tratativas","Débito Duplicado","Lições Aprendidas"]
+    },
+    "Caso Real — Ausência de Dados Gerenciais": {
+      sub:"Caso real de ausência",
+      lead:"A ausência de dados gerenciais acontece quando a despesa pode estar conciliada financeiramente, mas falta informação obrigatória para o cliente.",
+      sections:[
+        ["Contexto",["Despesa localizada.","Cobrança conciliável financeiramente.","Campo gerencial ausente ou incorreto."]],
+        ["Dados comuns",["Centro de custo.","Solicitante.","Projeto.","Motivo da viagem.","Departamento.","Matrícula.","Requisição."]],
+        ["Investigação",["Validar regra do cliente.","Verificar se o campo é transmitido pelo banco.","Confirmar se o dado existe no pedido.","Identificar se a ausência depende de ajuste interno ou limitação externa."]],
+        ["Aprendizado",["Clientes podem usar campos de formas diferentes.","No Bradesco, nem todos os campos preenchidos são necessariamente transmitidos ao cliente."]]
+      ],
+      practice:["Use quando a pendência não for valor, mas informação gerencial.","Conecte com regras do cliente e banco."],
+      related:["Ausência","Bradesco","Base de Tratativas","FAQ da Conciliação"]
+    },
+    "Caso Real — Arquivo TXT com Erro": {
+      sub:"Caso real de arquivo",
+      lead:"Arquivo TXT com erro pode comprometer processamento e gerar pendências que não refletem problema no pedido.",
+      sections:[
+        ["Contexto",["Arquivo TXT gerado para conciliação automática.","Após processamento, surgem erros ou pendências fora do padrão."]],
+        ["Investigação",["Validar geração do arquivo.","Confirmar banco, produto e conciliadora.","Verificar se o arquivo foi enviado corretamente.","Observar se há padrão em vários casos.","Consultar e-mails e evidências de envio."]],
+        ["Causa possível",["Falha no arquivo, envio, processamento ou layout pode impedir conciliação automática."]],
+        ["Aprendizado",["Antes de tratar item a item, confirme se o problema não está no arquivo ou processamento."]]
+      ],
+      practice:["Use quando vários casos parecem corretos, mas não conciliam.","Relacione com Utilitários, SFTP, S3 ou conciliadora envolvida."],
+      related:["Geração de Arquivo TXT","SFTP","Utilitários","Montanari","Citi"]
+    },
+    "SFTP": {
+      sub:"Transferência de arquivos",
+      lead:"SFTP é utilizado em fluxos de envio/recebimento de arquivos, especialmente em processos envolvendo conciliadoras e bancos como Montanari e Bradesco.",
+      sections:[
+        ["Quando aparece",["Envio ou recebimento de arquivos operacionais.","Fluxos envolvendo Montanari.","Arquivos Bradesco em pasta de rede/SFTP.","Situações em que o arquivo precisa trafegar de forma controlada."]],
+        ["Como analisar",["Confirmar se o arquivo foi gerado corretamente.","Confirmar se foi disponibilizado no local correto.","Validar data, banco, conciliadora e produto.","Registrar evidência do envio/recebimento."]],
+        ["Relacionamento com outros temas",["Arquivo TXT com erro.","Montanari.","Bradesco.","Geração de arquivos.","Processos especiais quando existir particularidade de cliente ou banco."]]
+      ],
+      practice:["Use quando pesquisar SFTP, arquivo, envio, pasta de rede ou Montanari.","Sempre confirme evidência do arquivo."],
+      related:["Montanari","Bradesco","Geração de Arquivo TXT","Caso Real — Arquivo TXT com Erro","Problemas de Envio de Arquivos"]
+    }
+  };
+
+  function mergeContent(){
+    window.fc = Object.assign(window.fc || {}, casosReais);
+    if(window.richContent) window.richContent = Object.assign(window.richContent, casosReais);
+  }
+
+  function normFinal(s){
+    return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();
+  }
+
+  function rebuildSearch(){
+    if(!window.fc) return;
+    const aliases = Object.assign(window.aliases || {}, {
+      "sftp":"SFTP",
+      "arquivo sftp":"SFTP",
+      "pasta de rede":"SFTP",
+      "envio sftp":"SFTP",
+      "arquivo txt":"Caso Real — Arquivo TXT com Erro",
+      "txt erro":"Caso Real — Arquivo TXT com Erro",
+      "kleopatra":"Caso Real — Problemas S3/Kleopatra",
+      "s3":"Caso Real — Problemas S3/Kleopatra",
+      "pedido nao localizado":"Caso Real — Pedido Não Localizado",
+      "pedido não localizado":"Caso Real — Pedido Não Localizado",
+      "valor divergente":"Caso Real — Valor Divergente",
+      "ausencia dados gerenciais":"Caso Real — Ausência de Dados Gerenciais",
+      "ausência dados gerenciais":"Caso Real — Ausência de Dados Gerenciais",
+      "cartao nao cadastrado":"Caso Real — Cartão Não Cadastrado no BKO Correto",
+      "cartão não cadastrado":"Caso Real — Cartão Não Cadastrado no BKO Correto",
+      "casos":"Casos Reais",
+      "caso real":"Casos Reais"
+    });
+    window.aliases = aliases;
+
+    const finalIndex = Object.keys(window.fc).map(t => {
+      const data = window.fc[t] || {};
+      const sections = (data.sections || []).flat().flat().join(" ");
+      const rel = (data.related || []).join(" ");
+      return {
+        title:t,
+        type:data.sub || "Academia da Conciliação",
+        desc:data.lead || "",
+        keys:normFinal([t,data.sub,data.lead,sections,rel].join(" "))
+      };
+    });
+
+    window.searchKnowledge = function(q){
+      const box=document.getElementById("results");
+      if(!box) return;
+      const query = normFinal(q);
+      if(!query){box.style.display="none"; box.innerHTML=""; return;}
+      const aliasKey = Object.keys(aliases).find(a => normFinal(a) === query || query.includes(normFinal(a)));
+      let found = [];
+      if(aliasKey && window.fc[aliases[aliasKey]]){
+        const t = aliases[aliasKey];
+        const d = window.fc[t];
+        found.push({title:t,type:d.sub||"Academia da Conciliação",desc:d.lead||"",score:99});
+      }
+      const terms=query.split(" ").filter(Boolean);
+      const scored=finalIndex.map(item=>{
+        let score = terms.reduce((s,t)=>s+(item.keys.includes(t)?1:0),0);
+        if(normFinal(item.title).includes(query)) score += 8;
+        if(item.keys.includes(query)) score += 3;
+        return {...item,score};
+      }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);
+      const seen = new Set(found.map(x=>x.title));
+      found = found.concat(scored.filter(x=>!seen.has(x.title))).slice(0,16);
+
+      box.style.display="block";
+      if(!found.length){
+        box.innerHTML=`<div class="no-results">Não encontrei esse termo exato. Tente: SFTP, Bradesco, Aging, BTC, Montanari, Citi, S3, Kleopatra, pedido, autorização, cartão, prévia, FAQ ou casos reais.</div>`;
+        return;
+      }
+      box.innerHTML = found.map(x=>`<div class="result-item" onclick="openModal('${x.title.replace(/'/g,"\\'")}')">
+        <div class="result-icon">↗</div>
+        <div><strong>${x.title}</strong><small>${x.type} · ${String(x.desc).substring(0,160)}${String(x.desc).length>160?"...":""}</small></div>
+        <div>→</div>
+      </div>`).join("");
+    };
+  }
+
+  mergeContent();
+  rebuildSearch();
+})();
+</script>
+
+</body>
+</html>
