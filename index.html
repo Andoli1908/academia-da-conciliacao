@@ -138,7 +138,7 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
 .atlas-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
 .atlas-head h3{font-size:30px;letter-spacing:-.05em;margin:0;line-height:1.05}
 .atlas-head p{margin:8px 0 0;color:#c8d7ff;font-weight:700;max-width:430px}
-.atlas-pill{border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.10);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.atlas-pill{border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.10);color:#fff;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;cursor:pointer}.atlas-pill:hover{background:rgba(255,255,255,.18);transform:translateY(-1px)}
 .atlas-center{margin:6px auto 4px;width:220px;min-height:150px;border-radius:34px;background:linear-gradient(135deg,#fff,#dff8ff);color:var(--blue-950);display:grid;place-items:center;text-align:center;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.32)}
 .atlas-center b{font-size:24px;letter-spacing:-.05em;line-height:1.05}
 .atlas-center span{display:block;margin-top:8px;font-size:11px;text-transform:uppercase;letter-spacing:.10em;color:var(--muted);font-weight:950}
@@ -288,6 +288,23 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
 .final-tagline{padding:14px 16px;border-radius:18px;background:#eef6ff;border:1px solid #dbeafe;color:var(--blue-950);font-weight:900}
 .result-item strong{font-size:16px}.result-item small{line-height:1.35}
 
+
+
+/* === Sprint UAU - Governança, Trilhas e Tour Guiado === */
+.footer{padding:18px 26px!important;font-size:13px;line-height:1.45;color:#667085!important;font-weight:700!important}
+.footer strong{display:block;color:var(--blue-950);font-size:14px;margin-bottom:2px}.footer .footer-line{display:block}.footer .footer-meta{display:block;font-size:12px;color:#7a8799;margin-top:2px}
+.nav-tour{font-size:14px;font-weight:900;color:var(--blue-800);padding:10px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer}.nav-tour:hover{background:#eef4ff}
+.updates-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.update-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:22px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden}.update-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 90% 0%,rgba(41,194,230,.12),transparent 30%);pointer-events:none}.update-date{font-size:12px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-700)}.update-card h3{margin:10px 0 8px;color:var(--blue-950);letter-spacing:-.04em}.update-card p{margin:0;color:var(--muted);font-weight:650}.update-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.update-chip{border-radius:999px;background:#eef6ff;color:var(--blue-800);font-size:11px;font-weight:950;padding:7px 10px}.update-chip.status{background:#ecfdf3;color:#087443}.update-note{margin-top:18px;border:1px dashed #c9d7ea;border-radius:20px;padding:14px 16px;color:#475467;font-weight:750;background:#fbfdff}
+.modal-back{float:left;border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.18);color:white;border-radius:999px;min-width:46px;height:46px;font-size:22px;font-weight:950;cursor:pointer;margin-right:14px;display:none;box-shadow:0 12px 28px rgba(0,0,0,.18);transition:.2s}.modal-back:hover{background:rgba(255,255,255,.28);transform:translateX(-3px)}.modal-back.show{display:inline-grid;place-items:center}.trail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.trail-step{border:1px solid var(--line);background:#fbfdff;border-radius:20px;padding:16px;cursor:pointer;transition:.2s}.trail-step:hover{transform:translateY(-3px);box-shadow:var(--shadow-soft);border-color:rgba(40,103,216,.35)}.trail-step b{display:block;color:var(--blue-950);font-size:16px}.trail-step span{display:block;color:var(--muted);font-size:13px;font-weight:700;margin-top:5px}.trail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+ .tour-overlay{position:fixed;inset:0;background:rgba(7,20,61,.58);z-index:9990;display:none;pointer-events:auto}.tour-overlay.open{display:block}
+.tour-spotlight{position:fixed;z-index:9991;border:4px solid rgba(41,194,230,.85);border-radius:28px;box-shadow:0 0 0 9999px rgba(7,20,61,.48),0 22px 70px rgba(41,194,230,.22);pointer-events:none;transition:all .35s cubic-bezier(.2,.8,.2,1);display:none}.tour-overlay.open .tour-spotlight{display:block}
+.tour-box{position:fixed;z-index:9992;width:min(350px,calc(100vw - 40px));max-height:calc(100vh - 40px);background:rgba(255,255,255,.97);border:1px solid rgba(255,255,255,.72);border-radius:30px;box-shadow:0 34px 90px rgba(0,0,0,.32);overflow:hidden;pointer-events:auto;transition:left .35s cubic-bezier(.2,.8,.2,1),right .35s cubic-bezier(.2,.8,.2,1),top .35s cubic-bezier(.2,.8,.2,1),transform .35s cubic-bezier(.2,.8,.2,1)}
+.tour-box.center{right:22px!important;left:auto!important;top:50%!important;bottom:auto!important;transform:translateY(-50%);width:min(390px,calc(100vw - 44px))}.tour-head{position:relative;background:linear-gradient(135deg,var(--blue-950),var(--blue-700));color:#fff;padding:20px 22px}.tour-head small{display:inline-flex;border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:7px 10px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;color:#dff8ff}.tour-head h3{font-size:28px;line-height:1;margin:12px 0 8px;letter-spacing:-.06em}.tour-head p{margin:0;color:#dfe9ff;font-weight:700}.tour-body{padding:20px 22px}.tour-body h4{font-size:21px;margin:0 0 8px;color:var(--blue-950);letter-spacing:-.04em}.tour-body p{color:#475467;font-weight:750;margin:0;line-height:1.5}.tour-progress{display:flex;gap:6px;margin:18px 0}.tour-dot{height:7px;flex:1;border-radius:999px;background:#e6ebf2}.tour-dot.active{background:linear-gradient(90deg,var(--cyan),var(--blue-600))}.tour-actions{display:flex;justify-content:space-between;gap:10px;align-items:center}.tour-actions button{border:0;border-radius:16px;padding:13px 17px;font-weight:950;cursor:pointer}.tour-actions .ghost{background:#f5f8fc;color:var(--blue-900)}.tour-actions .primary{background:var(--blue-900);color:#fff;box-shadow:0 10px 24px rgba(7,20,61,.20)}.tour-close{position:absolute;right:14px;top:14px;width:34px;height:34px;border:0;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;font-weight:950;cursor:pointer}.tour-step-counter{font-size:12px;font-weight:950;color:var(--blue-800);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}.tour-highlight{box-shadow:none!important}.tour-spacer{height:20px}
+@media(max-width:1120px){.updates-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:720px){.updates-grid,.trail-grid{grid-template-columns:1fr}.footer{font-size:12px}.tour-box,.tour-box.left{left:14px;right:14px;bottom:14px;width:auto}.tour-box.center{width:calc(100vw - 28px)}.tour-head h3{font-size:26px}}
+
+
+.update-link{display:inline-flex;margin-top:14px;font-weight:950;color:var(--blue-800);background:#eef6ff;border:1px solid #dbeafe;border-radius:999px;padding:8px 12px;font-size:12px}
+.update-link:hover{background:#dff8ff;border-color:rgba(41,194,230,.55)}
 </style>
 </head>
 <body>
@@ -296,7 +313,7 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
     <div class="nav-inner">
       <a class="brand" href="#top"><div class="brand-mark">AC</div><div>Academia da Conciliação<span>Sistema Operacional Copastur</span></div></a>
       <nav class="menu">
-        <a href="#resolver">Resolver</a><a href="#aprender">Aprender</a><a href="#operacao">Operação</a><a href="#inteligencia">Inteligência</a><a href="#legado">Legado</a>
+        <a href="#resolver">Resolver</a><a href="#aprender">Aprender</a><a href="#operacao">Operação</a><a href="#atualizacoes">Atualizações</a><a href="#inteligencia">Inteligência</a><a href="#legado">Legado</a><button class="nav-tour" onclick="startTour()">Tour</button>
       </nav>
     </div>
   </header>
@@ -328,7 +345,7 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
                 <h3>Universo da Conciliação</h3>
                 <p>Um mapa de acesso rápido para resolver, aprender, entender a operação e preservar conhecimento.</p>
               </div>
-              <div class="atlas-pill">Mapa vivo</div>
+              <button class="atlas-pill" onclick="openModal('Mapa de Conhecimento da Academia')" title="Abrir mapa de conhecimento">Mapa vivo</button>
             </div>
             <div class="atlas-center"><div><b>Conhecimento conectado</b><span>Resolver · Aprender · Operar · Evoluir</span></div></div>
             <div class="atlas-links">
@@ -356,11 +373,11 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
     <section class="section tight" id="perfis">
       <div class="section-head"><div><div class="kicker">Navegação por perfil</div><h2>Como posso ajudar você hoje?</h2></div><p>O portal se adapta ao objetivo do usuário: aprender, resolver, gerenciar ou entender a operação.</p></div>
       <div class="profile-grid">
-        <div class="profile-card" onclick="profile(this,'Novo na área','Ecossistema → Sistemas → Fluxos → FAQ → Casos Reais')"><div class="emoji">🌱</div><h3>Sou novo na área</h3><p>Quero entender a operação do zero.</p><div class="mini-path"></div></div>
-        <div class="profile-card" onclick="profile(this,'Analista','Localizar pedido → Tratativas → Bancos → Conciliadoras')"><div class="emoji">🧾</div><h3>Sou analista</h3><p>Preciso resolver demandas do dia a dia.</p><div class="mini-path"></div></div>
-        <div class="profile-card" onclick="profile(this,'Especialista','Casos reais → Lições aprendidas → SQL → IA')"><div class="emoji">⚙️</div><h3>Sou especialista</h3><p>Quero aprofundar e melhorar processos.</p><div class="mini-path"></div></div>
-        <div class="profile-card" onclick="profile(this,'Supervisor','Centro de comando → Indicadores → Saúde operacional')"><div class="emoji">📊</div><h3>Sou supervisor</h3><p>Quero acompanhar evolução e risco.</p><div class="mini-path"></div></div>
-        <div class="profile-card" onclick="profile(this,'Gestor','Legado → Maturidade → Projetos → Futuro')"><div class="emoji">🎯</div><h3>Sou gestor</h3><p>Quero visão executiva e continuidade.</p><div class="mini-path"></div></div>
+        <div class="profile-card" onclick="openTrailModal('novo', this)"><div class="emoji">🌱</div><h3>Sou novo na área</h3><p>Quero entender a operação do zero.</p><div class="mini-path"></div></div>
+        <div class="profile-card" onclick="openTrailModal('analista', this)"><div class="emoji">🧾</div><h3>Sou analista</h3><p>Preciso resolver demandas do dia a dia.</p><div class="mini-path"></div></div>
+        <div class="profile-card" onclick="openTrailModal('especialista', this)"><div class="emoji">⚙️</div><h3>Sou especialista</h3><p>Quero aprofundar e melhorar processos.</p><div class="mini-path"></div></div>
+        <div class="profile-card" onclick="openTrailModal('supervisor', this)"><div class="emoji">📊</div><h3>Sou supervisor</h3><p>Quero acompanhar evolução e risco.</p><div class="mini-path"></div></div>
+        <div class="profile-card" onclick="openTrailModal('gestor', this)"><div class="emoji">🎯</div><h3>Sou gestor</h3><p>Quero visão executiva e continuidade.</p><div class="mini-path"></div></div>
       </div>
     </section>
 
@@ -389,10 +406,10 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
           </div>
         </div>
         <div class="learning-hubs">
-          <div class="learning-hub" onclick="openModal('SQL Academy','Trilha de desenvolvimento técnico')"><span>📚</span><strong>SQL Academy</strong><p>Conteúdo prático para localizar pedidos, cruzar dados e ganhar autonomia analítica.</p></div>
-          <div class="learning-hub" onclick="openModal('IA na Conciliação','Produtividade e gestão do conhecimento')"><span>🤖</span><strong>IA na Conciliação</strong><p>Como usar IA para documentar, estudar, estruturar casos e acelerar produtividade.</p></div>
-          <div class="learning-hub" onclick="openModal('Casos Reais','Biblioteca de aprendizado operacional')"><span>📖</span><strong>Casos Reais</strong><p>Contexto, investigação, solução e aprendizado para situações reais da operação.</p></div>
-          <div class="learning-hub" onclick="openModal('FAQ da Conciliação','Base de respostas rápidas')"><span>❓</span><strong>FAQ</strong><p>Conceitos e dúvidas frequentes para consulta rápida e padronização.</p></div>
+          <div class="learning-hub" onclick="openModal('Trilha de Desenvolvimento')"><span>🚀</span><strong>Trilha 30/60/90</strong><p>Onboarding e evolução por fase para ganhar autonomia operacional.</p></div>
+          <div class="learning-hub" onclick="openModal('Como Pensar Como um Analista')"><span>🧠</span><strong>Raciocínio Analítico</strong><p>Como investigar, fazer perguntas melhores e encontrar causa raiz.</p></div>
+          <div class="learning-hub" onclick="openModal('SQL Academy')"><span>📚</span><strong>SQL Academy</strong><p>Consulta de dados aplicada à localização de pedidos e análise operacional.</p></div>
+          <div class="learning-hub" onclick="openModal('IA na Conciliação')"><span>🤖</span><strong>IA na Conciliação</strong><p>Uso responsável de IA para documentar, estudar e acelerar produtividade.</p></div>
         </div>
       </div>
     </section>
@@ -444,6 +461,8 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
       </div>
     </section>
 
+
+
     <section class="section" id="inteligencia">
       <div class="section-head"><div><div class="kicker">Jornada Inteligência</div><h2>Centro de Comando</h2></div><p>Visão executiva para acompanhar maturidade, iniciativas, indicadores e evolução da operação.</p></div>
       <div class="command-grid">
@@ -469,6 +488,17 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
         </div>
       </div>
     </section>
+
+    <section class="section" id="atualizacoes">
+      <div class="section-head"><div><div class="kicker">Registro vivo</div><h2>Atualizações da Operação</h2></div><p>Um painel para acompanhar o que mudou, por que mudou, quando mudou e quem registrou. A base pode ser alimentada por planilha para manter a Academia viva sem mexer no HTML.</p></div>
+      <div class="updates-grid" id="updatesGrid">
+        <div class="update-card"><div class="update-date">15/06/2026</div><h3>Cadastro de Cartões</h3><p>Nova frente de conteúdo para explicar a origem das transações e a relação com os arquivos TXT.</p><div class="update-meta"><span class="update-chip">Novo conteúdo</span><span class="update-chip status">Publicado</span><span class="update-chip">Andressa Oliveira</span></div></div>
+        <div class="update-card"><div class="update-date">15/06/2026</div><h3>Governança da Academia</h3><p>Criação do modelo de atualizações para registrar mudanças de processo, projetos, responsáveis e evolução operacional.</p><div class="update-meta"><span class="update-chip">Governança</span><span class="update-chip status">Ativo</span><span class="update-chip">Gestão</span></div></div>
+        <div class="update-card"><div class="update-date">15/06/2026</div><h3>Conciliação LATAM</h3><p>Frente em implantação e mapeada conforme novas demandas da operação.</p><div class="update-meta"><span class="update-chip">Projeto</span><span class="update-chip status">Em evolução</span><span class="update-chip">Time Conciliação</span></div></div>
+      </div>
+      <div class="update-note"><strong>Como atualizar:</strong> preencher uma nova linha na planilha com Data, Título, Categoria, Status, Descrição e Responsável. Quando a integração for conectada, os cards acima serão atualizados automaticamente.</div>
+    </section>
+
 
     <section class="section legacy" id="legado">
       <div class="legacy-panel">
@@ -504,15 +534,25 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
 
 </main>
 
-  <footer class="footer">Academia da Conciliação · Sistema Operacional da Conciliação Copastur · Conhecimento que resolve. Experiência que desenvolve.</footer>
+  <footer class="footer"><strong>Academia da Conciliação</strong><span class="footer-line">Conhecimento compartilhado. Operação fortalecida.</span><span class="footer-meta">Desenvolvido por Andressa Oliveira • 2026 · Última atualização: 15/06/2026</span></footer>
 </div>
 
 <div class="modal" id="modal">
   <div class="modal-box">
-    <div class="modal-head"><button class="close" onclick="closeModal()">×</button><h3 id="modalTitle"></h3><p id="modalSub"></p></div>
+    <div class="modal-head"><button class="modal-back" id="modalBack" onclick="goBackModal()">←</button><button class="close" onclick="closeModal()">×</button><h3 id="modalTitle"></h3><p id="modalSub"></p></div>
     <div class="modal-body"><div id="modalText"></div><div class="modal-grid"><div class="modal-card"><strong>Como usar na prática</strong><div id="modalPractice"></div></div><div class="modal-card"><strong>Conteúdos relacionados</strong><div class="related-list" id="modalRelated"></div></div></div></div>
   </div>
 </div>
+
+
+<div class="tour-overlay" id="tourOverlay" aria-live="polite">
+  <div class="tour-spotlight" id="tourSpotlight"></div>
+  <div class="tour-box">
+    <div class="tour-head"><button class="tour-close" onclick="skipTour()">×</button><small>Tour guiado</small><h3 id="tourTitle">Bem-vindo à Academia</h3><p id="tourSub">Conhecimento que resolve. Experiência que desenvolve.</p></div>
+    <div class="tour-body"><div class="tour-step-counter" id="tourCounter">Tour introdutório</div><h4 id="tourStepTitle">Comece por aqui</h4><p id="tourStepText">A Academia organiza conhecimento, operação, trilhas e atualizações em um só lugar.</p><div class="tour-progress" id="tourProgress"></div><div class="tour-actions"><button class="ghost" onclick="skipTour()">Pular</button><div><button class="ghost" onclick="prevTourStep()">Voltar</button> <button class="primary" onclick="nextTourStep()" id="tourNext">Iniciar</button></div></div></div>
+  </div>
+</div>
+
 <script>
 const knowledge=[
  {k:['pedido','localizar','autorização','autorizacao','smart','sql','webtes','pedido não localizado','pedido nao localizado'], icon:'🧾', title:'Localizar Pedido', type:'Jornada Resolver', desc:'Fluxo SQL → WEBTES → SmartOperations para localizar pedidos e autorizações.', related:['SQL','WEBTES','SmartOperations','FAQ','Casos Reais']},
@@ -1053,6 +1093,327 @@ window.fc=fc;
 
   mergeContent();
   rebuildSearch();
+})();
+</script>
+
+
+
+<script id="sprint-uau-interactions">
+(function(){
+  const trailData={
+    novo:{title:'Trilha — Sou novo na área',sub:'Comece entendendo a operação do zero',steps:[['Arquitetura da Operação','Entenda o fluxo ponta a ponta.'],['Ecossistema Operacional','Veja como cliente, sistemas, bancos e conciliadoras se conectam.'],['Qual Sistema Eu Uso?','Aprenda o caminho certo para consultar informações.'],['FAQ da Conciliação','Domine os conceitos básicos.'],['Casos Reais','Aprenda com situações reais da operação.']]},
+    analista:{title:'Trilha — Sou analista',sub:'Consulta rápida para resolver demandas do dia a dia',steps:[['Qual Sistema Eu Uso?','Escolha o sistema correto para cada análise.'],['Localizar Pedido','Siga o fluxo de localização.'],['Base de Tratativas','Resolva pendências, ausências e divergências.'],['Bancos','Entenda particularidades por banco.'],['Conciliadoras','Consulte retornos, prévias, cortes e fluxos.']]},
+    especialista:{title:'Trilha — Sou especialista',sub:'Aprofunde análise, causa raiz e melhoria contínua',steps:[['Casos Reais','Investigue contexto, causa e solução.'],['Lições Aprendidas','Transforme experiência em padrão.'],['SQL Academy','Ganhe autonomia analítica.'],['IA na Conciliação','Use tecnologia com validação crítica.'],['Processos Especiais','Mapeie exceções e individualidades.']]},
+    supervisor:{title:'Trilha — Sou supervisor',sub:'Acompanhe evolução, risco e saúde operacional',steps:[['Painel Executivo da Operação','Visão executiva da área.'],['Maturidade da Área','Entenda a evolução da gestão do conhecimento.'],['Centro de Comando','Acompanhe indicadores e iniciativas.'],['Atualizações da Operação','Veja o que mudou recentemente.'],['Governança do Conhecimento','Mantenha a Academia viva.']]},
+    gestor:{title:'Trilha — Sou gestor',sub:'Visão executiva, continuidade e legado',steps:[['Mapa de Conhecimento da Academia','Entenda a estrutura completa do portal.'],['Maturidade da Área','Veja o valor estratégico da documentação.'],['Governança do Conhecimento','Defina o que atualizar e quando.'],['Legado da Conciliação','Preserve conhecimento crítico.'],['Atualizações da Operação','Acompanhe projetos, mudanças e novas entregas.']]}
+  };
+  window.openTrailModal=function(type,el){
+    document.querySelectorAll('.profile-card').forEach(c=>c.classList.remove('active'));
+    if(el) el.classList.add('active');
+    const data=trailData[type]||trailData.novo;
+    document.getElementById('modalTitle').textContent=data.title;
+    document.getElementById('modalSub').textContent=data.sub;
+    document.getElementById('modalText').innerHTML=`<p class="final-lead">Escolha uma etapa para abrir o conteúdo, sem precisar procurar pelo site.</p><div class="trail-grid">${data.steps.map(([t,d])=>`<div class="trail-step" onclick="openModal('${String(t).replace(/'/g,"\\'")}')"><b>${t}</b><span>${d}</span></div>`).join('')}</div><div class="trail-actions"><button class="related-chip" onclick="scrollToSection('aprender');closeModal()">Ver jornada</button><button class="related-chip" onclick="scrollToSection('base-conhecimento');closeModal()">Ver base de conhecimento</button><button class="related-chip" onclick="scrollToSection('atualizacoes');closeModal()">Ver atualizações</button></div>`;
+    document.getElementById('modalPractice').innerHTML='<p>Use a trilha como roteiro de navegação. Cada etapa abre um conteúdo relacionado e você pode voltar usando a seta no topo.</p>';
+    document.getElementById('modalRelated').innerHTML=data.steps.map(([t])=>`<button class="related-chip" onclick="openModal('${String(t).replace(/'/g,"\\'")}')">${t}</button>`).join('');
+    document.getElementById('modal').classList.add('open');
+    updateBackButton();
+  };
+
+  const originalOpen=window.openModal;
+  let modalStack=[]; let navigatingBack=false;
+  function currentModalTitle(){const t=document.getElementById('modalTitle'); return t? t.textContent:'';}
+  function updateBackButton(){const b=document.getElementById('modalBack'); if(b)b.classList.toggle('show',modalStack.length>0);}
+  window.updateBackButton=updateBackButton;
+  window.openModal=function(title,sub,text,practice,related){
+    const modal=document.getElementById('modal');
+    const current=currentModalTitle();
+    if(modal && modal.classList.contains('open') && current && current!==title && !navigatingBack){modalStack.push(current);}
+    originalOpen(title,sub,text,practice,related);
+    updateBackButton();
+  };
+  window.goBackModal=function(){
+    if(!modalStack.length)return;
+    const previous=modalStack.pop();
+    navigatingBack=true;
+    originalOpen(previous);
+    navigatingBack=false;
+    updateBackButton();
+  };
+  const originalClose=window.closeModal;
+  window.closeModal=function(){modalStack=[];updateBackButton();originalClose();};
+
+  const sheetCsvUrl='COLE_AQUI_O_LINK_CSV_DA_PLANILHA'; // Link CSV publicado da planilha Atualizações da Operação.
+  function parseCsv(text){
+    const rows=[];let row=[],cell='',q=false;
+    for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1]; if(c==='"'&&q&&n==='"'){cell+='"';i++;} else if(c==='"'){q=!q;} else if(c===','&&!q){row.push(cell);cell='';} else if((c==='\n'||c==='\r')&&!q){if(cell||row.length){row.push(cell);rows.push(row);row=[];cell='';} if(c==='\r'&&n==='\n')i++;} else cell+=c;}
+    if(cell||row.length){row.push(cell);rows.push(row);} return rows;
+  }
+  function escapeHtml(value){return String(value||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function renderUpdates(items){
+    const grid=document.getElementById('updatesGrid'); if(!grid||!items.length)return;
+    grid.innerHTML=items.map(x=>{
+      const data=escapeHtml(x.Data||x.data||'');
+      const titulo=escapeHtml(x['Título']||x.Titulo||x.titulo||'Atualização');
+      const desc=escapeHtml(x['Descrição']||x.Descricao||x.descricao||'');
+      const cat=escapeHtml(x.Categoria||x.categoria||'Atualização');
+      const status=escapeHtml(x.Status||x.status||'Publicado');
+      const resp=escapeHtml(x['Responsável']||x.Responsavel||x.responsavel||'Time');
+      const link=(x.Link||x.link||x.URL||x.url||'').trim();
+      const action=link ? `<a class="update-link" href="${escapeHtml(link)}" target="_blank" rel="noopener">Abrir documento →</a>` : '';
+      return `<div class="update-card"><div class="update-date">${data}</div><h3>${titulo}</h3><p>${desc}</p><div class="update-meta"><span class="update-chip">${cat}</span><span class="update-chip status">${status}</span><span class="update-chip">${resp}</span></div>${action}</div>`;
+    }).join('');
+  }
+  const hasSheetUrl = sheetCsvUrl && !sheetCsvUrl.includes('COLE_AQUI');
+  if(hasSheetUrl){fetch(sheetCsvUrl).then(r=>r.text()).then(txt=>{const rows=parseCsv(txt);const headers=rows.shift().map(h=>h.trim());const items=rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]||'').trim()]))).filter(x=>Object.values(x).some(Boolean));renderUpdates(items);}).catch(err=>{console.warn('Não foi possível carregar a planilha de atualizações.', err);});}
+
+  const tourSteps=[
+    {sel:'#searchBox',title:'Busca inteligente',text:'Digite pedido, banco, cartão, aging, LATAM ou qualquer termo da operação. A busca leva direto ao conteúdo certo.',side:'left',block:'center'},
+    {sel:'#perfis',title:'Navegação por perfil',text:'Cada perfil abre uma trilha guiada. Quem é novo, analista, especialista, supervisor ou gestor encontra um caminho próprio.',block:'center'},
+    {sel:'#aprender',title:'Minha Jornada',text:'Aqui ficam as trilhas de formação: 30/60/90, raciocínio analítico, SQL e IA aplicada à Conciliação.',block:'start'},
+    {sel:'#operacao',title:'Jornada Operação',text:'A visão ponta a ponta mostra como a informação nasce, passa por sistemas, bancos e conciliadoras, e termina em conciliação confiável para o cliente.',side:'left',block:'center'},
+    {sel:'#base-conhecimento',title:'Base de Conhecimento',text:'FAQ, casos reais, lições e processos especiais ficam reunidos para consulta rápida e tomada de decisão.',side:'left',block:'start'},
+    {sel:'#biblioteca-mestre',title:'Biblioteca Mestre',text:'O índice executivo dos conteúdos profundos: bancos, conciliadoras, sistemas, tratativas e legado em uma visão organizada.',block:'start'},
+    {sel:'#inteligencia',title:'Centro de Comando',text:'Visão executiva de saúde operacional, iniciativas e evolução da área. É a camada de gestão do portal.',block:'start'},
+    {sel:'#atualizacoes',title:'Registro vivo',text:'Aqui o time acompanha o que mudou, por que mudou, quando mudou e quem registrou. Depois, esta área será alimentada por planilha.',block:'start'},
+    {sel:'#legado',title:'Legado da Conciliação',text:'A camada final mostra o propósito da Academia: transformar conhecimento individual em continuidade para a operação.',side:'left',block:'center'}
+  ];
+  let tourIndex=-1;
+  function clamp(n,min,max){return Math.max(min,Math.min(max,n));}
+  function setTourPanel(step, el){
+    const box=document.querySelector('.tour-box');
+    const spot=document.getElementById('tourSpotlight');
+    if(!box||!spot)return;
+    box.classList.remove('center','left');
+    const margin=22;
+    const panelW=Math.min(350, window.innerWidth-40);
+    const panelH=Math.min(box.offsetHeight||360, window.innerHeight-40);
+    if(!el){
+      spot.style.display='none';
+      box.style.left='auto';
+      box.style.right=margin+'px';
+      box.style.top=clamp((window.innerHeight-panelH)/2, margin, window.innerHeight-panelH-margin)+'px';
+      box.style.bottom='auto';
+      box.style.transform='none';
+      return;
+    }
+    const r=el.getBoundingClientRect();
+    const pad=10;
+    spot.style.display='block';
+    spot.style.left=clamp(r.left-pad,8,window.innerWidth-16)+'px';
+    spot.style.top=clamp(r.top-pad,8,window.innerHeight-16)+'px';
+    spot.style.width=Math.max(80,Math.min(r.width+pad*2,window.innerWidth-16))+'px';
+    spot.style.height=Math.max(70,Math.min(r.height+pad*2,window.innerHeight-16))+'px';
+    let top=clamp(r.top + r.height/2 - panelH/2, margin, window.innerHeight-panelH-margin);
+    if(window.innerWidth<760){
+      box.style.left='14px';
+      box.style.right='14px';
+      top=window.innerHeight-panelH-14;
+    }else{
+      box.style.left='auto';
+      box.style.right=margin+'px';
+    }
+    box.style.top=top+'px';
+    box.style.bottom='auto';
+    box.style.transform='none';
+  }
+  function paintTour(){
+    const box=document.querySelector('.tour-box');
+    const spot=document.getElementById('tourSpotlight');
+    if(box){box.classList.remove('left','center');box.style.left='';box.style.top='';box.style.transform='';}
+    if(tourIndex<0){
+      window.scrollTo({top:0,behavior:'smooth'});
+      if(spot)spot.style.display='none';
+      if(box){box.classList.add('center');}
+      document.getElementById('tourTitle').textContent='Bem-vindo à Academia';
+      document.getElementById('tourSub').textContent='Conhecimento que resolve. Experiência que desenvolve.';
+      document.getElementById('tourCounter').textContent='Tour introdutório';
+      document.getElementById('tourStepTitle').textContent='Sua navegação começa aqui';
+      document.getElementById('tourStepText').textContent='Em menos de um minuto, você entende como navegar pela operação, consultar conhecimento crítico, acompanhar evolução e preservar o legado da área.';
+      document.getElementById('tourNext').textContent='Iniciar tour';
+      document.getElementById('tourProgress').innerHTML=tourSteps.map(()=>`<span class="tour-dot"></span>`).join('');
+      return;
+    }
+    document.getElementById('tourTitle').textContent='Tour guiado';
+    document.getElementById('tourSub').textContent='Uma navegação executiva pela operação: clara, guiada e sem perder contexto.';
+    const step=tourSteps[tourIndex];
+    const el=document.querySelector(step.sel);
+    if(el){
+      el.scrollIntoView({behavior:'smooth',block:step.block||'center'});
+      setTimeout(()=>setTourPanel(step, el),420);
+    }else{setTourPanel(step,null);}
+    document.getElementById('tourCounter').textContent=`Etapa ${tourIndex+1} de ${tourSteps.length}`;
+    document.getElementById('tourStepTitle').textContent=step.title;
+    document.getElementById('tourStepText').textContent=step.text;
+    document.getElementById('tourNext').textContent=tourIndex===tourSteps.length-1?'Finalizar':'Próximo';
+    document.getElementById('tourProgress').innerHTML=tourSteps.map((_,i)=>`<span class="tour-dot ${i<=tourIndex?'active':''}"></span>`).join('');
+  }
+  window.addEventListener('resize',()=>{if(document.getElementById('tourOverlay')?.classList.contains('open')&&tourIndex>=0){const step=tourSteps[tourIndex];setTourPanel(step,document.querySelector(step.sel));}});
+  window.startTour=function(){tourIndex=-1;document.getElementById('tourOverlay').classList.add('open');paintTour();};
+  window.nextTourStep=function(){if(tourIndex>=tourSteps.length-1){skipTour();return;} tourIndex++;paintTour();};
+  window.prevTourStep=function(){if(tourIndex>0){tourIndex--;paintTour();}else{tourIndex=-1;paintTour();}};
+  window.skipTour=function(){document.getElementById('tourOverlay').classList.remove('open');document.querySelectorAll('.tour-highlight').forEach(e=>e.classList.remove('tour-highlight'));};
+  window.addEventListener('load',()=>{try{if(!localStorage.getItem('academiaTourV2')){localStorage.setItem('academiaTourV2','ok');setTimeout(()=>startTour(),900);}}catch(e){setTimeout(()=>startTour(),900);}});
+})();
+</script>
+
+
+
+<script id="premium-navigation-patch">
+(function(){
+  const allCases=[
+    "Caso Real — Cartão Não Cadastrado no BKO Correto",
+    "Caso Real — Grande Volume de Pendências",
+    "Caso Real — Problemas no Portal Bradesco",
+    "Caso Real — Prévia Não Recebida",
+    "Caso Real — Problemas S3/Kleopatra",
+    "Caso Real — Pedido Não Localizado",
+    "Caso Real — Valor Divergente",
+    "Caso Real — Ausência de Dados Gerenciais",
+    "Caso Real — Arquivo TXT com Erro"
+  ];
+  function applyPatch(){
+    if(!window.fc){setTimeout(applyPatch,120);return;}
+    Object.assign(window.fc,{
+      "Consultar Banco":{
+        sub:"Ficha operacional por banco",
+        lead:"A consulta por banco é o caminho rápido para acessar particularidades, prazos, portais, conciliadoras, arquivos, riscos e pontos de atenção de cada fluxo bancário.",
+        sections:[
+          ["Bancos disponíveis",["Bradesco","Itaú","Santander","Citi","Banco do Brasil"]],
+          ["Quando usar",["Quando a demanda já informa o banco do cliente/produto.","Quando a análise depende de portal, conciliadora, arquivo, fatura, prévia, corte ou pendência.","Quando for necessário entender o fluxo antes de iniciar a tratativa."]],
+          ["Como navegar",["Clique no banco relacionado.","Leia particularidades, riscos e pontos de atenção.","Depois consulte conciliadora, sistemas ou base de tratativas quando necessário."]]
+        ],
+        practice:["Use como primeira parada para dúvidas por banco.","A partir daqui, avance para a página específica: Bradesco, Itaú, Santander, Citi ou Banco do Brasil."],
+        related:["Bradesco","Itaú","Santander","Citi","Banco do Brasil","Bancos","Conciliadoras"]
+      },
+      "Casos Reais":Object.assign({},window.fc["Casos Reais"]||{}, {related:allCases.concat(["Lições Aprendidas","Base de Tratativas"])})
+    });
+  }
+  applyPatch();
+})();
+</script>
+
+
+
+<script id="andressa-final-content-patch">
+(function(){
+  const cardHTML = `
+    <div class="deep-card" onclick="openModal('Origem da Transação')"><div class="deep-icon">💳</div><h3>Origem da Transação</h3><p>Como o cartão nasce, é cadastrado no BKO correto e impacta a geração dos arquivos TXT.</p><div class="mini-list"><span>Cartões</span><span>BKO</span><span>Benner</span><span>TXT</span></div></div>`;
+  function injectCard(){
+    const grid=document.querySelector('#biblioteca-mestre .deep-grid');
+    if(grid && !document.getElementById('card-origem-transacao')){
+      const temp=document.createElement('div'); temp.innerHTML=cardHTML.trim();
+      const card=temp.firstElementChild; card.id='card-origem-transacao';
+      const ref=grid.children[1] || null;
+      grid.insertBefore(card, ref);
+    }
+  }
+  function applyContent(){
+    if(!window.fc){setTimeout(applyContent,120);return;}
+    Object.assign(window.fc,{
+      "Origem da Transação":{
+        sub:"Cadastro de cartões e geração TXT",
+        lead:"Antes de uma transação chegar ao arquivo TXT e à conciliadora, ela depende de uma etapa fundamental: o cartão precisa ser emitido, recebido e cadastrado corretamente no BKO vinculado à transação. Essa é a raiz da conciliação.",
+        sections:[
+          ["Como tudo começa",["O banco emite um novo cartão para o cliente de acordo com o produto contratado, como CTA, CTAH, EBTA, CPB, VCORP ou outros produtos bancários.","A partir da emissão, a Copastur precisa receber, validar e cadastrar o cartão conforme o banco, produto e BKO correto.","Esse cadastro influencia diretamente a geração dos arquivos TXT e o envio das transações para a conciliadora."]],
+          ["Quem recebe os cartões",["Itaú, Santander, Citi e Banco do Brasil: o recebimento é feito pelo time de Atendimento, que realiza o cadastro nos OBTs e, quando necessário, na Guarda Segura para emissão de pedidos com HC.","Bradesco: o recebimento é feito pelo time de Conciliação através do e-mail cadastro.conciliação@copastur.com.br. A Conciliação cadastra na Guarda Segura e no Benner, depois sinaliza Atendimento e CS informando o BKO em que o cadastro foi realizado."]],
+          ["Fluxo Bradesco",["Banco emite o cartão.","Conciliação recebe a carta de boas-vindas.","Conciliação valida as informações do cliente e do produto.","Conciliação cadastra o cartão na Guarda Segura.","Conciliação cadastra o cartão no Benner, no BKO correto.","Conciliação sinaliza Atendimento e CS por e-mail, mantendo histórico da tratativa."]],
+          ["Por que o BKO correto é crítico",["O cartão é um dos principais vínculos para que a transação conste no arquivo TXT.","Se a transação estiver vinculada ao BKO 123, mas o cartão estiver cadastrado no BKO 1234, o arquivo pode ser gerado sem aquela transação.","Resultado: a conciliadora pode não receber a movimentação, a conciliação será impactada e a operação precisará investigar a ausência depois."]],
+          ["Benner, Utilitários e Guarda Segura",["Benner é a base operacional para cadastro dos cartões e para geração dos arquivos terrestres.","Utilitários gera os arquivos aéreos e utiliza a base eBusiness do servidor Espanha, que precisa estar atualizada em tempo real para refletir ajustes de transações do backoffice.","Guarda Segura é um ambiente dentro do SmartOperations para armazenamento, consulta e gerenciamento seguro dos cartões. Ela não é a fonte que gera o TXT."]],
+          ["Verdade operacional importante",["Cartão cadastrado no Benner e não cadastrado na Guarda Segura: o TXT pode ser gerado, porque Benner/Utilitários puxam a informação do Benner.","Cartão cadastrado na Guarda Segura e não cadastrado no Benner: o TXT pode não gerar corretamente, porque o cadastro operacional necessário não está na base utilizada para o arquivo."]],
+          ["Como os arquivos TXT são gerados",["Arquivos aéreos gerais, com mais de um cliente no mesmo arquivo, como CTA, EBTA, VCORP e CPB, são gerados por robô e enviados automaticamente para suporte.conciliação@copastur.com.br.","Arquivos terrestres gerais, com mais de um cliente no mesmo arquivo, precisam ser gerados manualmente pelo Benner.","Para geração por cliente ou grupo, é necessário selecionar o cliente/grupo no Benner ou no Utilitários, conforme o tipo de arquivo."]]
+        ],
+        practice:["Use esta página para entender por que uma transação aparece ou não aparece no TXT.","Antes de tratar ausência no arquivo, valide se o cartão está cadastrado no Benner e no BKO correto.","Quando houver dúvida de BKO, acione Atendimento/CS antes de cadastrar."],
+        related:["Cadastro de Cartões","Cartão Não Cadastrado","Caso Real — Cartão Não Cadastrado no BKO Correto","Geração de Arquivo TXT","Sistemas Utilizados","Qual Sistema Eu Uso?","Bradesco"]
+      },
+      "Cadastro de Cartões":{
+        sub:"Procedimento operacional",
+        lead:"O Cadastro de Cartões organiza a rotina de recebimento da carta de boas-vindas, validação do cliente, definição do BKO, cadastro na Guarda Segura e cadastro no Benner quando aplicável.",
+        sections:[
+          ["Recebimento e acompanhamento",["Acompanhar o portal de cadastro de cartões e as cartas de boas-vindas.","O e-mail de notificação do Bradesco é apenas aviso; o importante é conferir o portal periodicamente.","A recomendação operacional é verificar o portal a cada dois ou três dias."]],
+          ["Senha da carta de boas-vindas",["Para abrir o Excel da carta, usar o padrão: conta + quatro últimos números do cartão.","Exemplo: se o cartão aparece como 3766X8868, a senha será conta8868."]],
+          ["Definição do BKO",["Considerar o CNPJ enviado pelo banco.","Consultar o cliente na base SQL para entender o cenário e identificar o BKO correto.","Se houver apenas um BKO, realizar o cadastro e enviar ciência ao Atendimento/CS.","Se houver vários BKOs ou dúvida, questionar Atendimento/CS antes de cadastrar."]],
+          ["Validações na Guarda Segura",["Confirmar se o cartão já existe no BKO.","Se já existir, validar se a validade enviada pelo banco é diferente, pois pode ser renovação.","Se houver cartão antigo com mesma nomenclatura, alinhar com Atendimento/CS se ele deve ser excluído."]],
+          ["Modelos de comunicação",["Dúvida sobre qual BKO cadastrar: enviar e-mail para Atendimento, com CS em cópia, perguntando em qual BKO o cadastro deve ser realizado.","Cartão cadastrado: enviar ciência informando cliente, produto e BKO do cadastro.","Carta não recebida: reunir o máximo de informações e acionar o responsável pelo apoio junto ao banco, mantendo CS em cópia quando necessário."]]
+        ],
+        practice:["Use quando receber uma carta de boas-vindas ou precisar validar cadastro de cartão.","Sempre registre tratativas por e-mail para manter histórico."],
+        related:["Origem da Transação","Bradesco","Benner","SmartOperations","Cartão Não Cadastrado","Caso Real — Cartão Não Cadastrado no BKO Correto"]
+      },
+      "Processos Especiais":{
+        sub:"Individualidades e exceções documentadas",
+        lead:"Processos especiais são particularidades de clientes, bancos, produtos ou fluxos que fogem do padrão e precisam estar documentadas para evitar dependência de memória informal.",
+        sections:[
+          ["Como interpretar esta área",["Use Processos Especiais quando a demanda não seguir o fluxo padrão da conciliação automática.","Aqui ficam individualidades de clientes, exceções operacionais, frentes em implantação, fluxos com particularidades e tratativas que exigem cuidado adicional.","A regra é simples: se a exceção se repete ou gera risco, ela precisa virar conhecimento documentado."]],
+          ["Clientes e fluxos mapeados",["Norte Energia e Positivo: ajustes e reconciliações específicas de campos gerenciais.","Grupo Carrefour/Antigo BIG: processo de rateio de centro de custo após recebimento de material da conciliadora.","LATAM: frente em implantação e mapeamento conforme novas demandas da operação.","Bradesco: particularidades de portal, campos gerenciais, fatura fechada, Aging, pendências, ausências e cadastro de cartões.","Citi: fluxo com S3, Kleopatra, Foundever/Sitel e segurança reforçada no envio de arquivos."]],
+          ["O que deve virar processo especial",["Nova particularidade de cliente.","Nova regra operacional recorrente.","Mudança relevante em banco, conciliadora, produto ou sistema.","Fluxo manual que exige cuidado, evidência ou comunicação específica.","Situação que, se ficar apenas na cabeça de uma pessoa, pode gerar risco para a operação."]],
+          ["O que não deve ficar aqui",["Envio de arquivo TXT por si só não é processo especial: é parte da cadeia operacional.","Um erro pontual sem recorrência deve virar caso real ou lição aprendida, não necessariamente processo especial.","Informação duplicada de banco ou conciliadora deve ser relacionada por link, não repetida inteira."]],
+          ["Como manter atualizado",["Registrar o que mudou, por que mudou, quando mudou e quem validou.","Conectar o processo especial aos conteúdos relacionados, como banco, conciliadora, sistema, TXT, caso real ou base de tratativas.","Quando o processo mudar, atualizar o Registro Vivo da Academia para manter rastreabilidade."]]
+        ],
+        practice:["Use para entender exceções antes de executar uma tratativa.","Se uma exceção nova aparecer, registre na Governança do Conhecimento e no Registro Vivo."],
+        related:["Origem da Transação","Cadastro de Cartões","Bradesco","Citi","LATAM","Processo BIG","Reconciliações Especiais","Governança do Conhecimento","Atualizações da Operação"]
+      }
+    });
+    window.fc["Consultar Banco"]={
+      sub:"Ficha operacional por banco",
+      lead:"A consulta por banco é o caminho rápido para acessar particularidades, prazos, portais, conciliadoras, arquivos, riscos e pontos de atenção de cada fluxo bancário.",
+      sections:[["Bancos disponíveis",["Bradesco","Itaú","Santander","Citi","Banco do Brasil"]],["Quando usar",["Quando a demanda já informa o banco do cliente/produto.","Quando a análise depende de portal, conciliadora, arquivo, fatura, prévia, corte, pendência ou cadastro de cartão.","Quando for necessário entender o fluxo antes de iniciar a tratativa."]]],
+      practice:["Use como primeira parada para dúvidas por banco."],
+      related:["Bradesco","Itaú","Santander","Citi","Banco do Brasil","Origem da Transação","Cadastro de Cartões","Conciliadoras"]
+    };
+    if(window.aliases){
+      Object.assign(window.aliases,{"cadastro de cartoes":"Cadastro de Cartões","cadastro de cartões":"Cadastro de Cartões","origem da transacao":"Origem da Transação","origem da transação":"Origem da Transação","cartoes":"Origem da Transação","cartões":"Origem da Transação"});
+    }
+    injectCard();
+  }
+  const trailData={
+    novo:{title:'Trilha — Sou novo na área',sub:'Comece entendendo a operação do zero',steps:[['Origem da Transação','Entenda como o cartão nasce e impacta o TXT.'],['Arquitetura da Operação','Entenda o fluxo ponta a ponta.'],['Ecossistema Operacional','Veja como cliente, sistemas, bancos e conciliadoras se conectam.'],['Qual Sistema Eu Uso?','Aprenda o caminho certo para consultar informações.'],['FAQ da Conciliação','Domine os conceitos básicos.'],['Casos Reais','Aprenda com situações reais da operação.']]},
+    analista:{title:'Trilha — Sou analista',sub:'Consulta rápida para resolver demandas do dia a dia',steps:[['Origem da Transação','Valide cartão, BKO, Benner e impacto no TXT.'],['Qual Sistema Eu Uso?','Escolha o sistema correto para cada análise.'],['Localizar Pedido','Siga o fluxo de localização.'],['Base de Tratativas','Resolva pendências, ausências e divergências.'],['Bancos','Entenda particularidades por banco.'],['Conciliadoras','Consulte retornos, prévias, cortes e fluxos.']]},
+    especialista:{title:'Trilha — Sou especialista',sub:'Aprofunde análise, causa raiz e melhoria contínua',steps:[['Casos Reais','Investigue contexto, causa e solução.'],['Lições Aprendidas','Transforme experiência em padrão.'],['Origem da Transação','Aprofunde o vínculo entre cartão, BKO e TXT.'],['SQL Academy','Ganhe autonomia analítica.'],['IA na Conciliação','Use tecnologia com validação crítica.'],['Processos Especiais','Mapeie exceções e individualidades.']]},
+    supervisor:{title:'Trilha — Sou supervisor',sub:'Acompanhe evolução, risco e saúde operacional',steps:[['Painel Executivo da Operação','Visão executiva da área.'],['Maturidade da Área','Entenda a evolução da gestão do conhecimento.'],['Centro de Comando','Acompanhe indicadores e iniciativas.'],['Atualizações da Operação','Veja o que mudou recentemente.'],['Governança do Conhecimento','Mantenha a Academia viva.']]},
+    gestor:{title:'Trilha — Sou gestor',sub:'Visão executiva, continuidade e legado',steps:[['Mapa de Conhecimento da Academia','Entenda a estrutura completa do portal.'],['Maturidade da Área','Veja o valor estratégico da documentação.'],['Governança do Conhecimento','Defina o que atualizar e quando.'],['Legado da Conciliação','Preserve conhecimento crítico.'],['Atualizações da Operação','Acompanhe projetos, mudanças e novas entregas.']]}
+  };
+  let viewStack=[];
+  let currentView=null;
+  let suppressPush=false;
+  const previousOpenModal=window.openModal;
+  function renderTrail(type){
+    const data=trailData[type]||trailData.novo;
+    document.getElementById('modalTitle').textContent=data.title;
+    document.getElementById('modalSub').textContent=data.sub;
+    document.getElementById('modalText').innerHTML=`<p class="final-lead">Escolha uma etapa para abrir o conteúdo, sem precisar procurar pelo site.</p><div class="trail-grid">${data.steps.map(([t,d])=>`<div class="trail-step" onclick="openModal('${String(t).replace(/'/g,"\\'")}')"><b>${t}</b><span>${d}</span></div>`).join('')}</div><div class="trail-actions"><button class="related-chip" onclick="scrollToSection('aprender');closeModal()">Ver jornada</button><button class="related-chip" onclick="scrollToSection('base-conhecimento');closeModal()">Ver base de conhecimento</button><button class="related-chip" onclick="scrollToSection('atualizacoes');closeModal()">Ver atualizações</button></div>`;
+    document.getElementById('modalPractice').innerHTML='<p>Use a trilha como roteiro de navegação. Cada etapa abre um conteúdo relacionado e você pode voltar usando a seta no topo.</p>';
+    document.getElementById('modalRelated').innerHTML=data.steps.map(([t])=>`<button class="related-chip" onclick="openModal('${String(t).replace(/'/g,"\\'")}')">${t}</button>`).join('');
+    document.getElementById('modal').classList.add('open');
+    currentView={kind:'trail',type};
+    updateBackButtonFinal();
+  }
+  function updateBackButtonFinal(){const b=document.getElementById('modalBack'); if(b)b.classList.toggle('show',viewStack.length>0);}
+  window.openTrailModal=function(type,el){
+    document.querySelectorAll('.profile-card').forEach(c=>c.classList.remove('active'));
+    if(el) el.classList.add('active');
+    viewStack=[];
+    renderTrail(type);
+  };
+  window.openModal=function(title,sub,text,practice,related){
+    if(currentView && !suppressPush){viewStack.push(Object.assign({},currentView));}
+    previousOpenModal(title,sub,text,practice,related);
+    currentView={kind:'content',title,sub,text,practice,related};
+    updateBackButtonFinal();
+  };
+  window.goBackModal=function(){
+    if(!viewStack.length)return;
+    const prev=viewStack.pop();
+    suppressPush=true;
+    if(prev.kind==='trail') renderTrail(prev.type);
+    else previousOpenModal(prev.title,prev.sub,prev.text,prev.practice,prev.related);
+    currentView=prev;
+    suppressPush=false;
+    updateBackButtonFinal();
+  };
+  const prevClose=window.closeModal;
+  window.closeModal=function(){viewStack=[];currentView=null;updateBackButtonFinal();prevClose();};
+  applyContent();
+  window.addEventListener('load',()=>setTimeout(()=>{applyContent();},300));
 })();
 </script>
 
