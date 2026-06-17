@@ -305,6 +305,22 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
 
 .update-link{display:inline-flex;margin-top:14px;font-weight:950;color:var(--blue-800);background:#eef6ff;border:1px solid #dbeafe;border-radius:999px;padding:8px 12px;font-size:12px}
 .update-link:hover{background:#dff8ff;border-color:rgba(41,194,230,.55)}
+
+/* === Governanca da Academia - Final de Homologacao === */
+.governance-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.governance-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden}
+.governance-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 95% 0%,rgba(41,194,230,.14),transparent 34%);pointer-events:none}
+.governance-card .gov-icon{font-size:28px}
+.governance-card h3{position:relative;margin:14px 0 8px;color:var(--blue-950);font-size:22px;letter-spacing:-.04em}
+.governance-card p{position:relative;margin:0;color:var(--muted);font-weight:700}
+.gov-actions{position:relative;display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.gov-btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(40,103,216,.20);background:#eef6ff;color:var(--blue-900);padding:10px 13px;font-size:13px;font-weight:950}
+.gov-btn.primary{background:var(--blue-900);color:#fff;border-color:var(--blue-900)}
+.gov-note{margin-top:18px;background:#fbfdff;border:1px dashed #c9d8ee;border-radius:22px;padding:16px 18px;color:#475467;font-weight:800}
+.sync-pill{display:inline-flex;align-items:center;gap:8px;margin-top:12px;border-radius:999px;background:#ecfdf3;color:#087443;padding:7px 11px;font-size:12px;font-weight:950}
+.sync-pill:before{content:"";width:8px;height:8px;background:#12b76a;border-radius:99px;box-shadow:0 0 0 5px rgba(18,183,106,.12)}
+@media(max-width:1120px){.governance-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -313,7 +329,7 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
     <div class="nav-inner">
       <a class="brand" href="#top"><div class="brand-mark">AC</div><div>Academia da Conciliação<span>Sistema Operacional Copastur</span></div></a>
       <nav class="menu">
-        <a href="#resolver">Resolver</a><a href="#aprender">Aprender</a><a href="#operacao">Operação</a><a href="#atualizacoes">Atualizações</a><a href="#inteligencia">Inteligência</a><a href="#legado">Legado</a><button class="nav-tour" onclick="startTour()">Tour</button>
+        <a href="#resolver">Resolver</a><a href="#aprender">Aprender</a><a href="#operacao">Operação</a><a href="#atualizacoes">Atualizações</a><a href="#inteligencia">Inteligência</a><a href="#governanca-academia">Governança</a><a href="#legado">Legado</a><button class="nav-tour" onclick="startTour()">Tour</button>
       </nav>
     </div>
   </header>
@@ -479,12 +495,14 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
         </div>
         <div class="command-panel">
           <h3>Iniciativas e evolução</h3>
-          <div class="projects">
-            <div class="project"><div><b>Conciliação LATAM</b><p>Frente em implantação e mapeada conforme novas demandas.</p></div><span class="badge warn">Em evolução</span></div>
+          <div class="projects" id="projectsGrid">
+            <div class="project"><div><b>Conciliação LATAM</b><p>Projeto estratégico para expansão e mapeamento da operação LATAM.</p></div><span class="badge warn">Em evolução</span></div>
             <div class="project"><div><b>IA na Conciliação</b><p>Apoio à documentação, estudos e produtividade com pensamento crítico.</p></div><span class="badge blue">Estratégico</span></div>
-            <div class="project"><div><b>Processos Especiais</b><p>Norte Energia, Positivo, BIG, SFTP Montanari e Bradesco.</p></div><span class="badge">Mapeado</span></div>
+            <div class="project"><div><b>Processos Especiais</b><p>Individualidades operacionais mapeadas e preservadas na Academia.</p></div><span class="badge">Mapeado</span></div>
             <div class="project"><div><b>Gestão do Conhecimento</b><p>Academia como organismo vivo da operação.</p></div><span class="badge">Ativo</span></div>
+            <div class="project"><div><b>Conciliação Cliente SEB</b><p>Projeto de conciliação no qual o relatório será entregue direto ao cliente.<br><small style="color:var(--muted);font-weight:800">Time Conciliação · 17/06/2026</small></p></div><span class="badge warn">Em evolução</span></div>
           </div>
+          <div class="update-note" style="margin-top:14px"><strong>Fonte única:</strong> esta área é alimentada pela planilha de Projetos Estratégicos quando o site consegue acessar o CSV publicado.</div>
         </div>
       </div>
     </section>
@@ -494,9 +512,51 @@ h1{margin:22px 0 16px;font-size:clamp(44px,6vw,82px);line-height:.95;letter-spac
       <div class="updates-grid" id="updatesGrid">
         <div class="update-card"><div class="update-date">15/06/2026</div><h3>Cadastro de Cartões</h3><p>Nova frente de conteúdo para explicar a origem das transações e a relação com os arquivos TXT.</p><div class="update-meta"><span class="update-chip">Novo conteúdo</span><span class="update-chip status">Publicado</span><span class="update-chip">Andressa Oliveira</span></div></div>
         <div class="update-card"><div class="update-date">15/06/2026</div><h3>Governança da Academia</h3><p>Criação do modelo de atualizações para registrar mudanças de processo, projetos, responsáveis e evolução operacional.</p><div class="update-meta"><span class="update-chip">Governança</span><span class="update-chip status">Ativo</span><span class="update-chip">Gestão</span></div></div>
+        <div class="update-card"><div class="update-date">17/06/2026</div><h3>Conciliação Cliente SEB</h3><p>Nova frente de conciliação mensal de relatório CTA VCN que será entregue direto ao cliente.</p><div class="update-meta"><span class="update-chip">Projeto</span><span class="update-chip status">Em evolução</span><span class="update-chip">Time Conciliação</span></div></div>
         <div class="update-card"><div class="update-date">15/06/2026</div><h3>Conciliação LATAM</h3><p>Frente em implantação e mapeada conforme novas demandas da operação.</p><div class="update-meta"><span class="update-chip">Projeto</span><span class="update-chip status">Em evolução</span><span class="update-chip">Time Conciliação</span></div></div>
       </div>
-      <div class="update-note"><strong>Como atualizar:</strong> preencher uma nova linha na planilha com Data, Título, Categoria, Status, Descrição e Responsável. Quando a integração for conectada, os cards acima serão atualizados automaticamente.</div>
+      <div class="update-note"><strong>Como atualizar:</strong> preencher uma nova linha na planilha de Registro de Mudanças com Data, Título, Categoria, Status, Descrição e Responsável. Os cards são atualizados pela planilha publicada.</div>
+      <div class="gov-note" style="margin-top:16px">
+        <strong>Área de manutenção rápida:</strong> use as planilhas oficiais para atualizar o portal sem alterar o HTML.
+        <div class="gov-actions" style="margin-top:12px">
+          <a class="gov-btn primary" href="https://docs.google.com/spreadsheets/d/1-roI_4akwRK3zp_G_Vg_121lSLfX_JYVv8-_wfbMxpM/edit?gid=0#gid=0" target="_blank" rel="noopener">Atualizar Projetos Estratégicos</a>
+          <a class="gov-btn primary" href="https://docs.google.com/spreadsheets/d/1qsIqJn4KxNL51tIyfJ7tK1hx_gSBGiqPpl5oZYz6n1E/edit?gid=0#gid=0" target="_blank" rel="noopener">Registrar Mudança</a>
+          <a class="gov-btn" href="#governanca-academia">Ver governança</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="governanca-academia">
+      <div class="section-head">
+        <div><div class="kicker">Governança da Academia</div><h2>Manutenção sem mexer no HTML</h2></div>
+        <p>As planilhas oficiais são a fonte única da verdade para projetos e mudanças. O time atualiza os dados, e o site reflete a evolução da operação.</p>
+      </div>
+      <div class="governance-grid">
+        <div class="governance-card">
+          <div class="gov-icon">📌</div>
+          <h3>Projetos Estratégicos</h3>
+          <p>Atualize clientes, frentes, automações, responsáveis, status e última atualização do Centro de Comando.</p>
+          <div class="gov-actions">
+            <a class="gov-btn primary" href="https://docs.google.com/spreadsheets/d/1-roI_4akwRK3zp_G_Vg_121lSLfX_JYVv8-_wfbMxpM/edit?gid=0#gid=0" target="_blank" rel="noopener">Abrir planilha editável</a>
+          </div>
+        </div>
+        <div class="governance-card">
+          <div class="gov-icon">📝</div>
+          <h3>Registro de Mudanças</h3>
+          <p>Registre o que mudou, por que mudou, quando mudou e quem registrou. Esse histórico alimenta as Atualizações da Operação.</p>
+          <div class="gov-actions">
+            <a class="gov-btn primary" href="https://docs.google.com/spreadsheets/d/1qsIqJn4KxNL51tIyfJ7tK1hx_gSBGiqPpl5oZYz6n1E/edit?gid=0#gid=0" target="_blank" rel="noopener">Abrir planilha editável</a>
+          </div>
+        </div>
+        <div class="governance-card">
+          <div class="gov-icon">🛡️</div>
+          <h3>Modelo de Gestão</h3>
+          <p>Projetos mostram o estado atual. Atualizações mostram o histórico. Assim a Academia permanece viva, rastreável e confiável.</p>
+          <div class="sync-pill" id="syncStatus">Aguardando sincronização das planilhas</div>
+        </div>
+      </div>
+      <div class="gov-note"><strong>Para editar de verdade:</strong> os botões acima abrem a planilha publicada. Para que o gerente edite diretamente pelo site, substitua estes links pelos links de edição do Google Sheets compartilhados com ele. A estrutura do portal já está pronta para isso.</div>
     </section>
 
 
@@ -1143,7 +1203,8 @@ window.fc=fc;
   const originalClose=window.closeModal;
   window.closeModal=function(){modalStack=[];updateBackButton();originalClose();};
 
-  const sheetCsvUrl='COLE_AQUI_O_LINK_CSV_DA_PLANILHA'; // Link CSV publicado da planilha Atualizações da Operação.
+  const updatesSheetCsvUrl='https://docs.google.com/spreadsheets/d/e/2PACX-1vTHEMyQjZAg61oZTPhCqIxyvnYVIa0NfHEvy-s2RzpXFCpXPvTw2sXa8rVsR3ILItGWy6TaIfpnvVnF/pub?output=csv'; // Link CSV publicado da planilha Atualizações da Operação.
+  const projectsSheetCsvUrl='https://docs.google.com/spreadsheets/d/e/2PACX-1vSDKNGOoD9Bjp83GV-xsl73A7FDRJz47RNQCill1ZrWqlxF2Ip57-SqGdXZHjeETXtr1aQrnlI5gRNt/pub?output=csv'; // Link CSV publicado da planilha Projetos Estratégicos.
   function parseCsv(text){
     const rows=[];let row=[],cell='',q=false;
     for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1]; if(c==='"'&&q&&n==='"'){cell+='"';i++;} else if(c==='"'){q=!q;} else if(c===','&&!q){row.push(cell);cell='';} else if((c==='\n'||c==='\r')&&!q){if(cell||row.length){row.push(cell);rows.push(row);row=[];cell='';} if(c==='\r'&&n==='\n')i++;} else cell+=c;}
@@ -1164,8 +1225,37 @@ window.fc=fc;
       return `<div class="update-card"><div class="update-date">${data}</div><h3>${titulo}</h3><p>${desc}</p><div class="update-meta"><span class="update-chip">${cat}</span><span class="update-chip status">${status}</span><span class="update-chip">${resp}</span></div>${action}</div>`;
     }).join('');
   }
-  const hasSheetUrl = sheetCsvUrl && !sheetCsvUrl.includes('COLE_AQUI');
-  if(hasSheetUrl){fetch(sheetCsvUrl).then(r=>r.text()).then(txt=>{const rows=parseCsv(txt);const headers=rows.shift().map(h=>h.trim());const items=rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]||'').trim()]))).filter(x=>Object.values(x).some(Boolean));renderUpdates(items);}).catch(err=>{console.warn('Não foi possível carregar a planilha de atualizações.', err);});}
+  function badgeClass(status){
+    const st=String(status||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    if(st.includes('evolucao')||st.includes('implantacao')||st.includes('andamento')||st.includes('homologacao')) return ' warn';
+    if(st.includes('estrategico')||st.includes('planejamento')) return ' blue';
+    return '';
+  }
+  function renderProjects(items){
+    const grid=document.getElementById('projectsGrid'); if(!grid||!items.length)return;
+    grid.innerHTML=items.map(x=>{
+      const nome=escapeHtml(x.Projeto||x.projeto||x.Nome||x.nome||'Projeto');
+      const desc=escapeHtml(x['Descrição']||x.Descricao||x.descricao||x.Descrição||'');
+      const status=escapeHtml(x.Status||x.status||'Ativo');
+      const resp=escapeHtml(x['Responsável']||x.Responsavel||x.responsavel||'');
+      const ultima=escapeHtml(x['Última atualização']||x['Ultima atualizacao']||x.UltimaAtualizacao||x.ultima||'');
+      const meta=[resp,ultima].filter(Boolean).join(' · ');
+      return `<div class="project"><div><b>${nome}</b><p>${desc}${meta?`<br><small style="color:var(--muted);font-weight:800">${meta}</small>`:''}</p></div><span class="badge${badgeClass(status)}">${status}</span></div>`;
+    }).join('');
+  }
+  function loadCsv(url, renderer, label){
+    const ok=url && !url.includes('COLE_AQUI');
+    if(!ok) return;
+    fetch(url + (url.includes('?')?'&':'?') + 'cache=' + Date.now()).then(r=>r.text()).then(txt=>{
+      const rows=parseCsv(txt);
+      const headers=(rows.shift()||[]).map(h=>h.trim());
+      const items=rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,(r[i]||'').trim()]))).filter(x=>Object.values(x).some(Boolean));
+      renderer(items);
+      const sync=document.getElementById('syncStatus'); if(sync) sync.textContent='Planilhas sincronizadas com sucesso';
+    }).catch(err=>{console.warn('Não foi possível carregar a planilha de '+label+'.', err);});
+  }
+  loadCsv(updatesSheetCsvUrl, renderUpdates, 'atualizações');
+  loadCsv(projectsSheetCsvUrl, renderProjects, 'projetos');
 
   const tourSteps=[
     {sel:'#searchBox',title:'Busca inteligente',text:'Digite pedido, banco, cartão, aging, LATAM ou qualquer termo da operação. A busca leva direto ao conteúdo certo.',side:'left',block:'center'},
@@ -1414,6 +1504,621 @@ window.fc=fc;
   window.closeModal=function(){viewStack=[];currentView=null;updateBackButtonFinal();prevClose();};
   applyContent();
   window.addEventListener('load',()=>setTimeout(()=>{applyContent();},300));
+})();
+</script>
+
+
+<script id="conteudos-completos-final-patch">
+(function(){
+  function applyCompleteContent(){
+    if(!window.fc){setTimeout(applyCompleteContent,120);return;}
+    Object.assign(window.fc,{
+      "Centro de Comando":{
+        sub:"Visão executiva da operação",
+        lead:"O Centro de Comando consolida a leitura executiva da Academia: saúde operacional, indicadores, iniciativas estratégicas e evolução da área em um único ponto de acompanhamento.",
+        sections:[
+          ["Para que serve",["Acompanhar rapidamente a maturidade da operação.","Visualizar bancos, conciliadoras, sistemas e indicadores-chave.","Entender quais frentes estratégicas estão ativas.","Conectar gestão, governança e atualização contínua da Academia."]],
+          ["Como interpretar",["Saúde operacional mostra o panorama da operação.","Projetos Estratégicos mostram o estado atual das frentes da área.","Atualizações da Operação mostram o histórico do que mudou, quando mudou e quem registrou."]],
+          ["Fonte única da verdade",["Os projetos estratégicos devem ser atualizados pela planilha de Projetos.","O histórico de mudanças deve ser atualizado pela planilha de Registro de Mudanças.","Assim, o Centro de Comando e as Atualizações não divergem entre si."]]
+        ],
+        practice:["Use em reuniões, passagens de contexto e acompanhamento de evolução.","Quando uma frente mudar de status, atualize a planilha de Projetos e registre a mudança no Registro Vivo."],
+        related:["Projetos Estratégicos","Atualizações da Operação","Governança do Conhecimento","Maturidade da Área","Legado da Conciliação"]
+      },
+      "Projetos Estratégicos":{
+        sub:"Estado atual das frentes",
+        lead:"Projetos Estratégicos representam as frentes atuais da área. Eles mostram o estado vivo do que está em planejamento, implantação, homologação, produção, concluído ou em evolução.",
+        sections:[
+          ["O que entra aqui",["Conciliação LATAM.","IA na Conciliação.","Novos clientes ou novas frentes de conciliação.","Automações, melhorias operacionais e iniciativas que impactam a rotina."]],
+          ["Como atualizar",["Abrir a planilha de Projetos Estratégicos.","Alterar ou incluir projeto, status, descrição, responsável e última atualização.","Salvar a planilha publicada.","O Centro de Comando passa a refletir o estado atual."]]
+        ],
+        practice:["Use para consultar o momento atual de cada frente estratégica."],
+        related:["Centro de Comando","Atualizações da Operação","Conciliação LATAM","IA na Conciliação","Governança do Conhecimento"]
+      },
+      "Atualizações da Operação":{
+        sub:"Registro vivo de mudanças",
+        lead:"As Atualizações da Operação registram o que mudou, por que mudou, quando mudou e quem registrou. É o histórico vivo da Academia, alimentado pela planilha de Registro de Mudanças.",
+        sections:[
+          ["Para que serve",["Registrar novas frentes de conciliação.","Comunicar mudanças de processo.","Documentar evolução de projetos como LATAM, IA e novos clientes.","Manter rastreabilidade para o time e para a gestão."]],
+          ["O que registrar",["Novo cliente conciliado.","Mudança de status de projeto.","Alteração relevante em banco, conciliadora ou sistema.","Novo processo especial.","Nova documentação publicada."]],
+          ["Como manter atualizado",["Abrir a planilha de Registro de Mudanças.","Preencher Data, Título, Categoria, Status, Descrição e Responsável.","Salvar a planilha.","O site atualiza os cards automaticamente quando a integração estiver publicada."]]
+        ],
+        practice:["Use para entender o que mudou desde a última consulta.","Sempre que um projeto mudar de status, registre também uma atualização."],
+        related:["Centro de Comando","Projetos Estratégicos","Governança do Conhecimento","Conciliação LATAM","Processos Especiais"]
+      },
+      "SQL Academy":{
+        sub:"Autonomia analítica",
+        lead:"A SQL Academy existe para dar autonomia ao analista na localização de pedidos, validação de dados, investigação de divergências e apoio à tomada de decisão operacional.",
+        sections:[
+          ["Por que existe",["A operação gera milhares de registros diariamente.","Localizar manualmente nem sempre é viável.","SQL acelera consultas, extrações e investigações.","O objetivo não é formar desenvolvedores, e sim analistas com autonomia para encontrar informação confiável."]],
+          ["Funções e termos básicos",["SELECT: define quais colunas serão exibidas na consulta.","FROM: indica de qual tabela ou base os dados serão consultados.","WHERE: cria a condição principal da busca e deve ser usado apenas uma vez na consulta.","AND: complementa o WHERE com novos filtros e condições.","ORDER BY: organiza o resultado da consulta por uma coluna definida.","TOP: limita a quantidade de linhas retornadas, quando necessário."]],
+          ["WHERE e AND na prática",["WHERE inicia o filtro: por exemplo, WHERE Pedido = '12345'.","AND adiciona novas condições: por exemplo, AND Cliente = 'XPTO'.","Se precisar de mais filtros, mantenha apenas um WHERE e continue usando AND.","Pensamento operacional: primeiro filtre pelo dado mais forte, depois refine com condições adicionais."]],
+          ["Comentar e descomentar filtros",["Em SQL, dois tracinhos -- comentam uma linha.","Quando uma linha está comentada, ela fica inativa na execução da query.","Para ativar um filtro, remova os tracinhos da linha desejada.","Para inativar um filtro, coloque -- no início da linha.","Esse recurso ajuda a testar cenários sem apagar filtros importantes."]],
+          ["Exemplo simples",["SELECT *","FROM NomeDaTabela","WHERE Pedido = '12345'","AND Cliente = 'Cliente X'","-- AND Valor = 100.00","No exemplo, o filtro de valor está comentado e não será considerado até que os tracinhos sejam removidos."]],
+          ["Regra de ouro",["Não tente resolver um problema usando apenas um sistema.","A maior parte das análises exige cruzamento entre SQL, Benner, WEBTES, SmartOperations, banco, conciliadora e histórico de e-mails."]]
+        ],
+        practice:["Use SQL para localizar pedidos, validar informações e investigar divergências.","Ao montar uma query, comece simples e vá adicionando filtros com AND.","Use comentários para ativar e desativar filtros sem perder a estrutura da consulta."],
+        related:["Sistemas Utilizados","WEBTES","SmartOperations","Benner","Qual Sistema Eu Uso?","Localizar Pedido","Casos Reais"]
+      },
+      "WEBTES":{
+        sub:"Consulta por localizador",
+        lead:"WEBTES é uma ferramenta de apoio para localizar informações de emissão, especialmente quando o pedido não aparece no primeiro caminho de consulta e existe localizador disponível.",
+        sections:[
+          ["Quando usar",["Quando o pedido não for localizado inicialmente no SQL ou no caminho principal.","Quando houver localizador da emissão.","Quando for necessário validar dados de viagem, emissão ou informações complementares da reserva."]],
+          ["Como pensar",["WEBTES não substitui o raciocínio operacional.","Ele ajuda a confirmar a origem da emissão e apoiar a localização do pedido.","Depois da consulta, valide os dados no fluxo completo: SQL, Benner, VMWEB ou sistemas relacionados quando necessário."]],
+          ["Boas práticas",["Registrar evidências da consulta.","Confirmar se o localizador corresponde ao cliente e à emissão analisada.","Não concluir a análise sem cruzar com pedido, cartão, valor e histórico quando aplicável."]]
+        ],
+        practice:["Use quando houver localizador e o pedido não tiver sido encontrado pelo caminho inicial."],
+        related:["Qual Sistema Eu Uso?","Localizar Pedido","SQL Academy","VMWEB","Benner","SmartOperations"]
+      },
+      "SmartOperations":{
+        sub:"Maquineta Copastur e Guarda Segura",
+        lead:"SmartOperations apoia a análise de transações de maquineta Copastur e também abriga a Guarda Segura, ambiente usado para gestão e consulta segura dos cartões dos clientes.",
+        sections:[
+          ["Quando usar",["Quando a demanda envolver maquineta Copastur.","Quando houver dificuldade para localizar a origem de uma cobrança.","Quando for necessário consultar ou confirmar informações na Guarda Segura."]],
+          ["Pontos importantes",["SmartOperations é ferramenta complementar de investigação.","O pedido também pode ser localizado no SQL quando houver integração adequada.","Guarda Segura não é a fonte que gera o TXT; o TXT depende do cadastro correto no Benner."]],
+          ["Guarda Segura",["Ambiente seguro para cadastro e gerenciamento dos cartões dos clientes.","Permite consultar se o cartão já existe no BKO.","Ajuda a validar dados mascarados e histórico de cadastro."]]
+        ],
+        practice:["Use para cenários de maquineta Copastur e validações relacionadas à Guarda Segura."],
+        related:["Origem da Transação","Cadastro de Cartões","Benner","Cartão Não Cadastrado","SQL Academy","Qual Sistema Eu Uso?"]
+      },
+      "VMWEB":{
+        sub:"Validação operacional",
+        lead:"VMWEB apoia a validação de informações lançadas e o acompanhamento de ajustes realizados por outras áreas, funcionando como complemento ao Benner e demais sistemas da operação.",
+        sections:[
+          ["Quando consultar",["Quando precisar validar informações operacionais do pedido.","Quando houver dúvida sobre lançamento, ajuste ou integração.","Quando a análise exigir cruzamento com Benner, SQL ou WEBTES."]],
+          ["Como usar",["Confirme se os dados consultados fazem sentido com a cobrança analisada.","Use como apoio, não como única fonte da análise.","Registre evidências quando a validação sustentar uma tratativa."]]
+        ],
+        practice:["Use como ponto de validação complementar em investigações operacionais."],
+        related:["WEBTES","Benner","SQL Academy","Qual Sistema Eu Uso?","Localizar Pedido"]
+      },
+      "Benner":{
+        sub:"Base operacional dos pedidos e cartões",
+        lead:"Benner é uma das bases mais importantes da operação. Ele concentra informações dos pedidos e é essencial para cadastro de cartões, geração de arquivos terrestres e apoio à cadeia de conciliação.",
+        sections:[
+          ["Por que é crítico",["O cadastro correto do cartão no Benner impacta diretamente a geração dos arquivos TXT.","Arquivos terrestres são gerados no Benner.","O Utilitários também depende da base operacional ligada ao ecossistema do Benner/eBusiness para geração dos arquivos aéreos."]],
+          ["Cartão e BKO",["Todo cartão precisa estar cadastrado no BKO correto do cliente.","Se a transação estiver vinculada ao BKO 123 e o cartão estiver cadastrado no BKO 1234, a transação pode não aparecer no TXT.","O cartão é um dos principais vínculos para que a transação conste no arquivo."]]
+        ],
+        practice:["Use Benner como referência crítica para cadastro, validação e geração de arquivos terrestres."],
+        related:["Origem da Transação","Cadastro de Cartões","Geração de Arquivo TXT","SmartOperations","SQL Academy"]
+      },
+      "Conciliação LATAM":{
+        sub:"Projeto estratégico em evolução",
+        lead:"A Conciliação LATAM é uma frente estratégica para mapear, estruturar e documentar novos fluxos de conciliação na América Latina, conforme novas demandas da operação.",
+        sections:[
+          ["Objetivo",["Mapear fluxos regionais.","Identificar particularidades de bancos, clientes, produtos e conciliadoras.","Documentar decisões desde o início para evitar conhecimento disperso.","Preparar a operação para escalar com mais segurança."]],
+          ["Como acompanhar",["O status atual deve ficar na planilha de Projetos Estratégicos.","Mudanças relevantes devem entrar no Registro de Mudanças.","Aprendizados operacionais devem virar documentação, caso real ou processo especial quando aplicável."]]
+        ],
+        practice:["Use como referência para acompanhar a expansão e evolução LATAM."],
+        related:["Projetos Estratégicos","Atualizações da Operação","Processos Especiais","Governança do Conhecimento","Centro de Comando"]
+      },
+      "LATAM":{
+        sub:"Atalho para Conciliação LATAM",
+        lead:"LATAM direciona para a frente estratégica de Conciliação LATAM.",
+        sections:[["Abrir conteúdo",["Clique em Conciliação LATAM nos relacionados para acessar o conteúdo completo."]]],
+        practice:["Use como atalho de busca."],
+        related:["Conciliação LATAM","Projetos Estratégicos","Atualizações da Operação"]
+      },
+      "Processo BIG":{
+        sub:"Rateio de centro de custo",
+        lead:"O Processo BIG, atualmente relacionado ao Grupo Carrefour/Antigo BIG, é uma particularidade operacional que envolve recebimento de material da conciliadora, validação e rateio de centro de custo.",
+        sections:[
+          ["Como funciona",["A conciliadora envia o material ao cliente, com a Copastur em cópia.","A equipe baixa o arquivo recebido.","É realizado o rateio por centro de custo conforme necessidade do cliente.","O material é enviado ao cliente após a tratativa."]],
+          ["Pontos de atenção",["Confirmar se o arquivo recebido é a versão correta.","Validar centro de custo e informações gerenciais antes de devolver.","Registrar o envio ao cliente e manter histórico da tratativa."]],
+          ["Por que é processo especial",["Possui individualidade de cliente.","Envolve etapa manual e controle de envio.","Pode gerar risco se ficar apenas na memória informal."]]
+        ],
+        practice:["Use quando houver demanda de rateio BIG/Carrefour ou dúvida sobre centro de custo nesse fluxo."],
+        related:["Processos Especiais","Ausência de Dados Gerenciais","Base de Tratativas","Atualizações da Operação","Governança do Conhecimento"]
+      },
+      "Reconciliações Especiais":{
+        sub:"Norte Energia e Positivo",
+        lead:"Reconciliações Especiais reúnem particularidades de clientes como Norte Energia e Positivo, com ajustes ou reconciliações específicas de campos gerenciais e validações fora do fluxo padrão.",
+        sections:[
+          ["Quando usar",["Quando a demanda envolver Norte Energia ou Positivo.","Quando houver necessidade de validar faturas, campos gerenciais ou informações específicas do cliente.","Quando o fluxo não seguir a lógica padrão de conciliação automática."]],
+          ["Roteiro de análise",["Identificar cliente, período, banco, produto e fatura.","Validar pedido, valor, cartão e dados gerenciais.","Comparar informações conciliadas com o material recebido.","Registrar evidências e retorno."]],
+          ["Como documentar evolução",["Se houver nova regra ou ajuste recorrente, atualizar Processos Especiais.","Se houver mudança relevante, registrar no Registro Vivo.","Se virar aprendizado operacional, transformar em caso real ou lição aprendida."]]
+        ],
+        practice:["Use para demandas de Norte Energia, Positivo e reconciliações com particularidades de cliente."],
+        related:["Processos Especiais","Base de Tratativas","Casos Reais","Atualizações da Operação","Governança do Conhecimento"]
+      }
+    });
+    // Ajustes de relacionados que antes apontavam para conteúdos genéricos.
+    if(window.fc["Qual Sistema Eu Uso?"]){
+      window.fc["Qual Sistema Eu Uso?"].related=["SQL Academy","WEBTES","VMWEB","SmartOperations","Benner","Sistemas Utilizados","Localizar Pedido"];
+    }
+    if(window.fc["Casos Reais"]){
+      window.fc["Casos Reais"].related=["Caso Real — Cartão Não Cadastrado no BKO Correto","Caso Real — Grande Volume de Pendências","Caso Real — Problemas no Portal Bradesco","Caso Real — Prévia Não Recebida","Caso Real — Problemas S3/Kleopatra","Caso Real — Pedido Não Localizado","Caso Real — Valor Divergente","Caso Real — Ausência de Dados Gerenciais","Caso Real — Arquivo TXT com Erro"];
+    }
+    if(window.fc["Processos Especiais"]){
+      window.fc["Processos Especiais"].related=["Origem da Transação","Cadastro de Cartões","Conciliação LATAM","Processo BIG","Reconciliações Especiais","Bradesco","Citi","Governança do Conhecimento","Atualizações da Operação"];
+    }
+    if(window.aliases){
+      Object.assign(window.aliases,{
+        "latam":"Conciliação LATAM",
+        "conciliação latam":"Conciliação LATAM",
+        "conciliacao latam":"Conciliação LATAM",
+        "webtes":"WEBTES",
+        "smartoperations":"SmartOperations",
+        "smart":"SmartOperations",
+        "vmweb":"VMWEB",
+        "processo big":"Processo BIG",
+        "big":"Processo BIG",
+        "reconciliações especiais":"Reconciliações Especiais",
+        "reconciliacoes especiais":"Reconciliações Especiais",
+        "centro de comando":"Centro de Comando",
+        "atualizações da operação":"Atualizações da Operação",
+        "atualizacoes da operacao":"Atualizações da Operação",
+        "projetos estrategicos":"Projetos Estratégicos",
+        "projetos estratégicos":"Projetos Estratégicos"
+      });
+    }
+    rebuildSearchFromCurrentFc();
+  }
+  function norm(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();}
+  function rebuildSearchFromCurrentFc(){
+    if(!window.fc)return;
+    const idx=Object.keys(window.fc).map(t=>{const d=window.fc[t]||{};return {title:t,type:d.sub||"Academia da Conciliação",desc:d.lead||"",keys:norm([t,d.sub,d.lead,...(d.sections||[]).flat().flat(),...(d.related||[])].join(" "))};});
+    window.searchKnowledge=function(q){
+      const box=document.getElementById("results"); if(!box)return;
+      const query=norm(q); if(!query){box.style.display="none";box.innerHTML="";return;}
+      const terms=query.split(" ").filter(Boolean);
+      const found=idx.map(item=>{let score=terms.reduce((s,t)=>s+(item.keys.includes(t)?1:0),0); if(norm(item.title).includes(query))score+=8; if(item.keys.includes(query))score+=3; return {...item,score};}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,16);
+      box.style.display="block";
+      if(!found.length){box.innerHTML='<div class="no-results">Não encontrei esse termo exato. Tente: WEBTES, SmartOperations, SQL, BIG, LATAM, Atualizações, Centro de Comando, cartão ou Bradesco.</div>';return;}
+      box.innerHTML=found.map(x=>`<div class="result-item" onclick="openModal('${x.title.replace(/'/g,"\\'")}')"><div class="result-icon">↗</div><div><strong>${x.title}</strong><small>${x.type} · ${String(x.desc).substring(0,160)}${String(x.desc).length>160?"...":""}</small></div><div>→</div></div>`).join("");
+    };
+    window.quickSearch=function(term){const input=document.getElementById("searchInput"); if(input)input.value=term; window.searchKnowledge(term);};
+  }
+  applyCompleteContent();
+  window.addEventListener('load',()=>setTimeout(applyCompleteContent,250));
+})();
+</script>
+
+<script id="final-governance-content-patch">
+(function(){
+  const finalContent={
+    "Centro de Comando":{
+      sub:"Governança executiva",
+      lead:"O Centro de Comando é a camada executiva da Academia. Ele consolida saúde operacional, projetos estratégicos e maturidade da gestão do conhecimento sem substituir o Registro Vivo de mudanças.",
+      sections:[
+        ["Pergunta que responde",["Como está a operação hoje?","Quais frentes estratégicas estão ativas?","A base de conhecimento está viva, rastreável e governada?"]],
+        ["Como interpretar",["Saúde Operacional mostra o panorama macro da operação: bancos, conciliadoras, sistemas, conteúdo e legado.","Radar Estratégico mostra o estado atual das frentes da área, alimentado pela planilha de Projetos Estratégicos.","Atualizações da Operação mostra o histórico do que mudou, quando mudou, por que mudou e quem registrou."]],
+        ["Governança Big Four",["Centro de Comando não deve repetir o histórico das atualizações.","Projetos mostram estado atual; Registro Vivo mostra movimentação histórica.","Toda frente relevante deve ter responsável, status, descrição e última atualização."]],
+        ["Fonte única da verdade",["Projetos Estratégicos devem ser mantidos na planilha de projetos.","Mudanças, novos clientes e alterações de processo devem ser registradas na planilha de mudanças.","O objetivo é evitar divergência entre áreas do site e facilitar manutenção pelo time."]]
+      ],
+      practice:["Use em reuniões, passagens de contexto e acompanhamento de evolução.","Quando uma frente mudar de status, atualize Projetos Estratégicos e registre a mudança no Registro Vivo."],
+      related:["Projetos Estratégicos","Atualizações da Operação","Governança do Conhecimento","Maturidade da Área","Legado da Conciliação"]
+    },
+    "Atualizações da Operação":{
+      sub:"Registro vivo",
+      lead:"Atualizações da Operação é o histórico vivo da Academia. Ela registra mudanças relevantes de processo, novos conteúdos, novos clientes, evolução de projetos e decisões operacionais.",
+      sections:[
+        ["Pergunta que responde",["O que mudou?","Por que mudou?","Quando mudou?","Quem registrou ou validou?"]],
+        ["O que registrar",["Novo cliente que entrará em conciliação.","Alteração de fluxo, banco, conciliadora ou sistema.","Novo conteúdo publicado na Academia.","Mudança de status de projeto estratégico.","Processo novo, exceção recorrente ou aprendizado relevante."]],
+        ["Como manter atualizado",["Abrir a planilha de Registro de Mudanças.","Inserir nova linha com data, título, categoria, status, descrição e responsável.","Salvar a planilha publicada.","O site passa a refletir o histórico registrado, sem editar HTML."]],
+        ["Regra de governança",["Atualização é histórico; projeto é estado atual.","Se uma frente mudou de fase, atualize também a planilha de Projetos Estratégicos.","Se a mudança gerar procedimento, caso real ou processo especial, documente na Base de Conhecimento."]]
+      ],
+      practice:["Use para manter rastreabilidade e evitar que mudanças fiquem apenas em e-mails ou memória informal."],
+      related:["Centro de Comando","Projetos Estratégicos","Governança do Conhecimento","Processos Especiais","Legado da Conciliação"]
+    },
+    "Base de Conhecimento":{
+      sub:"Consulta operacional",
+      lead:"A Base de Conhecimento reúne conteúdos que apoiam decisão, execução e aprendizado no dia a dia da Conciliação.",
+      sections:[
+        ["O que fica aqui",["FAQ para conceitos recorrentes.","Casos Reais para aprender com situações vividas.","Lições Aprendidas para preservar padrões e boas práticas.","Processos Especiais para individualidades que não podem ficar na memória informal.","Documentações para execução segura de processos."]],
+        ["Como usar",["Comece pelo FAQ quando a dúvida for conceitual.","Use Base de Tratativas quando precisar resolver.","Use Casos Reais quando quiser entender como pensar a investigação.","Use Documentações quando precisar executar um procedimento sensível."]]
+      ],
+      practice:["A Base deve crescer com dúvidas reais, novos casos e mudanças operacionais."],
+      related:["FAQ da Conciliação","Casos Reais","Lições Aprendidas","Processos Especiais","Documentações"]
+    },
+    "Minha Jornada":{
+      sub:"Trilhas de desenvolvimento",
+      lead:"Minha Jornada organiza o desenvolvimento operacional por etapas: conhecer, aprender, praticar, especializar-se e multiplicar conhecimento.",
+      sections:[
+        ["Como interpretar",["Conheça: entender conceitos, bancos, conciliadoras, sistemas e fluxos.","Aprenda: dominar SQL, arquivos, tratativas e regras operacionais.","Pratique: aplicar FAQ, casos reais e lições no dia a dia.","Especialize-se: identificar padrões, causas raiz, riscos e oportunidades.","Multiplique: compartilhar conhecimento e desenvolver outras pessoas."]],
+        ["Conteúdos de apoio",["Trilha 30/60/90 para onboarding.","Raciocínio Analítico para investigação.","SQL Academy para autonomia em dados.","IA na Conciliação para documentação, estudo e produtividade com validação crítica."]]
+      ],
+      practice:["Use a jornada como roteiro de capacitação para novos analistas e evolução do time."],
+      related:["Trilha de Desenvolvimento","Jornada do Analista","SQL Academy","IA na Conciliação","Como Pensar Como um Analista"]
+    },
+    "Ausência de Dados Gerenciais":{
+      sub:"Tratativa sem divergência financeira",
+      lead:"A ausência de dados gerenciais acontece quando a despesa já foi conciliada financeiramente através do arquivo TXT, mas existem informações obrigatórias que não foram preenchidas ou identificadas no processo.",
+      sections:[
+        ["O problema",["A despesa foi conciliada automaticamente pelo arquivo TXT.","Não existe divergência financeira entre cobrança e pedido.","O valor do cartão está correto e o pedido foi localizado.","A tratativa existe para complementar ou corrigir informações gerenciais obrigatórias."]],
+        ["Como identificar",["A despesa já está conciliada financeiramente.","O valor do cartão está correto.","O pedido foi localizado.","Existem campos obrigatórios faltando ou não identificados."]],
+        ["Principais informações ausentes",["Centro de Custo: área ou departamento responsável pela despesa.","Solicitante: pessoa responsável pela solicitação da viagem.","Projeto: projeto relacionado à despesa.","Motivo da Viagem: justificativa da realização da viagem corporativa."]],
+        ["Como resolver",["Etapa 1: identificar quais informações estão ausentes.","Etapa 2: localizar o pedido correspondente.","Etapa 3: consultar WEBTES, VMWEB, OBTs e Benner para localizar os dados faltantes.","Etapa 4: se a informação não estiver disponível, abrir tratativa interna para obtenção dos dados.","Etapa 5: preencher conforme orientação do cliente ou produto conciliado, via planilha, Portal Bradesco ou ferramenta da conciliadora."]],
+        ["Quando escalar",["Não foi possível localizar a informação necessária.","Existe dúvida sobre o preenchimento correto.","O cliente possui regra específica não documentada.","O prazo de retorno está próximo do vencimento."]],
+        ["Impacto operacional",["Pendências de fechamento.","Relatórios incompletos.","Problemas de classificação de despesas.","Solicitações de correção por parte dos clientes."]],
+        ["Regra de ouro",["Ausência não é pendência.","Uma ausência já foi conciliada financeiramente.","O que falta são informações gerenciais.","O preenchimento incorreto pode gerar retrabalho e comprometer relatórios gerenciais.","Quando muitas ausências têm o mesmo comportamento, pode existir oportunidade de melhoria na origem da informação."]]
+      ],
+      practice:["Use quando o problema não for valor, e sim informação gerencial ausente ou incompleta.","Antes de escalar, valide pedido, cliente, regra e sistemas disponíveis."],
+      related:["Base de Tratativas","FAQ da Conciliação","WEBTES","VMWEB","Benner","Sistemas Utilizados","Bradesco","Caso Real — Ausência de Dados Gerenciais"]
+    },
+    "Ausências e Dados Gerenciais":{
+      sub:"Tratativa sem divergência financeira",
+      lead:"Ausências e Dados Gerenciais concentram os casos em que a conciliação financeira ocorreu, mas faltam informações obrigatórias para fechamento gerencial correto.",
+      sections:[["Use este conteúdo",["Consulte a página Ausência de Dados Gerenciais para o conceito completo, identificação, resolução, escalonamento e impactos."]]],
+      practice:["Use quando a despesa já conciliou, mas faltam campos como centro de custo, solicitante, projeto ou motivo da viagem."],
+      related:["Ausência de Dados Gerenciais","Base de Tratativas","FAQ da Conciliação","WEBTES","VMWEB","Benner"]
+    },
+    "Caso Real — Ausência de Dados Gerenciais":{
+      sub:"Caso real de ausência",
+      lead:"Este caso representa situações em que a despesa já conciliou financeiramente, mas o cliente exige informações gerenciais obrigatórias que não foram preenchidas ou identificadas.",
+      sections:[
+        ["Contexto",["Despesa conciliada financeiramente.","Valor correto.","Pedido localizado.","Campos gerenciais obrigatórios ausentes."]],
+        ["Investigação",["Identificar o campo faltante.","Validar pedido e produto conciliado.","Consultar WEBTES, VMWEB, OBTs e Benner.","Confirmar regra específica do cliente."]],
+        ["Solução",["Preencher a informação conforme orientação do cliente ou produto.","Utilizar planilha, Portal Bradesco ou ferramenta da conciliadora quando aplicável.","Registrar evidência da tratativa realizada."]],
+        ["Aprendizado",["Ausência não é pendência financeira.","A qualidade do dado gerencial impacta relatórios e fechamento do cliente.","Padrões recorrentes podem indicar melhoria necessária na origem da informação."]]
+      ],
+      practice:["Use para treinar a diferença entre pendência financeira e ausência gerencial."],
+      related:["Ausência de Dados Gerenciais","Base de Tratativas","FAQ da Conciliação","Bradesco","Sistemas Utilizados"]
+    },
+    "Localizar Pedido":{
+      sub:"Fluxo guiado de consulta",
+      lead:"Localizar pedido é uma das primeiras etapas de investigação. O objetivo é conectar cobrança, autorização, cliente e pedido antes de concluir qualquer tratativa.",
+      sections:[
+        ["Caminho recomendado",["Comece pelo SQL Server para consultar dados e localizar pedido.","Se não encontrar e houver localizador, consulte WEBTES.","Use VMWEB ou Benner para validações operacionais e histórico.","Se envolver maquineta Copastur, use SmartOperations como ferramenta complementar."]],
+        ["Pontos de atenção",["Não abra tratativa sem evidência.","Confirme produto, cliente, localizador, cartão e autorização.","Consulte histórico de e-mails quando a situação parecer recorrente."]]
+      ],
+      practice:["Use quando alguém disser: não localizei o pedido."],
+      related:["SQL Academy","WEBTES","VMWEB","SmartOperations","Benner","Falta de Autorização"]
+    },
+    "Gerar Arquivo":{
+      sub:"Arquivos TXT",
+      lead:"Gerar arquivo é uma etapa crítica porque o TXT leva informações para a conciliadora. Um arquivo incorreto pode gerar pendências em volume e retrabalho.",
+      sections:[
+        ["Fluxos principais",["Aéreo: arquivos gerados pelo Utilitários.","Terrestre/Hotel: arquivos gerados pelo Benner.","Citi: fluxo exige Utilitários, Kleopatra e S3.","Arquivos gerais podem conter mais de um cliente; arquivos por cliente ou grupo exigem seleção específica."]],
+        ["Antes de gerar",["Confirme banco, produto, cliente e conciliadora.","Valide se cartões necessários estão cadastrados no Benner.","Confira se o arquivo deve ser geral ou específico por cliente/grupo."]]
+      ],
+      practice:["Use quando a demanda envolver geração, envio ou validação de TXT."],
+      related:["Geração de Arquivo TXT","Utilitários","Benner","Kleopatra","S3","Origem da Transação"]
+    },
+    "Geração de Arquivo TXT":{
+      sub:"Cadeia de conciliação",
+      lead:"O arquivo TXT é a ponte entre os dados operacionais e o processamento da conciliadora. Ele depende de cadastro correto, sistema correto e geração no fluxo adequado.",
+      sections:[
+        ["Aéreo",["Gerado pelo Utilitários.","A base utilizada é o banco de dados eBusiness do servidor Espanha.","Arquivos aéreos gerais podem ser gerados por robô e enviados automaticamente para suporte.conciliação@copastur.com.br."]],
+        ["Terrestre/Hotel",["Gerado pelo Benner.","Arquivos gerais terrestres precisam ser gerados manualmente.","Para arquivo por cliente ou grupo, é necessário selecionar no Benner ou Utilitários conforme o fluxo."]],
+        ["Dependência crítica",["O cartão precisa estar cadastrado no BKO correto no Benner.","Se o cartão estiver no BKO errado, a transação pode não entrar no TXT.","Guarda Segura é ambiente seguro de gestão, mas a geração do TXT puxa do Benner/Utilitários."]]
+      ],
+      practice:["Use para entender por que uma transação aparece ou não aparece no arquivo."],
+      related:["Origem da Transação","Cadastro de Cartões","Utilitários","Benner","Processos Especiais","Base de Tratativas"]
+    },
+    "Documentações":{
+      sub:"Materiais de apoio",
+      lead:"Documentações centralizam orientações, fluxos, evidências, guias de sistemas, instruções de arquivos e materiais necessários para execução segura.",
+      sections:[
+        ["O que deve ficar documentado",["Guias de sistemas.","Fluxos validados.","Pastas de rede e SFTP.","Procedimentos de geração e envio de arquivos.","Modelos de e-mail e evidência.","Regras específicas de clientes, bancos e conciliadoras."]],
+        ["Regra de manutenção",["Se o processo mudou, a documentação precisa mudar.","Se a dúvida apareceu mais de uma vez, merece registro.","Se o conteúdo impacta execução, precisa estar acessível no portal."]]
+      ],
+      practice:["Use antes de executar processos sensíveis ou treinar alguém novo."],
+      related:["Governança do Conhecimento","Geração de Arquivo TXT","SFTP","Cadastro de Cartões","Processos Especiais"]
+    },
+    "Utilitários":{
+      sub:"Geração de arquivos aéreos",
+      lead:"Utilitários é a ferramenta utilizada para geração de arquivos TXT aéreos e depende da base eBusiness do servidor Espanha para refletir ajustes operacionais em tempo real.",
+      sections:[
+        ["Para que serve",["Gerar arquivos TXT aéreos.","Apoiar geração de arquivos por cliente, grupo ou arquivos gerais, conforme seleção.","Permitir que ajustes de transações do backoffice sejam refletidos nos envios à conciliadora."]],
+        ["Ponto crítico",["A base precisa estar atualizada em tempo real.","Cadastro correto de cartão no Benner impacta a geração do arquivo.","Para Citi, o arquivo gerado segue para criptografia no Kleopatra e envio via S3."]]
+      ],
+      practice:["Use quando a dúvida envolver TXT aéreo, arquivo geral ou envio para conciliadora."],
+      related:["Geração de Arquivo TXT","Benner","Kleopatra","S3","Origem da Transação"]
+    },
+    "Kleopatra":{
+      sub:"Criptografia de arquivos",
+      lead:"Kleopatra é utilizado em fluxos que exigem proteção do arquivo antes do envio, especialmente no fluxo Citi.",
+      sections:[
+        ["Função",["Criptografar arquivos antes do envio.","Garantir segurança da informação no tráfego de dados operacionais.","Fazer parte da cadeia Utilitários → Kleopatra → S3 em fluxos específicos."]],
+        ["Pontos de atenção",["Falha na criptografia pode impedir leitura ou processamento do arquivo.","Sempre registre evidência quando houver problema.","Valide se a falha ocorreu na geração, criptografia ou envio."]]
+      ],
+      practice:["Use para fluxos Citi/Foundever e problemas de envio seguro."],
+      related:["Citi","Foundever / Sitel","S3","Problemas de Envio de Arquivos"]
+    },
+    "S3":{
+      sub:"Envio e recebimento seguro",
+      lead:"S3 é utilizado como canal de envio e recebimento de arquivos em fluxos específicos, especialmente Citi/Foundever.",
+      sections:[
+        ["Função",["Transportar arquivos operacionais.","Apoiar envio e recebimento de arquivos no fluxo Citi.","Manter rastreabilidade quando combinado com evidências de envio."]],
+        ["Pontos de atenção",["Instabilidade pode comprometer processamento.","Problemas de envio devem ser registrados com print, horário e mensagem de erro.","Valide se outros usuários também foram impactados antes de escalar."]]
+      ],
+      practice:["Use quando houver problema de envio, recebimento ou processamento de arquivos no fluxo Citi."],
+      related:["Citi","Foundever / Sitel","Kleopatra","Problemas de Envio de Arquivos"]
+    },
+    "Banco Citi":{
+      sub:"Banco com segurança reforçada",
+      lead:"Banco Citi segue fluxo com Foundever/Sitel, Utilitários, Kleopatra e S3, exigindo atenção especial à segurança e evidências de envio.",
+      sections:[["Direcionamento",["Consulte a página Citi para o fluxo completo.","Consulte Foundever/Sitel para a conciliadora.","Consulte S3/Kleopatra para problemas de envio e criptografia."]]],
+      practice:["Use como entrada rápida quando a busca retornar Banco Citi."],
+      related:["Citi","Foundever / Sitel","Kleopatra","S3","Problemas de Envio de Arquivos"]
+    },
+    "Pendência":{
+      sub:"Conceito operacional",
+      lead:"Pendência é uma despesa que não conciliou automaticamente e exige análise manual para identificar causa, evidência e caminho de tratativa.",
+      sections:[["Como pensar",["Confirme cobrança, pedido, valor, cartão, fornecedor e autorização.","Valide banco e conciliadora envolvidos.","Procure caso real ou FAQ semelhante antes de escalar."]]],
+      practice:["Use como entrada conceitual e siga para Base de Tratativas."],
+      related:["Base de Tratativas","FAQ da Conciliação","Localizar Pedido","Casos Reais"]
+    },
+    "Ausência":{
+      sub:"Conceito operacional",
+      lead:"Ausência é diferente de pendência: a despesa já conciliou financeiramente, mas faltam informações gerenciais obrigatórias.",
+      sections:[["Regra de ouro",["Ausência não é divergência financeira.","O foco é completar dados como centro de custo, solicitante, projeto ou motivo da viagem."]]],
+      practice:["Use como entrada rápida para Ausência de Dados Gerenciais."],
+      related:["Ausência de Dados Gerenciais","FAQ da Conciliação","Base de Tratativas"]
+    },
+    "Aging":{
+      sub:"Prioridade e prazo",
+      lead:"Aging representa o tempo ou prazo de regularização de uma pendência ou item em tratativa. Em fluxos críticos, ele orienta prioridade operacional.",
+      sections:[["Como usar",["Priorize itens com prazo próximo do vencimento.","No Bradesco, Aging -4 deve receber prioridade máxima.","Quando houver divergência de aging, acione conciliadora ou banco para validação."]]],
+      practice:["Use para organizar fila de tratativas e risco de fechamento."],
+      related:["Aging Incorreto","Bradesco","Base de Tratativas","Problemas no Portal Bradesco"]
+    },
+    "Cortes":{
+      sub:"Prazos de processamento",
+      lead:"Cortes são prazos ou janelas definidos para envio, devolutiva ou processamento de informações pela conciliadora.",
+      sections:[["Como acompanhar",["Verifique e-mails, planilhas e comunicação da conciliadora.","Antecipe análise com prévias sempre que possível.","Escalone quando houver risco de perda de prazo ou ausência de arquivo esperado."]]],
+      practice:["Use junto com Prévia Não Recebida e fluxo da conciliadora."],
+      related:["Prévia Não Recebida","Montanari","Itaú","Santander","Base de Tratativas"]
+    },
+    "Norte Energia":{
+      sub:"Reconciliação especial",
+      lead:"Norte Energia é uma individualidade documentada dentro de Reconciliações Especiais, ligada a ajustes e reconciliação de informações gerenciais.",
+      sections:[["Como tratar",["Identificar cliente, fatura, período e regra aplicável.","Validar dados conciliados, pedido e campos gerenciais.","Registrar evidências e retorno."]]],
+      practice:["Use quando a demanda envolver individualidade do cliente Norte Energia."],
+      related:["Reconciliações Especiais","Processos Especiais","Ausência de Dados Gerenciais"]
+    },
+    "Positivo":{
+      sub:"Reconciliação especial",
+      lead:"Positivo é uma individualidade documentada dentro de Reconciliações Especiais, ligada a ajustes e reconciliação de informações gerenciais.",
+      sections:[["Como tratar",["Identificar cliente, fatura, período e regra aplicável.","Validar dados conciliados, pedido e campos gerenciais.","Registrar evidências e retorno."]]],
+      practice:["Use quando a demanda envolver individualidade do cliente Positivo."],
+      related:["Reconciliações Especiais","Processos Especiais","Ausência de Dados Gerenciais"]
+    }
+  };
+  const aliases={
+    "ausencia":"Ausência",
+    "ausência":"Ausência",
+    "ausencia de dados gerenciais":"Ausência de Dados Gerenciais",
+    "ausência de dados gerenciais":"Ausência de Dados Gerenciais",
+    "dados gerenciais":"Ausência de Dados Gerenciais",
+    "localizar":"Localizar Pedido",
+    "pedido":"Localizar Pedido",
+    "gerar arquivo":"Gerar Arquivo",
+    "arquivo txt":"Geração de Arquivo TXT",
+    "geracao de arquivo txt":"Geração de Arquivo TXT",
+    "geração de arquivo txt":"Geração de Arquivo TXT",
+    "utilitarios":"Utilitários",
+    "utilitários":"Utilitários",
+    "citi banco":"Citi",
+    "banco citi":"Citi",
+    "s3":"S3",
+    "kleopatra":"Kleopatra",
+    "cortes":"Cortes",
+    "corte":"Cortes",
+    "aging":"Aging",
+    "pendencia":"Pendência",
+    "pendência":"Pendência",
+    "norte energia":"Norte Energia",
+    "positivo":"Positivo",
+    "documentacoes":"Documentações",
+    "documentações":"Documentações",
+    "minha jornada":"Minha Jornada",
+    "base de conhecimento":"Base de Conhecimento"
+  };
+  window.fc=Object.assign(window.fc||{}, finalContent);
+  window.aliases=Object.assign(window.aliases||{}, aliases);
+  if(window.fc["FAQ da Conciliação"]){
+    window.fc["FAQ da Conciliação"].related=["Pendência","Ausência","Aging","Prévia Não Recebida","Cortes","Ausência de Dados Gerenciais","Base de Tratativas"];
+  }
+  if(window.fc["Base de Tratativas"]){
+    window.fc["Base de Tratativas"].related=["Como Pensar Como um Analista","Localizar Pedido","Ausência de Dados Gerenciais","Cartão Não Cadastrado","Casos Reais","FAQ da Conciliação"];
+  }
+  if(window.fc["Casos Reais"]){
+    window.fc["Casos Reais"].related=["Caso Real — Cartão Não Cadastrado no BKO Correto","Caso Real — Grande Volume de Pendências","Caso Real — Problemas no Portal Bradesco","Caso Real — Prévia Não Recebida","Caso Real — Problemas S3/Kleopatra","Caso Real — Pedido Não Localizado","Caso Real — Valor Divergente","Caso Real — Ausência de Dados Gerenciais","Caso Real — Arquivo TXT com Erro"];
+  }
+  function norm(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();}
+  function rebuildSearchFinal(){
+    const items=Object.keys(window.fc||{}).map(t=>{const d=window.fc[t]||{};return {title:t,type:d.sub||"Academia da Conciliação",desc:d.lead||"",keys:norm([t,d.sub,d.lead,(d.sections||[]).flat().flat().join(" "),(d.related||[]).join(" ")].join(" "))};});
+    window.searchKnowledge=function(q){
+      const box=document.getElementById("results"); if(!box)return;
+      const query=norm(q); if(!query){box.style.display="none";box.innerHTML="";return;}
+      const aliasKey=Object.keys(window.aliases||{}).find(a=>norm(a)===query||query.includes(norm(a)));
+      let found=[];
+      if(aliasKey&&window.fc[window.aliases[aliasKey]]){const t=window.aliases[aliasKey],d=window.fc[t];found.push({title:t,type:d.sub||"Academia da Conciliação",desc:d.lead||"",score:999});}
+      const terms=query.split(" ").filter(Boolean);
+      const scored=items.map(it=>{let score=terms.reduce((s,t)=>s+(it.keys.includes(t)?1:0),0); if(norm(it.title).includes(query))score+=8; if(it.keys.includes(query))score+=3; return Object.assign({},it,{score});}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);
+      const seen=new Set(found.map(x=>x.title)); found=found.concat(scored.filter(x=>!seen.has(x.title))).slice(0,16);
+      box.style.display="block";
+      if(!found.length){box.innerHTML='<div class="no-results">Não encontrei esse termo exato. Tente: Bradesco, Aging, Montanari, Citi, S3, Kleopatra, pedido, cartão, ausência, dados gerenciais, FAQ ou casos reais.</div>';return;}
+      box.innerHTML=found.map(x=>`<div class="result-item" onclick="openModal('${x.title.replace(/'/g,"\\'")}')"><div class="result-icon">↗</div><div><strong>${x.title}</strong><small>${x.type} · ${String(x.desc).substring(0,160)}${String(x.desc).length>160?"...":""}</small></div><div>→</div></div>`).join("");
+    };
+  }
+  rebuildSearchFinal();
+  const commandTitle=document.querySelector('#inteligencia .command-panel:nth-child(2) h3');
+  if(commandTitle) commandTitle.textContent='Radar estratégico';
+  const commandNote=document.querySelector('#inteligencia .update-note');
+  if(commandNote) commandNote.innerHTML='<strong>Governança:</strong> esta área mostra o estado atual das frentes estratégicas. O histórico do que mudou fica no Registro Vivo, evitando duplicidade e divergência.';
+})();
+</script>
+
+
+<script id="governance-final-polish">
+(function(){
+  window.fc = window.fc || {};
+  window.fc["Arquivos XML"] = {
+    sub:"Arquivos Banco do Brasil / Cateno",
+    lead:"Arquivos XML são utilizados em fluxos do Banco do Brasil/Cateno e devem ser tratados como formato específico, diferente dos arquivos TXT usados em outros bancos e conciliadoras.",
+    sections:[
+      ["Quando aparece",["Fluxos vinculados ao Banco do Brasil.","Operações tratadas pela Cateno.","Cenários em que o processamento não utiliza arquivo TXT tradicional."]],
+      ["Ponto de atenção",["Não tratar XML como TXT.","Validar banco, conciliadora, produto e layout antes de orientar a tratativa.","Preservar o conhecimento mesmo que o fluxo não esteja ativo no momento."]],
+      ["Como usar na Academia",["Consultar junto com Banco do Brasil e Cateno.","Registrar mudanças no Registro Vivo se houver nova ativação ou alteração de layout."]]
+    ],
+    practice:["Use quando a dúvida envolver Banco do Brasil, Cateno ou arquivo XML."],
+    related:["Banco do Brasil","Cateno","Bancos","Conciliadoras","Governança do Conhecimento"]
+  };
+  window.fc["Governança da Academia"] = {
+    sub:"Modelo de manutenção",
+    lead:"A Governança da Academia define como o portal continua vivo sem depender de edição direta no HTML.",
+    sections:[
+      ["Fonte única da verdade",["Projetos Estratégicos mostra o estado atual das frentes da área.","Registro de Mudanças mostra o histórico do que mudou.","Centro de Comando e Atualizações devem ser alimentados por essas bases para evitar divergência."]],
+      ["Rotina recomendada",["Registrar nova frente na planilha de Projetos.","Registrar mudança relevante na planilha de Registro de Mudanças.","Revisar conteúdos recorrentes e transformar em FAQ, caso real ou processo especial."]],
+      ["Responsabilidade",["A manutenção deve ser compartilhada pelo time e acompanhada pela liderança.","A Academia não é arquivo morto; é base viva da operação."]]
+    ],
+    practice:["Use como manual de continuidade e sucessão da Academia."],
+    related:["Centro de Comando","Atualizações da Operação","Projetos Estratégicos","Legado da Conciliação"]
+  };
+  window.fc["Cliente SEB"] = {
+    sub:"Nova frente de conciliação",
+    lead:"Cliente SEB representa uma nova frente que deve ser acompanhada como projeto estratégico enquanto o fluxo é mapeado, validado e incorporado à operação.",
+    sections:[
+      ["Como acompanhar",["Cadastrar a frente em Projetos Estratégicos.","Registrar cada avanço relevante no Registro de Mudanças.","Documentar banco, produto, conciliadora, sistema, particularidades e responsáveis assim que forem confirmados."]],
+      ["O que observar",["Fluxo de cartões e produtos envolvidos.","Geração de arquivos e origem dos dados.","Regras específicas do cliente.","Tratativas recorrentes que devem virar caso real, FAQ ou processo especial."]],
+      ["Governança",["Enquanto estiver em implantação, o status deve ser atualizado na planilha de Projetos.","Quando houver mudança relevante, registrar no Registro Vivo."]]
+    ],
+    practice:["Use como página inicial da frente até que o processo esteja completamente documentado."],
+    related:["Projetos Estratégicos","Atualizações da Operação","Origem da Transação","Processos Especiais","Governança da Academia"]
+  };
+})();
+</script>
+
+
+<script id="planilhas-v3-final">
+(function(){
+  const PROJECTS_PUB_ID='2PACX-1vSDKNGOoD9Bjp83GV-xsl73A7FDRJz47RNQCill1ZrWqlxF2Ip57-SqGdXZHjeETXtr1aQrnlI5gRNt';
+  const UPDATES_PUB_ID='2PACX-1vTHEMyQjZAg61oZTPhCqIxyvnYVIa0NfHEvy-s2RzpXFCpXPvTw2sXa8rVsR3ILItGWy6TaIfpnvVnF';
+  const PROJECTS_EDIT_URL='https://docs.google.com/spreadsheets/d/1-roI_4akwRK3zp_G_Vg_121lSLfX_JYVv8-_wfbMxpM/edit?gid=0#gid=0';
+  const UPDATES_EDIT_URL='https://docs.google.com/spreadsheets/d/1qsIqJn4KxNL51tIyfJ7tK1hx_gSBGiqPpl5oZYz6n1E/edit?gid=0#gid=0';
+  const PROJECTS_CSV_URL='https://docs.google.com/spreadsheets/d/e/'+PROJECTS_PUB_ID+'/pub?output=csv';
+  const UPDATES_CSV_URL='https://docs.google.com/spreadsheets/d/e/'+UPDATES_PUB_ID+'/pub?output=csv';
+
+  function strip(s){return String(s||'').trim().replace(/^﻿/,'');}
+  function norm(s){return strip(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
+  function esc(v){return String(v||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function pick(obj, names){
+    const keys=Object.keys(obj||{});
+    for(const wanted of names){ const key=keys.find(k=>norm(k)===norm(wanted)); if(key && obj[key]!==undefined) return obj[key]; }
+    return '';
+  }
+  function badgeClass(status){
+    const s=norm(status);
+    if(s.includes('evolucao')||s.includes('implantacao')||s.includes('andamento')||s.includes('homologacao')) return ' warn';
+    if(s.includes('estrategico')||s.includes('planejamento')) return ' blue';
+    return '';
+  }
+  function dateValue(d){
+    const m=String(d||'').match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+    if(!m) return 0;
+    return new Date(+m[3], +m[2]-1, +m[1]).getTime();
+  }
+  function parseCsv(text){
+    const rows=[]; let row=[]; let cur=''; let q=false;
+    for(let i=0;i<text.length;i++){
+      const ch=text[i], nx=text[i+1];
+      if(ch==='"'){ if(q && nx==='"'){cur+='"'; i++;} else q=!q; }
+      else if(ch===',' && !q){ row.push(cur); cur=''; }
+      else if((ch==='
+' || ch==='') && !q){
+        if(ch==='' && nx==='
+') i++;
+        row.push(cur); cur='';
+        if(row.some(c=>strip(c)!=='')) rows.push(row);
+        row=[];
+      } else cur+=ch;
+    }
+    row.push(cur); if(row.some(c=>strip(c)!=='')) rows.push(row);
+    return rows;
+  }
+  function findHeader(rows, required){
+    return rows.findIndex(r=>{ const h=(r||[]).map(norm); return required.every(req=>h.includes(norm(req))); });
+  }
+  function toObjects(rows, required){
+    const idx=findHeader(rows, required);
+    if(idx<0) return [];
+    const headers=rows[idx].map(strip);
+    return rows.slice(idx+1).map(r=>Object.fromEntries(headers.map((h,i)=>[h, strip(r[i]||'')]))).filter(o=>Object.values(o).some(Boolean));
+  }
+  async function loadCsv(url, required){
+    const res=await fetch(url+'&cacheBust='+Date.now(), {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const text=await res.text();
+    return toObjects(parseCsv(text), required);
+  }
+  function renderProjects(items){
+    const grid=document.getElementById('projectsGrid');
+    if(!grid || !items.length) return 0;
+    grid.innerHTML=items.map(x=>{
+      const nome=esc(pick(x,['Projeto','Nome','Título','Titulo']) || 'Projeto');
+      const desc=esc(pick(x,['Descrição','Descricao']) || '');
+      const status=esc(pick(x,['Status']) || 'Ativo');
+      const resp=esc(pick(x,['Responsável','Responsavel']) || '');
+      const ultima=esc(pick(x,['Última atualização','Ultima atualização','Ultima atualizacao']) || '');
+      const meta=[resp,ultima].filter(Boolean).join(' · ');
+      return `<div class="project"><div><b>${nome}</b><p>${desc}${meta?`<br><small style="color:var(--muted);font-weight:800">${meta}</small>`:''}</p></div><span class="badge${badgeClass(status)}">${status}</span></div>`;
+    }).join('');
+    return items.length;
+  }
+  function renderUpdates(items){
+    const grid=document.getElementById('updatesGrid');
+    if(!grid || !items.length) return 0;
+    const sorted=[...items].sort((a,b)=>dateValue(pick(b,['Data']))-dateValue(pick(a,['Data'])));
+    grid.innerHTML=sorted.map(x=>{
+      const data=esc(pick(x,['Data']) || '');
+      const titulo=esc(pick(x,['Título','Titulo','Projeto']) || 'Atualização');
+      const desc=esc(pick(x,['Descrição','Descricao']) || '');
+      const cat=esc(pick(x,['Categoria']) || 'Atualização');
+      const status=esc(pick(x,['Status']) || 'Publicado');
+      const resp=esc(pick(x,['Responsável','Responsavel']) || 'Time');
+      return `<div class="update-card"><div class="update-date">${data}</div><h3>${titulo}</h3><p>${desc}</p><div class="update-meta"><span class="update-chip">${cat}</span><span class="update-chip status">${status}</span><span class="update-chip">${resp}</span></div></div>`;
+    }).join('');
+    const last=sorted[0] ? pick(sorted[0],['Data']) : '';
+    const notes=document.querySelectorAll('#atualizacoes .update-note');
+    if(notes[0] && last){notes[0].innerHTML = `<strong>Última atualização registrada:</strong> ${esc(last)} · Dados carregados da planilha publicada. Para editar, use os botões de planilha editável abaixo.`;}
+    return items.length;
+  }
+  function setGovernanceLinks(){
+    document.querySelectorAll('a.gov-btn').forEach(a=>{
+      const txt=norm(a.textContent);
+      if(txt.includes('projetos')){ a.href=PROJECTS_EDIT_URL; a.textContent='Atualizar Projetos Estratégicos'; }
+      if(txt.includes('mudancas')||txt.includes('mudanca')||txt.includes('registro')){ a.href=UPDATES_EDIT_URL; a.textContent='Registrar Mudança'; }
+    });
+  }
+  async function syncSheetsFinal(){
+    setGovernanceLinks();
+    const sync=document.getElementById('syncStatus');
+    if(sync) sync.textContent='Sincronizando planilhas...';
+    try{
+      const projects=await loadCsv(PROJECTS_CSV_URL, ['Projeto','Status']);
+      const updates=await loadCsv(UPDATES_CSV_URL, ['Data','Título']);
+      const p=renderProjects(projects);
+      const u=renderUpdates(updates);
+      if(sync) sync.textContent=`Planilhas sincronizadas: ${p} projetos e ${u} atualizações`;
+    }catch(e){
+      console.warn('Falha ao sincronizar planilhas:', e);
+      if(sync) sync.textContent='Usando dados de segurança. Depois de subir no GitHub, valide a sincronização das planilhas publicadas.';
+    }
+  }
+  window.syncSheetsFinal=syncSheetsFinal;
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', syncSheetsFinal); else syncSheetsFinal();
 })();
 </script>
 
